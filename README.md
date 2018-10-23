@@ -8,6 +8,7 @@ npm install
 ### Compiles and hot-reloads for development
 ```
 npm run serve
+open http://localhost:8080 in browser
 ```
 
 ### Compiles and minifies for production
