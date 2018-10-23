@@ -1,0 +1,25 @@
+<Menu active-name="1" class="sci_menu" width="auto">
+    <MenuItem name="1" to="/">
+            <Icon type="ios-navigate"></Icon>
+            数据集
+            <Icon type="ios-arrow-forward" style="float: right" />
+    </MenuItem>
+    <MenuItem name="2" to="/datasource">
+        <Icon type="ios-keypad"></Icon>
+        数据源
+        <Icon type="ios-arrow-forward" style="float: right" />
+    </MenuItem>
+    <Submenu name="3">
+        <template slot="title">
+            <Icon type="ios-analytics"></Icon>
+            分析
+        </template>
+        <MenuItem name="3-1" to="/piflow">流水线</MenuItem>
+        <MenuItem name="3-2" to="/notebook">工作簿</MenuItem>
+    </Submenu>
+    <MenuItem name="4">
+        <Icon type="ios-analytics"></Icon>
+        设置
+        <Icon type="ios-arrow-forward" style="float: right" />
+    </MenuItem>
+</Menu>

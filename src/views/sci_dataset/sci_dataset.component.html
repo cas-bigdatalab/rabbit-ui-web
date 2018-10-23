@@ -1,0 +1,92 @@
+<Row class="dataset-content">
+    <Col span="16" class="dataset-content-left">
+    <Row class="dataset-header">
+        <Col>
+        <span></span>
+        <Divider type="vertical"/>
+        数据集列表
+        </Col>
+
+    </Row>
+    <Table border :columns="datasetColumns" :data="datasetInfos"></Table>
+    <div style="margin: 10px;overflow: hidden">
+        <div style="float: right;">
+            <Page :total="totalnum" :current="currentpage" :page-size="5" @on-change="changePage"></Page>
+        </div>
+    </div>
+    </Col>
+
+    <Col span="8" class="operation-area">
+    <Row class="operation-header">
+        <Col>
+        <span></span>
+        <Divider type="vertical"/>
+        操作
+        </Col>
+
+    </Row>
+    <Form :label-width="65">
+        <FormItem label="名称">
+            <Input type="text" placeholder="数据集名称" v-model="input_datasetname">
+            </Input>
+        </FormItem>
+        <FormItem label="数据来源">
+            <Select v-model="selected_datatype">
+                <Option :value="1">文件路径</Option>
+                <Option :value="2">开源数据</Option>
+            </Select>
+        </FormItem>
+        <FormItem label="文件路径" v-if="selected_datatype==1">
+            <Input type="text" placeholder="文件路径" v-model="input_filepath">
+            </Input>
+        </FormItem>
+        <FormItem label="开源数据" v-if="selected_datatype==2">
+            <Select v-model="selected_opensourcedata">
+                <Option :value="item.id" v-for="item in opendataset">{{item.name}}</Option>
+            </Select>
+        </FormItem>
+        <FormItem label="描述">
+            <Input v-model="input_datadescription" type="textarea" :rows="4" placeholder="数据内容描述"/>
+        </FormItem>
+        <FormItem>
+            <Button type="primary" @click="importDataToSpace">导入</Button>
+        </FormItem>
+    </Form>
+
+    </Col>
+
+    <Col>
+    <Drawer
+            title="创建数据源"
+            v-model="show_import_dialog"
+            width="720"
+            :mask-closable="false"
+            :styles="drawer_style"
+    >
+        <Form :label-width="65">
+            <FormItem label="名称">
+                <Input type="text" placeholder="数据源名称" v-model="input_datasourcename">
+                </Input>
+            </FormItem>
+            <FormItem label="引擎类型" placeholder="引擎类型">
+                <Select v-model="selected_enginetype">
+                    <Option value="1">Gstore</Option>
+                    <Option value="2">EventDb</Option>
+                    <Option value="3">Hdfs</Option>
+                    <Option value="3">Hive</Option>
+                </Select>
+            </FormItem>
+            <FormItem label="数据集" placeholder="数据集">
+                <Input type="text" placeholder="数据集名称" readonly :value="selected_dataset.name">
+                </Input>
+            </FormItem>
+            <FormItem>
+                <Button type="primary" @click="loadDataSetToDataSource">创建</Button>
+            </FormItem>
+        </Form>
+    </Drawer>
+
+    </Col>
+</Row>
+
+

@@ -1,0 +1,46 @@
+<Menu mode="horizontal" theme="dark" active-name="1">
+    <div class="layout-logo">
+        Rabbite
+    </div>
+    <div class="layout-nav" >
+        <MenuItem name="6" style="float:right" @mouseover.native="showUserMenu" @mouseleave.native="dismissUserMenu">
+            <Avatar  src="https://oss.aliyuncs.com/aliyun_id_photo_bucket/default_handsome.jpg" />
+            <div class="user-memu" v-bind:class="{usermenudismiss: !isActive}">
+                <div class="user-memu-header">
+                    <h3>
+                        <Avatar class="user-memu-avatar" src="https://oss.aliyuncs.com/aliyun_id_photo_bucket/default_handsome.jpg" />
+                        <span class="user-memu-name">{{user.name}}</span>
+                    </h3>
+                    <div class="topbar-user-entrance-list">
+                        <MenuItem name="7" style="float:right;height: 40px;padding: 0 10px">
+                            基本资料
+                        </MenuItem>
+                        <MenuItem name="8" style="float:right;height: 40px;padding: 0 10px">
+                            实名认证
+                        </MenuItem>
+                        <MenuItem name="9" style="float:right;height: 40px;padding: 0 10px">
+                            安全设置
+                        </MenuItem>
+                    </div>
+                </div>
+
+            </div>
+        </MenuItem>
+        <MenuItem name="5" style="float:right">
+            帮助文档
+        </MenuItem>
+        <MenuItem name="4" style="float:right">
+            开源社区
+        </MenuItem>
+        <MenuItem name="3" style="float:right">
+            All SciSpaces
+        </MenuItem>
+        <MenuItem name="2" style="float:right">
+            My SciSpace
+        </MenuItem>
+        <MenuItem name="1" style="float:right">
+            科学大数据集成服务平台
+        </MenuItem>
+    </div>
+
+</Menu>
