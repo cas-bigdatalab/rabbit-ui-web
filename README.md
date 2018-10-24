@@ -1,4 +1,4 @@
-# rabit_ui
+# rabit-ui
 
 ## Project setup
 ```
