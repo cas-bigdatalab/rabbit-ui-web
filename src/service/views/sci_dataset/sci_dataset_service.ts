@@ -2,8 +2,12 @@ import {util} from '../../uitil/util';
 
 export class DatasetService {
 
+    getAllDataset(){
+        let url = '/space/datasets/';
+        return util.get(url);
+    }
     getDatasetByPage(page: any) {
-        let url = '/dataset/mydataset';
+        let url = '/space/datasets/?page='+page;
         let data = {
             page: page
         };
@@ -11,18 +15,21 @@ export class DatasetService {
     }
 
     getOpenSourceDataList() {
-        let url = '/dataset/opendatasetlist';
+        let url = '/space/datasets/?public=true';
         return util.get(url);
     }
 
-    importDataSetToMySpace(name: any, content: any, type: any, description: any) {
-        let url = '/dataset/importdatabasetomyspace';
+    importDataSetToMySpace(name: any, content: any, type: any, description: any, datamodel:any) {
+        let url = '/space/datasets/';
         let data = {
-            type: type,
-            description: description,
-            content: content
+            type: datamodel,
+            describe: description,
+            remark: content,
+            name: name,
+            uri:name,
+            owner:"http://10.0.88.2:800/api/emr/users/1/",
         };
-        return util.get(url, data);
+        return util.post(url, data);
     }
 
     deleteDataSet(id: any) {
@@ -77,8 +84,9 @@ export let dataset_service = new DatasetService();
 export let dataset_columns = [
     {
         title: '编号',
-        key: 'id',
+        key: 'uuid',
         width: 70,
+        tooltip: true
     },
     {
         title: '名称',

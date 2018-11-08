@@ -1,15 +1,10 @@
 <template>
     <Layout id="app" class="layout-app">
         <Header>
-            <sci-header-component></sci-header-component>
+            <sci-header-component v-model="header_selected"></sci-header-component>
         </Header>
         <Layout>
-            <Sider hide-trigger>
-                <sci-menu-component></sci-menu-component>
-            </Sider>
-            <Layout class="layout-content">
-                <router-view/>
-            </Layout>
+            <router-view/>
         </Layout>
     </Layout>
 </template>
@@ -22,19 +17,6 @@
         left: 0px;
         right: 0px;
     }
-
-    .layout-content {
-        padding: 0 24px 24px;
-    }
-
-    .ivu-layout-sider {
-        -webkit-transition: all 0.2s ease-in-out;
-        transition: all 0.2s ease-in-out;
-        position: relative;
-        background: rgb(234, 237, 241);
-        min-width: 0;
-    }
-
     .ivu-menu-horizontal {
         height: 50px;
         line-height: 50px;
@@ -46,6 +28,7 @@
         height: 50px;
         line-height: 50px;
     }
+
 </style>
 <script lang="ts">
     import {Component, Vue} from "vue-property-decorator";
@@ -60,6 +43,7 @@
             SciHeaderComponent
         },
     })
-    export default class Home extends Vue {
+    export default class App extends Vue {
+        header_selected:number=-1;
     }
 </script>

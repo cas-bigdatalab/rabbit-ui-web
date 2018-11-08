@@ -1,10 +1,10 @@
 <Menu active-name="1" class="sci_menu" width="auto">
-    <MenuItem name="1" to="/">
+    <MenuItem name="1" to="/myspace/dataset">
             <Icon type="ios-navigate"></Icon>
             数据集
             <Icon type="ios-arrow-forward" style="float: right" />
     </MenuItem>
-    <MenuItem name="2" to="/datasource">
+    <MenuItem name="2" to="/myspace/datasource">
         <Icon type="ios-keypad"></Icon>
         数据源
         <Icon type="ios-arrow-forward" style="float: right" />
@@ -14,12 +14,15 @@
             <Icon type="ios-analytics"></Icon>
             分析
         </template>
-        <MenuItem name="3-1" to="/piflow">流水线</MenuItem>
-        <MenuItem name="3-2" to="/notebook">工作簿</MenuItem>
+        <MenuItem name="3-1" to="/myspace/piflow">流水线</MenuItem>
+        <MenuItem name="3-2" to="/myspace/notebook">工作簿</MenuItem>
     </Submenu>
-    <MenuItem name="4">
-        <Icon type="ios-analytics"></Icon>
-        设置
-        <Icon type="ios-arrow-forward" style="float: right" />
-    </MenuItem>
+    <Submenu name="4">
+        <template slot="title">
+            <Icon type="ios-analytics"></Icon>
+            设置
+        </template>
+        <MenuItem name="4-1" to="/myspace/emr">资源</MenuItem>
+        <MenuItem name="4-2" to="/myspace/ambari">服务</MenuItem>
+    </Submenu>
 </Menu>

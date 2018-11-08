@@ -12,3 +12,6 @@ export class HeaderService {
 }
 
 export let header_service=new HeaderService();
+export let userinfo={
+    ownerurl:'http://10.0.88.2:800/api/emr/users/1/'
+}

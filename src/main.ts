@@ -10,7 +10,6 @@ import VueResource from 'vue-resource'
 Vue.config.productionTip = false;
 Vue.use(iView);
 Vue.use(VueResource);
-
 new Vue({
     router,
     store,

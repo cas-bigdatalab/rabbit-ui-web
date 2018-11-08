@@ -1,4 +1,4 @@
-<Row class="datasource-content">
+<Row class="datasource-content" style="height: 100%">
     <Col span="16" class="datasource-content-left">
     <Row class="datasource-header">
         <Col>
@@ -32,15 +32,12 @@
         </FormItem>
         <FormItem label="引擎类型" placeholder="引擎类型">
             <Select v-model="selected_enginetype">
-                <Option value="1">Gstore</Option>
-                <Option value="2">EventDb</Option>
-                <Option value="3">Hdfs</Option>
-                <Option value="3">Hive</Option>
+                <Option :value="item.url" v-for="item in dataengines">{{item.name}}</Option>
             </Select>
         </FormItem>
         <FormItem label="数据集" placeholder="数据集">
             <Select v-model="selected_dataset">
-                <Option :value="item.id" v-for="item in mydataset">{{item.name}}</Option>
+                <Option :value="item.url" v-for="item in mydataset">{{item.name}}</Option>
             </Select>
         </FormItem>
         <FormItem>

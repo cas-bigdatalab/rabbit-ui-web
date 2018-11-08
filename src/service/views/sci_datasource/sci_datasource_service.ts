@@ -3,17 +3,26 @@ import {dataset_info} from '@/service/views/sci_dataset/sci_dataset_service';
 
 export class DataSourceService {
 
+    getAllDatasource(){
+        let url = '/space/datainstances/';
+        return util.get(url);
+    }
     getMyAllDataSet() {
-        let url = '/dataset/myalldataset';
+        let url = '/space/datasets/';
         return util.get(url);
     }
 
     getDataSourceByPage(page: any) {
-        let url = '/dataset/mydatasource';
+        let url = '/space/datainstances/?page='+page;
         let data = {
             page: page
         };
         return util.get(url, data);
+    }
+
+    getDataEngine(){
+        let url = '/space/dataengines/';
+        return util.get(url);
     }
 
     startDataSource(id:any){
@@ -33,13 +42,14 @@ export class DataSourceService {
     }
 
     loadDataSource(name:any,enginetype:any,dataset:any){
-        let url = '/dataset/stopdatasource';
+        let url = '/space/datainstances/';
         let data = {
             name: name,
-            enginetype:enginetype,
-            dataset:dataset
+            engine:enginetype,
+            dataset:dataset,
+            space:'http://10.0.88.2:800/api/space/spaces/5/'
         };
-        return util.get(url, data);
+        return util.post(url, data);
     }
 
     deleteDataSource(id:any){
@@ -105,8 +115,9 @@ export class DataSourceService {
 export let datasource_columns=[
     {
         title: '编号',
-        key: 'id',
+        key: 'uuid',
         width: 70,
+        tooltip: true
     },
     {
         title: '名称',
@@ -115,13 +126,13 @@ export let datasource_columns=[
     },
     {
         title: '数据集名称',
-        key: 'dataset',
+        key: 'datasetname',
         tooltip: true
     },
     {
         title: '引擎类型',
         key: 'enginetype',
-        tooltip: true
+        tooltip: true,
     },
     {
         title: '大小',
@@ -130,15 +141,11 @@ export let datasource_columns=[
     },
     {
         title: '状态',
-        key: 'state',
+        key: 'status',
         tooltip: true,
         render: (h:any,params:any)=>{
-            if(params.row.state==1){
-                return h('span', '运行中');
-            }
-            if(params.row.state==0){
-                return h('span', '已停止');
-            }
+            let states=['无状态','运行中','阻塞中','挂起中','已停止','奔溃中','暂停中','失联中',]
+            return h('span', states[params.row.status]);
         }
     },
     {
