@@ -63,7 +63,7 @@ export default class SciDatasetComponent extends Vue {
             });
     }
 
-    importDataToSpace() {
+        importDataToSpace() {
         let content = null;
         if (this.selected_datatype == 1) {
             content = this.input_filepath;
