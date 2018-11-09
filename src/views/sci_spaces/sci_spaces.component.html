@@ -1,0 +1,73 @@
+<Row class="sci-spaces" style="height: 100%">
+    <Row class="datasource-header">
+        <Col>
+        <span></span>
+        <Divider type="vertical"/>
+        All SciSpaces
+        </Col>
+
+    </Row>
+    <Table border :columns="spaceColumns" :data="spaceInfos"></Table>
+    <div style="margin: 10px;overflow: hidden">
+        <div style="float: right;">
+            <Page :total="totalnum" :current="currentpage" @on-change="changePage"></Page>
+        </div>
+    </div>
+
+    <div>
+        <Modal v-model="show_dataset"    style="background: #191d21" width="80%">
+            <Row class="datasource-header">
+                <Col>
+                <span></span>
+                <Divider type="vertical"/>
+                数据集列表
+                </Col>
+
+            </Row>
+            <Table border :columns="datasetceColumns" :data="datasetInfos"></Table>
+            <div style="margin: 10px;overflow: hidden">
+                <div style="float: right;">
+                    <Page :total="totalnum_dataset" :current="currentpage_dataset" @on-change="changePage"></Page>
+                </div>
+            </div>
+        </Modal>
+    </div>
+    <div>
+        <Modal v-model="show_datasource"    style="background: #191d21" width="80%">
+            <Row class="datasource-header">
+                <Col>
+                <span></span>
+                <Divider type="vertical"/>
+                数据库列表
+                </Col>
+
+            </Row>
+            <Table border :columns="datasourceColumns" :data="datasourceInfos"></Table>
+            <div style="margin: 10px;overflow: hidden">
+                <div style="float: right;">
+                    <Page :total="totalnum_datasource" :current="currentpage_datasource" @on-change="changePage"></Page>
+                </div>
+            </div>
+
+        </Modal>
+    </div>
+    <div>
+        <Modal v-model="show_status"   style="background: #191d21" width="80%">
+            <Row class="datasource-header">
+                <Col>
+                <span></span>
+                <Divider type="vertical"/>
+                状态列表
+                </Col>
+
+            </Row>
+            <Table border :columns="statusColumns" :data="statusInfos"></Table>
+            <div style="margin: 10px;overflow: hidden">
+                <div style="float: right;">
+                    <Page :total="totalnum" :current="currentpage" @on-change="changePage"></Page>
+                </div>
+            </div>
+
+        </Modal>
+    </div>
+</Row>

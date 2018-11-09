@@ -1,0 +1,42 @@
+<Row class="datasource-content" style="height: 100%">
+    <Col span="16" class="datasource-content-left">
+    <Row class="datasource-header">
+        <Col>
+        <span></span>
+        <Divider type="vertical"/>
+        虚拟机列表
+        </Col>
+
+    </Row>
+    <Table border :columns="vmColumns" :data="vmInfos"></Table>
+    <div style="margin: 10px;overflow: hidden">
+        <div style="float: right;">
+            <Page :total="totalnum" :current="currentpage" @on-change="changePage"></Page>
+        </div>
+    </div>
+    </Col>
+
+    <Col span="8" class="operation-area">
+    <Row class="operation-header">
+        <Col>
+        <span></span>
+        <Divider type="vertical"/>
+        操作
+        </Col>
+
+    </Row>
+    <Form :label-width="65">
+
+    </Form>
+
+    </Col>
+
+
+</Row>
+
+
+<div style="width:100%">
+    <img src="img1.png" style="width:100%">
+    <img src="img2.png" style="width:100%">
+    <img src="img3.png" style="width:100%">
+</div>
