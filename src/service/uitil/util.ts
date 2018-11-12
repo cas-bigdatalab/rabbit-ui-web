@@ -1,4 +1,5 @@
 import Vue from 'vue';
+import axios from "axios";
 
 export default class Util extends Vue {
     private HOST = 'http://10.0.88.2:800/api';
@@ -17,32 +18,30 @@ export default class Util extends Vue {
     }
 
     get(url: any, data: any = {}, options: any = {}) {
-        return this.$http.get(this.HOST + url, data, {
-            headers: {
+        // let Base64 = require('js-base64').Base64;
+        // return this.$http.get(this.HOST + url, data, {
+        //     headers: {
+        //         Authorization: 'Basic ' + Base64.encode('admin:admin'),
+        //         'Access-Control-Allow-Origin': '*'
+        //     },
+        //     emulateHTTP: true,
+        //     emulateJSON: true
+        // });
+        return axios.get(this.HOST + url, data={
+            auth: {
                 username: 'admin',
-                password: 'admin',
-                'Access-Control-Allow-Credentials': true,
-                'Access-Control-Allow-Origin': '*',
-                'Access-Control-Allow-Methods': 'GET',
-                'Access-Control-Allow-Headers': 'application/json',
-            },
-            credentials: true,
-            emulateHTTP: true,
-            emulateJSON: true
-        });
+                password: 'admin'
+            }
+        })
     }
 
     dir_get(url:any){
-        return this.$http.get( url, {}, {
+        let Base64 = require('js-base64').Base64;
+        return this.$http.get( url, {},{
             headers: {
-                username: 'admin',
-                password: 'admin',
-                'Access-Control-Allow-Credentials': true,
-                'Access-Control-Allow-Origin': '*',
-                'Access-Control-Allow-Methods': 'GET',
-                'Access-Control-Allow-Headers': 'application/json',
+                Authorization: 'Basic ' + Base64.encode('admin:admin'),
+                'Access-Control-Allow-Origin': '*'
             },
-            credentials: true,
             emulateHTTP: true,
             emulateJSON: true
         });

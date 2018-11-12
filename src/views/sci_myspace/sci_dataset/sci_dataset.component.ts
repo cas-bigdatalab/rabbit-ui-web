@@ -56,7 +56,7 @@ export default class SciDatasetComponent extends Vue {
         datasource_service.getDataEngine().then((data) => {
                 console.log('///////////////////////////////////////////dataengines');
                 console.log(data);
-                this.dataengines = (<any>data).body.results;
+                this.dataengines = (<any>data).data.results;
             },
             (reason) => {
 
@@ -94,11 +94,11 @@ export default class SciDatasetComponent extends Vue {
 
     refreshtable() {
         dataset_service.getDatasetByPage(this.currentpage).then((data) => {
-                this.datasetInfos = (<any>data).body.results;
-                this.totalnum = (<any>data).body.results.length;
+                this.datasetInfos = (<any>data).data.results;
+                this.totalnum = (<any>data).data.results.length;
             },
             (reason) => {
-                console.log(reason);
+                console.log(this.datasetInfos,"bbbbbbbbbbbbbbbb");
                 this.$Notice.open({
                     title: '通知',
                     desc: '数据访问失败'
@@ -106,8 +106,8 @@ export default class SciDatasetComponent extends Vue {
             });
 
         dataset_service.getOpenSourceDataList().then((data) => {
-                if(data.ok=true){
-                    this.opendataset = (<any>data).body.results;
+                if(data.statusText=='OK'){
+                    this.opendataset = (<any>data).data.results;
                 }
                 console.log(data)
             },
