@@ -1,4 +1,4 @@
-# rabit-ui
+# rabbit web ui
 
 ## Project setup
 ```
