@@ -2,12 +2,13 @@ import {util} from '../../uitil/util';
 
 export class DatasetService {
 
-    getAllDataset(){
+    getAllDataset() {
         let url = '/space/datasets/';
         return util.get(url);
     }
+
     getDatasetByPage(page: any) {
-        let url = '/space/datasets/?page='+page;
+        let url = '/space/datasets/?page=' + page;
         let data = {
             page: page
         };
@@ -19,15 +20,15 @@ export class DatasetService {
         return util.get(url);
     }
 
-    importDataSetToMySpace(name: any, content: any, type: any, description: any, datamodel:any) {
+    importDataSetToMySpace(name: any, content: any, type: any, description: any, datamodel: any) {
         let url = '/space/datasets/';
         let data = {
             type: datamodel,
             describe: description,
             remark: content,
             name: name,
-            uri:name,
-            owner:"http://10.0.88.2:800/api/emr/users/1/",
+            uri: name,
+            owner: "http://10.0.88.2:800/api/emr/users/1/",
         };
         return util.post(url, data);
     }
@@ -39,12 +40,13 @@ export class DatasetService {
         };
         return util.get(url, data);
     }
-    mock_deleteDataSet(id:any){
 
-        for(let index in dataset_info.dataset){
-            if(dataset_info.dataset[index].id==id){
-                dataset_info.dataset.splice(parseInt(index),1);
-                dataset_info.totalnum=dataset_info.totalnum-1;
+    mock_deleteDataSet(id: any) {
+
+        for (let index in dataset_info.dataset) {
+            if (dataset_info.dataset[index].id == id) {
+                dataset_info.dataset.splice(parseInt(index), 1);
+                dataset_info.totalnum = dataset_info.totalnum - 1;
             }
         }
     }
@@ -57,22 +59,22 @@ export class DatasetService {
 
     mock_importDataSetToMySpace(name: any, content: any, type: any, description: any) {
         dataset_info.dataset.push({
-            id:dataset_info.dataset.length+1,
-            name:name,
-            description:description,
-            owner:'王华进',
-            size:'1.3G',
-            operation:1
+            id: dataset_info.dataset.length + 1,
+            name: name,
+            description: description,
+            owner: '王华进',
+            size: '1.3G',
+            operation: 1,
 
         });
-        dataset_info.totalnum=dataset_info.totalnum+1;
+        dataset_info.totalnum = dataset_info.totalnum + 1;
     }
 
     loadDataSet(from: any, to: any) {
         let url = '/dataset/loaddataset';
         let data = {
             from: from,
-            to: to
+            to: to,
         };
         return util.get(url, data);
     }
@@ -86,50 +88,64 @@ export let dataset_columns = [
         title: '编号',
         key: 'uuid',
         width: 70,
-        tooltip: true
+        tooltip: true,
     },
     {
         title: '名称',
-        key: 'name'
+        key: 'name',
     },
     {
         title: '归属',
         key: 'owner',
-        tooltip: true
+        tooltip: true,
     },
     {
         title: '大小',
         key: 'size',
         width: 100,
+        render: (h, params) => {
+            // let a = this;
+            let texts ;
+            if (params.row.size >= 1024) {
+                texts = (params.row.size / 1024).toPrecision(4) + 'G';
+            } else if (1 <= params.row.size < 1024) {
+                texts = params.row.size.toPrecision(4) + 'M';
+            } else if (0 < params.row.size < 1) {
+                texts = (params.row.size * 1024) + 'KB';
+            }
+            return h('div', {
+                props: {},
+            }, texts)
+        },
     },
     {
         title: '描述',
         key: 'description',
-        tooltip: true
+        tooltip: true,
     },
     {
         title: '操作',
         key: 'operation',
         width: 170,
         render: (h: any, params: any) => {
-            if (params.row.operation == 1) {
+            if (params.row.operation === 1) {
                 return h('div', [
                     h('Button', {
                         props: {
                             type: 'primary',
                             size: 'small',
-                            ghost: true
+                            ghost: true,
                         },
                         style: {
-                            'margin-right': '10px'
+                            'margin-right': '10px',
 
                         },
                         on: {
                             click: () => {
-                                (<any>window).sci_dataset_context.show_import_dialog = true;
+                                (<any>window).show_import_dialog = true;
                                 (<any>window).sci_dataset_context.selected_dataset = params.row;
                             },
-                        }
+                        },
                     }, '载入'),
                     h('Button', {
                         props: {
@@ -140,8 +156,8 @@ export let dataset_columns = [
                             click: () => {
                                 (<any>window).sci_dataset_context.deletDataSet(params.row);
                             },
-                        }
-                    }, '移除')
+                        },
+                    }, '移除'),
                 ]);
             } else {
                 return h('div', [
@@ -149,29 +165,29 @@ export let dataset_columns = [
                         props: {
                             type: 'primary',
                             size: 'small',
-                            ghost: true
+                            ghost: true,
                         },
                         style: {
-                            'margin-right': '5px'
+                            'margin-right': '5px ',
 
                         },
                         on: {
                             click: (abc: any) => {
-                                (<any>window).sci_dataset_context.show_import_dialog = true;
-                                (<any>window).sci_dataset_context.selected_dataset = params.row;
+                                (<any> window).sci_dataset_context.show_import_dialog = true;
+                                (<any> window).sci_dataset_context.selected_dataset = params.row;
                             },
-                        }
+                        },
                     }, '载入'),
                     h('Button', {
                         props: {
                             type: 'success',
                             size: 'small',
-                            ghost: true
+                            ghost: true,
                         },
                         style: {
-                            'margin-right': '5px'
+                            'margin-right': '5px',
 
-                        }
+                        },
                     }, '分享'),
                     h('Button', {
                         props: {
@@ -182,14 +198,19 @@ export let dataset_columns = [
                             click: () => {
                                 (<any>window).sci_dataset_context.deletDataSet(params.row);
                             },
-                        }
-                    }, '移除')
+                        },
+                    }, '移除'),
                 ]);
             }
 
         }
     }
 ];
+
+/**
+ * 数据集假数据
+ * @type {[{id: number; name: string} , {id: number; name: string} , {id: number; name: string}]}
+ */
 export let dataset_info = {
         dataset: [
             {

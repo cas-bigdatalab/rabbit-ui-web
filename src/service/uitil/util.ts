@@ -32,7 +32,7 @@ export default class Util extends Vue {
                 username: 'admin',
                 password: 'admin'
             }
-        })
+        });
     }
 
     dir_get(url:any){

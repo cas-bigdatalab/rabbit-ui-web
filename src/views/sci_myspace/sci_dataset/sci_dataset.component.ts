@@ -96,6 +96,7 @@ export default class SciDatasetComponent extends Vue {
         dataset_service.getDatasetByPage(this.currentpage).then((data) => {
                 this.datasetInfos = (<any>data).data.results;
                 this.totalnum = (<any>data).data.results.length;
+
             },
             (reason) => {
                 console.log(this.datasetInfos,"bbbbbbbbbbbbbbbb");
