@@ -113,12 +113,12 @@ export class DataSourceService {
     }
 }
 export let datasource_columns=[
-    {
+    /*{
         title: '编号',
         key: 'uuid',
         width: 70,
         tooltip: true
-    },
+    },*/
     {
         title: '名称',
         key: 'name',

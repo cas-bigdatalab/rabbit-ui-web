@@ -84,12 +84,12 @@ export class DatasetService {
 
 export let dataset_service = new DatasetService();
 export let dataset_columns = [
-    {
+    /*{
         title: '编号',
         key: 'uuid',
         width: 70,
         tooltip: true,
-    },
+    },*/
     {
         title: '名称',
         key: 'name',

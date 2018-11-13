@@ -30,16 +30,39 @@
             <Input type="text" placeholder="数据集名称" v-model="input_datasetname">
             </Input>
         </FormItem>
-        <FormItem label="数据来源">
-            <Select v-model="selected_datatype">
-                <Option :value="1">文件路径</Option>
-                <Option :value="2">开源数据</Option>
-            </Select>
-        </FormItem>
-        <FormItem label="文件路径" v-if="selected_datatype==1">
-            <Input type="text" placeholder="文件路径" v-model="input_filepath">
+        <FormItem label="uri">
+            <Input type="text" placeholder="uri" v-model="input_dataseturi">
             </Input>
         </FormItem>
+        <FormItem label="大小">
+            <Input type="text" placeholder="大小" v-model="input_datasetsize">
+            </Input>
+        </FormItem>
+        <FormItem label="修复脚本">
+            <Input type="text" placeholder="修复脚本" v-model="input_datasetremedyscript">
+            </Input>
+        </FormItem>
+        <FormItem label="使能">
+                <input type="checkbox"  name="checkbox1" value=" 使能"  style="width: 10px;box-shadow: none;" class="inputstyle">
+        </FormItem>
+        <FormItem label="来源">
+            <Select  v-model="selected_datasettype">
+                <Option :value="1">test1</Option>
+                <Option :value="2">test2</Option>
+                <Option :value="3">test3</Option>
+            </Select>
+        </FormItem>
+        <FormItem label="共享">
+            <input type="checkbox"  name="checkbox2" value=" 共享"  style="width: 10px;box-shadow: none;" class="inputstyle">
+        </FormItem>
+        <FormItem label="备注">
+            <Input type="text" placeholder="备注" v-model="input_datasetremark">
+            </Input>
+        </FormItem>
+        <!--<FormItem label="文件路径" v-if="selected_datatype==1">-->
+            <!--<Input type="text" placeholder="文件路径" v-model="input_filepath">-->
+            <!--</Input>-->
+        <!--</FormItem>-->
         <FormItem label="开源数据" v-if="selected_datatype==2">
             <Select v-model="selected_opensourcedata">
                 <Option :value="item.url" v-for="item in opendataset">{{item.name}}</Option>
