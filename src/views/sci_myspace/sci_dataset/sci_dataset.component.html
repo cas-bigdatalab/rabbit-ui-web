@@ -75,7 +75,7 @@
     >
         <Form :label-width="65">
             <FormItem label="名称">
-                <Input type="text" placeholder="数据源名称" v-model="input_datasourcename">
+                <Input type="text" placeholder="数据源名称" :value="selected_dataset.name">
                 </Input>
             </FormItem>
             <FormItem label="引擎类型" placeholder="引擎类型">
