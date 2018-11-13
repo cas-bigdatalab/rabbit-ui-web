@@ -42,7 +42,7 @@ export default class SciDatasourceComponent extends Vue {
         datasource_service.getDataEngine().then((data) => {
                 console.log('///////////////////////////////////////////dataengines');
                 console.log(data);
-                this.dataengines = (<any>data).body.results;
+                this.dataengines = (<any>data).data.results;
             },
             (reason) => {
 
@@ -98,7 +98,7 @@ export default class SciDatasourceComponent extends Vue {
             (data) => {
                 console.log('//////////////////////////////////////////');
                 console.log(data);
-                this.datasourceInfos = (<any>data).body.results;
+                this.datasourceInfos = (<any>data).data.results;
                 for (let item of this.datasourceInfos) {
                     item['enginetype'] = 't';
                     item.size = '4';
@@ -107,8 +107,8 @@ export default class SciDatasourceComponent extends Vue {
                     util.dir_get(item.engine).then((data) => {
                             let index = 0;
                             for (let item_iner of this.datasourceInfos) {
-                                if (item_iner.engine == (<any>data).body.url) {
-                                    item_iner.enginetype = (<any>data).body.name;
+                                if (item_iner.engine == (<any>data).data.url) {
+                                    item_iner.enginetype = (<any>data).data.name;
                                     Vue.set(this.datasourceInfos, index, item_iner);
                                 }
                                 index++;
@@ -121,9 +121,9 @@ export default class SciDatasourceComponent extends Vue {
                     util.dir_get(item.dataset).then((data) => {
                             let index = 0;
                             for (let item_iner of this.datasourceInfos) {
-                                if (item_iner.dataset == (<any>data).body.url) {
-                                    item_iner.datasetname = (<any>data).body.name;
-                                    item_iner.size = (<any>data).body.size;
+                                if (item_iner.dataset == (<any>data).data.url) {
+                                    item_iner.datasetname = (<any>data).data.name;
+                                    item_iner.size = (<any>data).data.size;
                                     Vue.set(this.datasourceInfos, index, item_iner);
                                 }
                                 index++;
@@ -141,7 +141,7 @@ export default class SciDatasourceComponent extends Vue {
 
         datasource_service.getMyAllDataSet().then(
             (data) => {
-                this.mydataset = (<any>data).body.results;
+                this.mydataset = (<any>data).data.results;
             },
             (reason) => {
                 console.log('///////////////////////////////////////getmyalldataseterro');

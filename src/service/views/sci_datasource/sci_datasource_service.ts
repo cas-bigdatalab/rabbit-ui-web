@@ -47,7 +47,7 @@ export class DataSourceService {
             name: name,
             engine:enginetype,
             dataset:dataset,
-            space:'http://10.0.88.2:800/api/space/spaces/5/'
+            space:'http://10.0.88.2:800/api/space/spaces/29/'
         };
         return util.post(url, data);
     }

@@ -90,7 +90,7 @@ export default class SciSpacesComponent extends Vue {
     refreshtable(){
         space_service.getSpaceList(this.currentpage).then(
             (data) => {
-                this.spaceInfos = (<any>data).body.results;
+                this.spaceInfos = (<any>data).data.results;
                 console.log("///////////////////////////////获取spacelist成功")
 
                 //获取用户名
@@ -101,8 +101,8 @@ export default class SciSpacesComponent extends Vue {
                             console.log("///////////////////////////////获取用户名成功")
                             let index=0;
                             for(let item2 of this.spaceInfos){
-                                if(item2.owner==(<any>owner).body.url){
-                                    item2.username=(<any>owner).body.username;
+                                if(item2.owner==(<any>owner).data.url){
+                                    item2.username=(<any>owner).data.username;
                                     Vue.set(this.spaceInfos,index,item2)
                                 }
                                 index++;
