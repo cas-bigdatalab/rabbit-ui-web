@@ -21,6 +21,10 @@ export default class SciHeaderComponent extends Vue {
                 console.log(reason)
             });
     }
+    changePage(page: any) {
+        this.currentpage = page;
+        this.refreshtable();
+    }
 
     showUserMenu() {
         this.isActive = true;

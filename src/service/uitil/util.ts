@@ -5,6 +5,8 @@ export default class Util extends Vue {
     private HOST = 'http://10.0.88.2:800/api';
     private POST_HOST = 'http://10.0.88.2:800/api';
 
+
+
     post(url: any, data: any, options: any = {}) {
         return axios.post(this.POST_HOST + url, data, {
             auth: {
