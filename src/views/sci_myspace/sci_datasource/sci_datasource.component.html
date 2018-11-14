@@ -11,7 +11,7 @@
     <Table border :columns="datasourceColumns" :data="datasourceInfos"></Table>
     <div style="margin: 10px;overflow: hidden">
         <div style="float: right;">
-            <Page :total="totalnum" :current="currentpage" @on-change="changePage"></Page>
+            <Page :total="totalnum" :current="currentpage" :page-size="5" @on-change="changePage"></Page>
         </div>
     </div>
     </Col>

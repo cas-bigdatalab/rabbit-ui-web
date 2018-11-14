@@ -6,8 +6,7 @@ export default class Util extends Vue {
     private POST_HOST = 'http://10.0.88.2:800/api';
 
 
-
-    post(url: any, data: any, options: any = {}) {
+    public post(url: any, data: any, options: any = {}) {
         return axios.post(this.POST_HOST + url, data, {
             auth: {
                 username: 'admin',
@@ -22,7 +21,7 @@ export default class Util extends Vue {
         });
     }
 
-    get(url: any, data: any = {}, options: any = {}) {
+    public get(url: any, data: any = {}, options: any = {}) {
         // let Base64 = require('js-base64').Base64;
         // return this.$http.get(this.HOST + url, data, {
         //     headers: {
@@ -32,7 +31,7 @@ export default class Util extends Vue {
         //     emulateHTTP: true,
         //     emulateJSON: true
         // });
-        return axios.get(this.HOST + url, data ={
+        return axios.get(this.HOST + url, data = {
             auth: {
                 username: 'admin',
                 password: 'admin'
@@ -40,8 +39,8 @@ export default class Util extends Vue {
         })
     }
 
-    dir_get(url:any){
-        return axios.get(this.HOST + url, data={
+    public dir_get(url: any) {
+        return axios.get(this.HOST + url, data = {
             auth: {
                 username: 'admin',
                 password: 'admin'

@@ -34,8 +34,10 @@ export default class SciDatasourceComponent extends Vue {
         this.refreshtable();
     }
 
-    changePage(pagenum: any) {
-        this.currentpage = pagenum;
+    changePage(page: any) {
+
+        this.currentpage = page;
+        this.refreshtable();
     }
 
     refreshDataEngnie() {
@@ -69,9 +71,9 @@ export default class SciDatasourceComponent extends Vue {
 
     load_DataSource() {
         datasource_service.loadDataSource(this.input_datasourcename, this.selected_enginetype, this.selected_dataset).then((data) => {
-            console.log("//////////////////////////////////创建数据源")
-            console.log(data)
-            if(data.ok==true){
+                console.log("//////////////////////////////////创建数据源成功")
+                console.log(data)
+                if (data.status == 201) {
                     this.$Notice.open({
                         title: '通知',
                         desc: '数据源  <span style="font-weight: bold">' + this.input_datasourcename + '  </span>创建成功'

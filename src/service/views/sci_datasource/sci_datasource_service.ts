@@ -126,7 +126,7 @@ export let datasource_columns=[
     },
     {
         title: '数据集名称',
-        key: 'datasetname',
+        key: 'dataset',
         tooltip: true
     },
     {
