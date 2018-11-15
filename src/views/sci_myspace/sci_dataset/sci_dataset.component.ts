@@ -119,6 +119,12 @@ export default class SciDatasetComponent extends Vue {
 
     }
 
+    shareDataSet(row: any) {
+        console.log(row)
+        dataset_service.shareDataset(row.url).then();
+        this.refreshtable();
+    }
+
     deletDataSet(row: any) {
         dataset_service.deleteDataSet(row.id).then();
         dataset_service.mock_deleteDataSet(row.id);

@@ -34,12 +34,14 @@ export class DatasetService {
         return util.post(url, data);
     }
 
-    deleteDataSet(id: any) {
-        let url = '/dataset/deletedataset';
-        let data = {
-            id: id
-        };
-        return util.get(url, data);
+    shareDataset(dataset_url: any) {
+        util.get_url(dataset_url).then(function (data) {
+            // this.dataset = (<any>data).body.results
+            console.log('///////////////////////////////////////////sharedataset');
+            data = data.data
+            data.public = true;
+            return util.put_url(dataset_url,data);
+        });
     }
 
     mock_deleteDataSet(id: any) {
@@ -79,7 +81,6 @@ export class DatasetService {
         };
         return util.get(url, data);
     }
-
 
 }
 
@@ -187,8 +188,12 @@ export let dataset_columns = [
                         },
                         style: {
                             'margin-right': '5px',
-
                         },
+                        on: {
+                            click: () => {
+                                (<any>window).sci_dataset_context.shareDataSet(params.row);
+                            },
+                         },
                     }, '分享'),
                     h('Button', {
                         props: {
