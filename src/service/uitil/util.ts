@@ -34,18 +34,18 @@ export default class Util extends Vue {
         return axios.get(this.HOST + url, data = {
             auth: {
                 username: 'admin',
-                password: 'admin'
-            }
-        })
+                password: 'admin',
+            },
+        });
     }
 
-    public dir_get(url: any) {
+    public dir_get(url: any, data: any = {}) {
         return axios.get(this.HOST + url, data = {
             auth: {
                 username: 'admin',
-                password: 'admin'
-            }
-        })
+                password: 'admin',
+            },
+        });
     }
 }
 

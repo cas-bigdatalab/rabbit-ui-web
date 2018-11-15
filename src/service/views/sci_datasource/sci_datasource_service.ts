@@ -3,29 +3,30 @@ import {dataset_info} from '@/service/views/sci_dataset/sci_dataset_service';
 
 export class DataSourceService {
 
-    getAllDatasource(){
+    getAllDatasource() {
         let url = '/space/datainstances/';
         return util.get(url);
     }
+
     getMyAllDataSet() {
         let url = '/space/datasets/';
         return util.get(url);
     }
 
     getDataSourceByPage(page: any) {
-        let url = '/space/datainstances/?page='+page;
+        let url = '/space/datainstances/?page=' + page;
         let data = {
             page: page
         };
         return util.get(url, data);
     }
 
-    getDataEngine(){
+    getDataEngine() {
         let url = '/space/dataengines/';
         return util.get(url);
     }
 
-    startDataSource(id:any){
+    startDataSource(id: any) {
         let url = '/dataset/startdatasource';
         let data = {
             id: id
@@ -33,7 +34,7 @@ export class DataSourceService {
         return util.get(url, data);
     }
 
-    stopDataSource(id:any){
+    stopDataSource(id: any) {
         let url = '/dataset/stopdatasource';
         let data = {
             id: id
@@ -41,18 +42,18 @@ export class DataSourceService {
         return util.get(url, data);
     }
 
-    loadDataSource(name:any,enginetype:any,dataset:any){
+    loadDataSource(name: any, enginetype: any, dataset: any) {
         let url = '/space/datainstances/';
         let data = {
             name: name,
-            engine:enginetype,
-            dataset:dataset,
-            space:'http://10.0.88.2:800/api/space/spaces/29/'
+            engine: enginetype,
+            dataset: dataset,
+            space: 'http://10.0.88.2:800/api/space/spaces/29/'
         };
         return util.post(url, data);
     }
 
-    deleteDataSource(id:any){
+    deleteDataSource(id: any) {
         let url = '/dataset/deletedatasource';
         let data = {
             id: id
@@ -66,53 +67,54 @@ export class DataSourceService {
         return datasource_info.datasource.slice(from, to);
     }
 
-    mock_startDataSource(id:any){
+    mock_startDataSource(id: any) {
 
-        for(let item of datasource_info.datasource){
-            if(item.id==id){
-                item.state=Math.abs(item.state-1)
+        for (let item of datasource_info.datasource) {
+            if (item.id == id) {
+                item.state = Math.abs(item.state - 1)
             }
         }
     }
 
-    mock_stopDataSource(id:any){
-        for(let item of datasource_info.datasource){
-            if(item.id==id){
-                item.state=Math.abs(item.state-1)
+    mock_stopDataSource(id: any) {
+        for (let item of datasource_info.datasource) {
+            if (item.id == id) {
+                item.state = Math.abs(item.state - 1)
             }
         }
     }
 
-    mock_deleteDataSource(id:any){
-        for(let index in datasource_info.datasource){
-            if(datasource_info.datasource[index].id==id){
-                datasource_info.datasource.splice(parseInt(index),1);
-                datasource_info.totalnum=datasource_info.totalnum-1;
+    mock_deleteDataSource(id: any) {
+        for (let index in datasource_info.datasource) {
+            if (datasource_info.datasource[index].id == id) {
+                datasource_info.datasource.splice(parseInt(index), 1);
+                datasource_info.totalnum = datasource_info.totalnum - 1;
             }
         }
     }
 
-    mock_loadDataSource(name:any,enginetype:any,dataset:any){
-        let datasetname="";
-        for(let item of dataset_info.dataset){
-            if(dataset==item.id){
-                datasetname=item.name;
+    mock_loadDataSource(name: any, enginetype: any, dataset: any) {
+        let datasetname = "";
+        for (let item of dataset_info.dataset) {
+            if (dataset == item.id) {
+                datasetname = item.name;
             }
         }
         datasource_info.datasource.push({
-            id:datasource_info.totalnum+1,
-            name:name,
-            dataset:datasetname,
-            enginetype:enginetype,
-            size:'1.5G',
-            state:0,
-            operation:1
+            id: datasource_info.totalnum + 1,
+            name: name,
+            dataset: datasetname,
+            enginetype: enginetype,
+            size: '1.5G',
+            state: 0,
+            operation: 1
         });
-        datasource_info.totalnum=datasource_info.datasource.length;
+        datasource_info.totalnum = datasource_info.datasource.length;
 
     }
 }
-export let datasource_columns=[
+
+export let datasource_columns = [
     /*{
         title: '编号',
         key: 'uuid',
@@ -127,7 +129,21 @@ export let datasource_columns=[
     {
         title: '数据集名称',
         key: 'dataset',
-        tooltip: true
+        tooltip: true,
+        render: (h, params) => {
+            // let a = this;
+            // let texts ;
+            // if (params.row.size >= 1024) {
+            //     texts = (params.row.size / 1024).toPrecision(4) + 'G';
+            // } else if (1 <= params.row.size < 1024) {
+            //     texts = params.row.size.toPrecision(4) + 'M';
+            // } else if (0 < params.row.size < 1) {
+            //     texts = (params.row.size * 1024) + 'KB';
+            // }
+            return h('div', {
+                props: {},
+            }, params.row.dataset.name);
+        },
     },
     {
         title: '引擎类型',
@@ -137,14 +153,28 @@ export let datasource_columns=[
     {
         title: '大小',
         key: 'size',
-        tooltip: true
+        tooltip: true,
+        // render: (h, params) => {
+        //     // let a = this;
+        //     let texts;
+        //     if (params.row.size >= 1024) {
+        //         texts = (params.row.size / 1024).toPrecision(4) + 'G';
+        //     } else if (1 <= params.row.size < 1024) {
+        //         texts = params.row.size.toPrecision(4) + 'M';
+        //     } else if (0 < params.row.size < 1) {
+        //         texts = (params.row.size * 1024) + 'KB';
+        //     }
+        //     return h('div', {
+        //         props: {},
+        //     }, texts);
+        // },
     },
     {
         title: '状态',
         key: 'status',
         tooltip: true,
-        render: (h:any,params:any)=>{
-            let states=['无状态','运行中','阻塞中','挂起中','已停止','奔溃中','暂停中','失联中',]
+        render: (h: any, params: any) => {
+            let states = ['无状态', '运行中', '阻塞中', '挂起中', '已停止', '奔溃中', '暂停中', '失联中',]
             return h('span', states[params.row.status]);
         }
     },
@@ -153,11 +183,11 @@ export let datasource_columns=[
         key: 'operation',
         width: 160,
         render: (h: any, params: any) => {
-            let statebutton='停止';
-            if(params.row.state==0){
-                statebutton="启动";
-            }else {
-                statebutton='停止';
+            let statebutton = '停止';
+            if (params.row.state == 0) {
+                statebutton = "启动";
+            } else {
+                statebutton = '停止';
             }
 
             return h('div', [
@@ -168,15 +198,15 @@ export let datasource_columns=[
                         ghost: true
                     },
                     style: {
-                        'margin-top':'5px',
-                        'margin-bottom':'5px',
-                        'margin-right':'5px'
+                        'margin-top': '5px',
+                        'margin-bottom': '5px',
+                        'margin-right': '5px'
                     },
                     on: {
                         click: () => {
-                            if(params.row.state==0){
+                            if (params.row.state == 0) {
                                 (<any>window).sci_datasource_context.start_DataSource(params.row.id);
-                            }else {
+                            } else {
                                 (<any>window).sci_datasource_context.stop_DataSource(params.row.id);
                             }
                         },
@@ -189,14 +219,14 @@ export let datasource_columns=[
                         ghost: true
                     },
                     style: {
-                        'margin-top':'5px',
-                        'margin-bottom':'5px',
+                        'margin-top': '5px',
+                        'margin-bottom': '5px',
                     },
                     on: {
                         click: () => {
                             (<any>window).sci_datasource_context.show_WebUI();
-                            (<any>window).sci_datasource_context.dialog_title="数据引擎WebUI（"+params.row.enginetype+")";
-                            (<any>window).sci_datasource_context.selected_datasource=params.row;
+                            (<any>window).sci_datasource_context.dialog_title = "数据引擎WebUI（" + params.row.enginetype + ")";
+                            (<any>window).sci_datasource_context.selected_datasource = params.row;
                         },
                     }
                 }, 'WebUI'),
@@ -206,9 +236,9 @@ export let datasource_columns=[
                         size: 'small',
                     },
                     style: {
-                        'margin-top':'5px',
-                        'margin-bottom':'5px',
-                        'margin-right':'5px'
+                        'margin-top': '5px',
+                        'margin-bottom': '5px',
+                        'margin-right': '5px'
                     },
                     on: {
                         click: () => {
@@ -222,14 +252,14 @@ export let datasource_columns=[
                         size: 'small',
                     },
                     style: {
-                        'margin-top':'5px',
-                        'margin-bottom':'5px',
+                        'margin-top': '5px',
+                        'margin-bottom': '5px',
                     },
                     on: {
                         click: () => {
                             (<any>window).sci_datasource_context.show_SimbaUI();
-                            (<any>window).sci_datasource_context.dialog_title="Simba分析（"+params.row.name+")";
-                            (<any>window).sci_datasource_context.selected_datasource=params.row;
+                            (<any>window).sci_datasource_context.dialog_title = "Simba分析（" + params.row.name + ")";
+                            (<any>window).sci_datasource_context.selected_datasource = params.row;
                         },
                     }
                 }, 'Simba查询')

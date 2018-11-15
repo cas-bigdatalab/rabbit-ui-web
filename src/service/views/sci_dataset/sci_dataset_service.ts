@@ -20,14 +20,15 @@ export class DatasetService {
         return util.get(url);
     }
 
-    importDataSetToMySpace(name: any, content: any, type: any, description: any, datamodel: any) {
+    importDataSetToMySpace(name: any, content: any, type: any, description: any, datamodel: any, remark: any) {
         let url = '/space/datasets/';
         let data = {
             type: datamodel,
-            describe: description,
+            description: description,
             remark: content,
             name: name,
             uri: name,
+            remark: remark,
             owner: "http://10.0.88.2:800/api/emr/users/1/",
         };
         return util.post(url, data);
