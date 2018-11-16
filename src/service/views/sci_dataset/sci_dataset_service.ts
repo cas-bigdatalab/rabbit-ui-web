@@ -44,6 +44,16 @@ export class DatasetService {
         });
     }
 
+    deleteDataset(url: any) {
+        return util.delete_url(url).then(function (data) {
+            // this.dataset = (<any>data).body.results
+            console.log('///////////////////////////////////////////deletedataset');
+        }).catch(err=>{
+            console.log(err);
+            alert(err);
+        });
+    }
+
     mock_deleteDataSet(id: any) {
 
         for (let index in dataset_info.dataset) {

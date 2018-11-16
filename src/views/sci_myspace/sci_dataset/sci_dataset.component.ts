@@ -96,7 +96,7 @@ export default class SciDatasetComponent extends Vue {
     refreshtable() {
         dataset_service.getDatasetByPage(this.currentpage).then((data) => {
                 this.datasetInfos = (<any>data).data.results;
-                this.totalnum = (<any>data).data.results.length;
+                this.totalnum = (<any>data).data.count;
 
             },
             (reason) => {
@@ -121,12 +121,14 @@ export default class SciDatasetComponent extends Vue {
 
     shareDataSet(row: any) {
         console.log(row)
-        dataset_service.shareDataset(row.url).then();
+        dataset_service.shareDataset(row.url);
         this.refreshtable();
     }
 
+
+
     deletDataSet(row: any) {
-        dataset_service.deleteDataSet(row.id).then();
+        dataset_service.deleteDataset(row.url);
         dataset_service.mock_deleteDataSet(row.id);
         this.refreshtable();
     }

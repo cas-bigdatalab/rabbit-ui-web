@@ -21,9 +21,9 @@ export default class Util extends Vue {
         });
     }
 
-    public put(url: any, data: any, options: any = {}) {
-        return this.put_url(this.POST_HOST + url, data);
-    }
+    // public put(url: any, data: any, options: any = {}) {
+    //     return this.put_url(this.POST_HOST + url, data);
+    // }
 
     public post(url: any, data: any, options: any = {}) {
             return axios.post(this.POST_HOST + url, data, {
@@ -64,6 +64,16 @@ export default class Util extends Vue {
             },
         });
     }
+    public delete_url(url: any) {
+        return axios.delete(url, {
+            auth: {
+                username: 'admin',
+                password: 'admin',
+            },
+        });
+    }
 }
+
+
 
 export let util = new Util();
