@@ -35,12 +35,16 @@ export class DatasetService {
     }
 
     shareDataset(dataset_url: any) {
-        util.get_url(dataset_url).then(function (data) {
+        let data = {
+            "url": dataset_url,
+            "public": true,
+        }
+        return util.patch_url(dataset_url,data).then(function (data) {
             // this.dataset = (<any>data).body.results
             console.log('///////////////////////////////////////////sharedataset');
-            data = data.data
-            data.public = true;
-            return util.put_url(dataset_url,data);
+        }).catch(err=>{
+            console.log(err);
+            alert(err);
         });
     }
 

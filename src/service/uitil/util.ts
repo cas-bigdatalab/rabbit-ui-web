@@ -21,6 +21,15 @@ export default class Util extends Vue {
         });
     }
 
+    public patch_url(url: any, data: any, options: any = {}) {
+        return axios.patch(url, data, {
+            auth: {
+                username: 'admin',
+                password: 'admin',
+            },
+        });
+    }
+
     // public put(url: any, data: any, options: any = {}) {
     //     return this.put_url(this.POST_HOST + url, data);
     // }
