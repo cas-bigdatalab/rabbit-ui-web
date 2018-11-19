@@ -62,8 +62,8 @@ export class DataSourceService {
     }
 
     mock_getDataSourceByPage(page: any) {
-        let from = (page - 1) * 5;
-        let to = page * 5;
+        let from = (page - 1) * 10;
+        let to = page * 10;
         return datasource_info.datasource.slice(from, to);
     }
 
@@ -130,7 +130,7 @@ export let datasource_columns = [
         title: '数据集名称',
         key: 'dataset',
         tooltip: true,
-        render: (h, params) => {
+        render: (h:any, params:any) => {
             // let a = this;
             // let texts ;
             // if (params.row.size >= 1024) {

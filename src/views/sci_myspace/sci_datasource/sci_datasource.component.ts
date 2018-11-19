@@ -35,7 +35,6 @@ export default class SciDatasourceComponent extends Vue {
     }
 
     changePage(page: any) {
-
         this.currentpage = page;
         this.refreshtable();
     }
@@ -101,53 +100,57 @@ export default class SciDatasourceComponent extends Vue {
                 console.log('//////////////////////////////////////////');
                 console.log(data);
                 this.datasourceInfos = (<any>data).data.results;
+                this.totalnum = (<any>data).data.count;
                 for (let item of this.datasourceInfos) {
                     item['enginetype'] = 't';
                     item.size = '4';
-                }
-                for (let item of this.datasourceInfos) {
-                    util.dir_get(item.engine).then((data) => {
-                            let index = 0;
-                            for (let item_iner of this.datasourceInfos) {
-                                if (item_iner.engine == (<any>data).data.url) {
-                                    item_iner.enginetype = (<any>data).data.name;
-                                    Vue.set(this.datasourceInfos, index, item_iner);
-                                }
-                                index++;
-                            }
-                        },
-                        (reason) => {
-                            console.log('get dataenginename error');
-                        });
-
-                    util.dir_get(item.dataset).then((data) => {
-                            let index = 0;
-                            for (let item_iner of this.datasourceInfos) {
-                                if (item_iner.dataset == (<any>data).data.url) {
-                                    item_iner.datasetname = (<any>data).data.name;
-                                    item_iner.size = (<any>data).data.size;
-                                    Vue.set(this.datasourceInfos, index, item_iner);
-                                }
-                                index++;
-                            }
-                        },
-                        (reason) => {
-                            console.log('get dataenginename error');
-                        });
-                }
+                };
+                // for (let item of this.datasourceInfos) {
+                //     util.dir_get(item.engine).then((data) => {
+                //             let index = 0;
+                //             for (let item_iner of this.datasourceInfos) {
+                //                 if (item_iner.engine == (<any>data).data.url) {
+                //                     item_iner.enginetype = (<any>data).data.name;
+                //                     Vue.set(this.datasourceInfos, index, item_iner);
+                //                 }
+                //                 index++;
+                //             }
+                //         },
+                //         (reason) => {
+                //             console.log('get dataenginename error');
+                //         });
+                //
+                //     util.dir_get(item.dataset).then((data) => {
+                //             let index = 0;
+                //             for (let item_iner of this.datasourceInfos) {
+                //                 if (item_iner.dataset == (<any>data).data.url) {
+                //                     item_iner.datasetname = (<any>data).data.name;
+                //                     item_iner.size = (<any>data).data.size;
+                //                     Vue.set(this.datasourceInfos, index, item_iner);
+                //                 }
+                //                 index++;
+                //             }
+                //         },
+                //         (reason) => {
+                //             console.log('get dataenginename error');
+                //         });
+                // }
             },
             (reason) => {
-                this.datasourceInfos = datasource_service.mock_getDataSourceByPage(this.currentpage);
-                this.totalnum = datasource_info.totalnum;
+                console.log(this.datasourceInfos, "bbbbbbbbbbbbbbbb");
+                this.$Notice.open({
+                    title: '通知',
+                    desc: '数据访问失败'
+                });
             });
 
-        datasource_service.getMyAllDataSet().then(
-            (data) => {
-                this.mydataset = (<any>data).data.results;
-            },
-            (reason) => {
-                console.log('///////////////////////////////////////getmyalldataseterro');
-            });
+        // datasource_service.getMyAllDataSet().then(
+        //     (data) => {
+        //         this.mydataset = (<any>data).data.results;
+        //     },
+        //     (reason) => {
+        //         console.log('///////////////////////////////////////getmyalldataseterro');
+        //     });
     }
 }
 

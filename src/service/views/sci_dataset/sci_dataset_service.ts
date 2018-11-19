@@ -29,16 +29,16 @@ export class DatasetService {
             name: name,
             uri: name,
             remark: remark,
-            owner: "http://10.0.88.2:800/api/emr/users/1/",
+            owner: 'http://10.0.88.2:800/api/emr/users/1/',
         };
         return util.post(url, data);
     }
 
     shareDataset(dataset_url: any) {
         let data = {
-            "url": dataset_url,
-            "public": true,
-        }
+            'url': dataset_url,
+            'public': true,
+        };
         return util.patch_url(dataset_url, data).then(function (data) {
             // this.dataset = (<any>data).body.results
             console.log('///////////////////////////////////////////sharedataset');
@@ -124,14 +124,14 @@ export let dataset_columns = [
             let texts;
             if (params.row.size >= 1024) {
                 texts = (params.row.size / 1024).toPrecision(4) + 'G';
-            } else if (1 <= params.row.size < 1024) {
+            } else if (params.row.size >= 1 && params.row.size < 1024) {
                 texts = params.row.size.toPrecision(4) + 'M';
-            } else if (0 < params.row.size < 1) {
+            } else if (params.row.size > 0 && params.row.size < 1) {
                 texts = (params.row.size * 1024) + 'KB';
             }
             return h('div', {
                 props: {},
-            }, texts)
+            }, texts);
         },
     },
     {
