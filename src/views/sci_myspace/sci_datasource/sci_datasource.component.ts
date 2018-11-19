@@ -144,13 +144,13 @@ export default class SciDatasourceComponent extends Vue {
                 });
             });
 
-        // datasource_service.getMyAllDataSet().then(
-        //     (data) => {
-        //         this.mydataset = (<any>data).data.results;
-        //     },
-        //     (reason) => {
-        //         console.log('///////////////////////////////////////getmyalldataseterro');
-        //     });
+        datasource_service.getMyAllDataSet().then(
+            (data) => {
+                this.mydataset = (<any>data).data.results;
+            },
+            (reason) => {
+                console.log('///////////////////////////////////////getmyalldataseterro');
+            });
     }
 }
 
