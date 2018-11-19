@@ -39,10 +39,10 @@ export class DatasetService {
             "url": dataset_url,
             "public": true,
         }
-        return util.patch_url(dataset_url,data).then(function (data) {
+        return util.patch_url(dataset_url, data).then(function (data) {
             // this.dataset = (<any>data).body.results
             console.log('///////////////////////////////////////////sharedataset');
-        }).catch(err=>{
+        }).catch(err => {
             console.log(err);
             alert(err);
         });
@@ -52,7 +52,7 @@ export class DatasetService {
         return util.delete_url(url).then(function (data) {
             // this.dataset = (<any>data).body.results
             console.log('///////////////////////////////////////////deletedataset');
-        }).catch(err=>{
+        }).catch(err => {
             console.log(err);
             alert(err);
         });
@@ -121,7 +121,7 @@ export let dataset_columns = [
         width: 100,
         render: (h, params) => {
             // let a = this;
-            let texts ;
+            let texts;
             if (params.row.size >= 1024) {
                 texts = (params.row.size / 1024).toPrecision(4) + 'G';
             } else if (1 <= params.row.size < 1024) {
@@ -207,7 +207,7 @@ export let dataset_columns = [
                             click: () => {
                                 (<any>window).sci_dataset_context.shareDataSet(params.row);
                             },
-                         },
+                        },
                     }, '分享'),
                     h('Button', {
                         props: {

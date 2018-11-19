@@ -1,6 +1,13 @@
 import {util} from '../../uitil/util';
 
 export class SpaceService {
+    getInstanceByPage(page: any) {
+        let url = '/emr/instances/?page=' + page;
+        let data = {
+            page: page
+        };
+        return util.get(url, data);
+    }
     getSpaceList(page: any) {
         let url = '/space/spaces/';
         let data = {

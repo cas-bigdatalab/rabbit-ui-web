@@ -44,6 +44,7 @@ export default class SciSpacesComponent extends Vue {
     totalnum_dataset = 2;
     datasetceColumns = dataset_columns;
     datasetInfos: any = [];
+    instanceInfos: any = [];
 
 
     currentpage_status = 1;

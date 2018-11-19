@@ -16,8 +16,8 @@ export class EmrService{
 }
 
 export  let emr_service=new EmrService();
-
-export let v_columns = [
+console.log("----------------------------------")
+export let instance_columns = [
     {
         title: '编号',
         key: 'name',
@@ -57,7 +57,7 @@ export let v_columns = [
         tooltip: true
     }
 ];
-export  let vm_info={
+export  let results={
     "count": 6,
     "next": null,
     "previous": null,
