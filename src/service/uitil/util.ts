@@ -1,5 +1,5 @@
 import Vue from 'vue';
-import axios from "axios";
+import axios from 'axios';
 
 export default class Util extends Vue {
     private HOST = 'http://10.0.88.2:800/api';
@@ -30,18 +30,38 @@ export default class Util extends Vue {
         });
     }
 
-    // public put(url: any, data: any, options: any = {}) {
-    //     return this.put_url(this.POST_HOST + url, data);
+    /**
+     * options 请求json数据  实现动态创建form表单
+     * @param url
+     * @param data
+     * @param options
+     */
+    // public options_url(url: any, data: any = {}, options: any = {}) {
+    //     return axios.options(url, {
+    //         auth: {
+    //             username: 'admin',
+    //             password: 'admin',
+    //         },
+    //     });
     // }
 
+    public options(url: any, data: any = {}, options: any = {}) {
+        return axios({
+            method: 'options',
+            url: this.HOST + url,
+            auth: {
+                username: 'admin',
+                password: 'admin'
+            }
+        });
+    }
+
     public post(url: any, data: any, options: any = {}) {
-            return axios.post(this.POST_HOST + url, data, {
-                auth: {
-                    username: 'admin',
-                    password: 'admin',
-                },
-
-
+        return axios.post(this.POST_HOST + url, data, {
+            auth: {
+                username: 'admin',
+                password: 'admin',
+            },
             // headers: {
             //     Authorization: 'Basic ' + Base64.encode('admin:admin'),
             //     'Access-Control-Allow-Origin': '*'
@@ -73,6 +93,7 @@ export default class Util extends Vue {
             },
         });
     }
+
     public delete_url(url: any) {
         return axios.delete(url, {
             auth: {
@@ -82,7 +103,4 @@ export default class Util extends Vue {
         });
     }
 }
-
-
-
 export let util = new Util();

@@ -8,6 +8,14 @@ export class DataSourceService {
         return util.get(url);
     }
 
+    /**
+     * 获取options请求返回的数据  用来实现动态分页
+     */
+    getOpDatasource(){
+        let url = '/space/datainstances';
+        return util.options(url);
+    }
+
     getMyAllDataSet() {
         let url = '/space/datasets/';
         return util.get(url);

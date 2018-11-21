@@ -1,4 +1,5 @@
 import Vue from 'vue';
+import VueFormGenerator from 'vue-form-generator';
 import Component from 'vue-class-component';
 import {
     datasource_columns,
@@ -26,6 +27,10 @@ export default class SciDatasourceComponent extends Vue {
     mydataset: any = [];
     datasourceColumns = datasource_columns;
     datasourceInfos: any = [];
+    schema: any = [];
+    gen_schema: any = [];
+    gen_a_schema: any = [];
+    model: any = null;
 
     mounted() {
         console.log('hello from app');
@@ -41,7 +46,7 @@ export default class SciDatasourceComponent extends Vue {
 
     refreshDataEngnie() {
         datasource_service.getDataEngine().then((data) => {
-                console.log('///////////////////////////////////////////dataengines');
+                console.log('///////////////////////////////////////////datasources');
                 console.log(data);
                 this.dataengines = (<any>data).data.results;
             },
@@ -70,8 +75,8 @@ export default class SciDatasourceComponent extends Vue {
 
     load_DataSource() {
         datasource_service.loadDataSource(this.input_datasourcename, this.selected_enginetype, this.selected_dataset).then((data) => {
-                console.log("//////////////////////////////////创建数据源成功")
-                console.log(data)
+                console.log('//////////////////////////////////创建数据源成功');
+                console.log(data);
                 if (data.status == 201) {
                     this.$Notice.open({
                         title: '通知',
@@ -81,8 +86,8 @@ export default class SciDatasourceComponent extends Vue {
                 }
             },
             (reason) => {
-                console.log("//////////////////////////////////创建数据源错误")
-                console.log(reason)
+                console.log('//////////////////////////////////创建数据源错误');
+                console.log(reason);
             });
     }
 
@@ -90,11 +95,91 @@ export default class SciDatasourceComponent extends Vue {
         this.show_webui = true;
     }
 
+    components!: {
+        'vue-form-generator': VueFormGenerator.component;
+    };
+
+    formOptions!: {
+        validateAfterLoad: true,
+        validateAfterChanged: true,
+    };
+
     show_SimbaUI() {
         this.show_notebook = true;
     }
 
     refreshtable() {
+        /**自动生成表单
+         */
+        datasource_service.getOpDatasource().then((data: any) => {
+            console.log('options////////////////////////////options');
+            this.schema = (<any>data).data.actions.POST;
+            console.log(this.schema);
+            console.log('options///////' + this.schema + '///////options');
+
+            for (let elem in this.schema) {
+                let value = this.schema[elem];
+                if (value.read_only) continue;
+                let gen_field = <any>{};
+                switch (value.type) {
+                    case 'boolean':
+                        gen_field.type = 'checkbox';
+                        break;
+                    case 'string':
+                        gen_field.type = 'input';
+                        gen_field.inputType = 'text';
+                        break;
+                    case 'field':
+                        if ('choices' in value) {
+                            gen_field.type = 'select';
+                            gen_field.values = [];
+                            for (let c of value.choices) {
+                                gen_field.values.push(c.display_name);
+                            }
+                        }
+                        break;
+                    case 'datetime':
+                        gen_field.type = 'dateTimePicker';
+                        gen_field.dateTimePickerOptions = {'format': 'HH:mm:ss'};
+                        break;
+                    case 'choice':
+                        gen_field.type = 'select';
+                        gen_field.values = [];
+                        for (let c of value.choices) {
+                            gen_field.values.push(c.display_name);
+                        }
+                        break;
+                    default:
+                        break;
+                }
+
+                if ('default' in value) {
+                    gen_field.default = value.default;
+                }
+                if ('help_text' in value) {
+                    gen_field.hint = value.help_text;
+                }
+                gen_field.model = elem;
+                gen_field.label = value.label;
+                gen_field.required = value.required;
+                gen_field.readonly = value.read_only;
+                console.log(gen_field);
+                this.gen_schema.push(gen_field);
+                // break;
+            }
+            console.log(JSON.stringify(this.gen_schema));
+            let jd = {'type': 'submit','buttonText':'Submit','onSubmit':function () { console.log('Submit')}};
+            this.gen_schema.push(jd);
+            this.gen_schema = {'fields': this.gen_schema};
+            console.log('vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv');
+            console.log(JSON.stringify(this.gen_schema));
+            console.log('wwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwww');
+            for (let aa in this.gen_schema) {
+                this.gen_a_schema = this.gen_schema[aa];
+                console.log(this.gen_a_schema);
+            }
+        });
+
         datasource_service.getDataSourceByPage(this.currentpage).then(
             (data) => {
                 console.log('//////////////////////////////////////////');
@@ -104,7 +189,8 @@ export default class SciDatasourceComponent extends Vue {
                 for (let item of this.datasourceInfos) {
                     item['enginetype'] = 't';
                     item.size = '4';
-                };
+                }
+                ;
                 // for (let item of this.datasourceInfos) {
                 //     util.dir_get(item.engine).then((data) => {
                 //             let index = 0;
@@ -137,13 +223,12 @@ export default class SciDatasourceComponent extends Vue {
                 // }
             },
             (reason) => {
-                console.log(this.datasourceInfos, "bbbbbbbbbbbbbbbb");
+                console.log(this.datasourceInfos, 'bbbbbbbbbbbbbbbb');
                 this.$Notice.open({
                     title: '通知',
                     desc: '数据访问失败'
                 });
             });
-
         datasource_service.getMyAllDataSet().then(
             (data) => {
                 this.mydataset = (<any>data).data.results;

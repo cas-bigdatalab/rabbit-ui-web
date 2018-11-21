@@ -54,7 +54,7 @@ export default class SciDatasetComponent extends Vue {
 
     refreshDataEngnie() {
         datasource_service.getDataEngine().then((data) => {
-                console.log('///////////////////////////////////////////dataengines');
+                console.log('/////////////////////////////dataengines' + '///////////////////dataset');
                 console.log(data);
                 this.dataengines = (<any>data).data.results;
             },

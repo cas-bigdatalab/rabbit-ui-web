@@ -4,7 +4,7 @@
         <Col>
         <span></span>
         <Divider type="vertical"/>
-        数据源列表
+        Data Instances
         </Col>
 
     </Row>
@@ -25,26 +25,26 @@
         </Col>
 
     </Row>
-    <Form :label-width="65">
-        <FormItem label="名称">
-            <Input type="text" placeholder="数据集名称" v-model="input_datasourcename">
-            </Input>
-        </FormItem>
-        <FormItem label="引擎类型" placeholder="引擎类型">
-            <Select v-model="selected_enginetype">
-                <Option :value="item.url" v-for="item in dataengines">{{item.name}}</Option>
-            </Select>
-        </FormItem>
-        <FormItem label="数据集" placeholder="数据集">
-            <Select v-model="selected_dataset">
-                <Option :value="item.url" v-for="item in mydataset">{{item.name}}</Option>
-            </Select>
-        </FormItem>
-        <FormItem>
-            <Button type="primary" @click="load_DataSource">创建</Button>
-        </FormItem>
-    </Form>
-
+    <!--<Form :label-width="65" v-for="element in elements">-->
+    <!--<FormItem label="名称" v-if="element.type='field'" >-->
+    <!--<Input type="text" placeholder="数据集名称" v-model="input_datasourcename">-->
+    <!--</Input>-->
+    <!--</FormItem>-->
+    <!--<FormItem label="引擎类型" placeholder="引擎类型">-->
+    <!--<Select v-model="selected_enginetype">-->
+    <!--<Option :value="item.url" v-for="item in dataengines">{{item.name}}</Option>-->
+    <!--</Select>-->
+    <!--</FormItem>-->
+    <!--<FormItem label="数据集" placeholder="数据集">-->
+    <!--<Select v-model="selected_dataset">-->
+    <!--<Option :value="item.url" v-for="item in mydataset">{{item.name}}</Option>-->
+    <!--</Select>-->
+    <!--</FormItem>-->
+    <!--<FormItem>-->
+    <!--<Button type="primary" @click="load_DataSource">创建</Button>-->
+    <!--</FormItem>-->
+    <!--</Form>-->
+    <vue-form-generator :schema="gen_schema" :model="model" :options="formOptions"></vue-form-generator>
     </Col>
 
     <div>
@@ -86,33 +86,34 @@
         <Modal v-model="show_notebook" fullscreen :title="dialog_title" footer-hide style="background: #191d21">
             <Row style="height: 100%">
                 <Col span="17" style="height: 100%;">
-                    <iframe id="iframe_simba"
-                            ref="iframe_simba"
-                            :src="`http://10.0.88.41:9995/#/notebook/2DMPKVR1U`"
-                            frameborder="0" width="100%"
-                            height="100%" scrolling="yes"></iframe>
+                <iframe id="iframe_simba"
+                        ref="iframe_simba"
+                        :src="`http://10.0.88.41:9995/#/notebook/2DMPKVR1U`"
+                        frameborder="0" width="100%"
+                        height="100%" scrolling="yes"></iframe>
                 </Col>
                 <Col span="7" style="height: 100%;border-left: 2px solid #5b6270">
-                    <Row class="operation-header">
-                        <div class="mydivier"></div>
-                            数据源信息
-                    </Row>
-                    <Row style="padding-left: 10px; margin-top: 10px">
-                        <Form :label-width="80">
-                            <FormItem label="数据源名称">
-                                <Input :value="selected_datasource.name" readonly></Input>
-                            </FormItem>
-                            <FormItem label="数据集名称">
-                                <Input :value="selected_datasource.dataset" readonly></Input>
-                            </FormItem>
-                            <FormItem label="数据集引擎">
-                                <Input :value="selected_datasource.enginetype" readonly></Input>
-                            </FormItem>
-                            <FormItem label="连接字符串">
-                                <Input value="jdbc://wwwwww" readonly></Input>
-                            </FormItem>
-                        </Form>
-                    </Row>
+                <Row class="operation-header">
+                    <div class="mydivier"></div>
+                    数据源信息
+                </Row>
+                <Row style="padding-left: 10px; margin-top: 10px">
+                    <Form :label-width="80">
+                        <FormItem label="数据源名称">
+                            <Input :value="selected_datasource.name" readonly></Input>
+                        </FormItem>
+                        <FormItem label="数据集名称">
+                            <Input :value="selected_datasource.dataset" readonly></Input>
+                        </FormItem>
+                        <FormItem label="数据集引擎">
+                            <Input :value="selected_datasource.enginetype" readonly></Input>
+                        </FormItem>
+
+                        <FormItem label="连接字符串">
+                            <Input value="jdbc://wwwwww" readonly></Input>
+                        </FormItem>
+                    </Form>
+                </Row>
                 </Col>
             </Row>
         </Modal>

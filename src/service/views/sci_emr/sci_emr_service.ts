@@ -9,8 +9,8 @@ export class EmrService{
         return util.get(url, data);
     }
     mock_getVMList(page: any){
-        let from = (page - 1) * 5;
-        let to = page * 5;
+        let from = (page - 1) * 10;
+        let to = page * 10;
         return vm_info.results.slice(from, to);
     }
 }
