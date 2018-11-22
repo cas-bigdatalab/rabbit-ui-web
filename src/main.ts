@@ -8,7 +8,7 @@ import axios from 'axios';
 import iView from 'iview';
 import '../iview-theme/index.less';
 import 'vue-form-generator/dist/vfg.css';
-import  'vue-form-generator/dist/vfg-core';
+import  'vue-form-generator/dist/vfg.js';
 import VueResource from 'vue-resource';
 
 Vue.config.productionTip = false;

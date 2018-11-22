@@ -1,6 +1,7 @@
 import Vue from 'vue';
 import VueFormGenerator from 'vue-form-generator';
 import Component from 'vue-class-component';
+import component from 'vue-form-generator';
 import {
     datasource_columns,
     datasource_info,
@@ -30,7 +31,8 @@ export default class SciDatasourceComponent extends Vue {
     schema: any = [];
     gen_schema: any = [];
     gen_a_schema: any = [];
-    model: any = null;
+    model: any = {};
+    formOptions: any = {};
 
     mounted() {
         console.log('hello from app');
@@ -95,14 +97,9 @@ export default class SciDatasourceComponent extends Vue {
         this.show_webui = true;
     }
 
-    components!: {
-        'vue-form-generator': VueFormGenerator.component;
-    };
-
-    formOptions!: {
-        validateAfterLoad: true,
-        validateAfterChanged: true,
-    };
+    // components!: {
+    //     'vue-form-generator': VueFormGenerator.component;
+    // };
 
     show_SimbaUI() {
         this.show_notebook = true;
@@ -114,6 +111,10 @@ export default class SciDatasourceComponent extends Vue {
         datasource_service.getOpDatasource().then((data: any) => {
             console.log('options////////////////////////////options');
             this.schema = (<any>data).data.actions.POST;
+            this.formOptions = {
+                validateAfterLoad: true,
+                validateAfterChanged: true,
+            };
             console.log(this.schema);
             console.log('options///////' + this.schema + '///////options');
 
@@ -129,6 +130,7 @@ export default class SciDatasourceComponent extends Vue {
                         gen_field.type = 'input';
                         gen_field.inputType = 'text';
                         gen_field.validator = VueFormGenerator.validators.string;
+                        VueFormGenerator.component;
                         break;
                     case 'field':
                         if ('choices' in value) {
@@ -164,6 +166,9 @@ export default class SciDatasourceComponent extends Vue {
                 gen_field.label = value.label;
                 gen_field.required = value.required;
                 gen_field.readonly = value.read_only;
+                if (value.required) {
+                    gen_field.validator = VueFormGenerator.validators.string;
+                }
                 console.log(gen_field);
                 this.gen_schema.push(gen_field);
                 // break;
