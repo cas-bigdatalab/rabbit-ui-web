@@ -1,17 +1,19 @@
 import Vue from 'vue';
-import vueformgenerator from 'vue-form-generator';
+import VueFormGenerator from 'vue-form-generator';
 import App from './App.vue';
 import router from './router';
 import store from './store';
-import axios from  "axios";
+import axios from 'axios';
 
 import iView from 'iview';
 import '../iview-theme/index.less';
-import VueResource from 'vue-resource'
+import 'vue-form-generator/dist/vfg.css';
+import  'vue-form-generator/dist/vfg-core';
+import VueResource from 'vue-resource';
 
 Vue.config.productionTip = false;
 Vue.use(iView);
-Vue.use(vueformgenerator);
+Vue.use(VueFormGenerator);
 Vue.use(VueResource);
 new Vue({
     router,

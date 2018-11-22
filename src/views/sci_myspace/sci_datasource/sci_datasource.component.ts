@@ -128,6 +128,7 @@ export default class SciDatasourceComponent extends Vue {
                     case 'string':
                         gen_field.type = 'input';
                         gen_field.inputType = 'text';
+                        gen_field.validator = VueFormGenerator.validators.string;
                         break;
                     case 'field':
                         if ('choices' in value) {
@@ -168,7 +169,14 @@ export default class SciDatasourceComponent extends Vue {
                 // break;
             }
             console.log(JSON.stringify(this.gen_schema));
-            let jd = {'type': 'submit','buttonText':'Submit','onSubmit':function () { console.log('Submit')}};
+            let jd = {
+                'type': 'submit',
+                'buttonText': 'Submit',
+                'validateBeforeSubmit': true,
+                'onSubmit': function () {
+                    console.log('Submit');
+                }
+            };
             this.gen_schema.push(jd);
             this.gen_schema = {'fields': this.gen_schema};
             console.log('vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv');
@@ -190,7 +198,6 @@ export default class SciDatasourceComponent extends Vue {
                     item['enginetype'] = 't';
                     item.size = '4';
                 }
-                ;
                 // for (let item of this.datasourceInfos) {
                 //     util.dir_get(item.engine).then((data) => {
                 //             let index = 0;
