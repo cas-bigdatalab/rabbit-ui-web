@@ -50,13 +50,17 @@ export class DataSourceService {
         return util.get(url, data);
     }
 
-    loadDataSource(name: any, enginetype: any, dataset: any) {
+    loadDataSource(model:any) {
+        // console.log('--------------------------------------------------');
+        // console.log(model);
+        // console.log(model.space)
+        // console.log('--------------------------------------------------');
         let url = '/space/datainstances/';
         let data = {
-            name: name,
-            engine: enginetype,
-            dataset: dataset,
-            space: 'http://10.0.88.2:800/api/space/spaces/29/'
+            name: model.name,
+            engine: model.engine,
+            dataset: model.dataset,
+            space: model.space,
         };
         return util.post(url, data);
     }

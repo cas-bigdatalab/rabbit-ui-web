@@ -9,6 +9,54 @@ import {
 } from '../../../service/views/sci_datasource/sci_datasource_service';
 import {util} from '@/service/uitil/util';
 
+class Greeter {
+    greeting: string;
+
+    constructor(message: string) {
+        this.greeting = message;
+    }
+    currentpage = 1;
+    datasourceInfos: any = [];
+    totalnum = 2;
+
+    mounted() {
+        console.log('hello from app');
+        (<any>window).sci_datasource_context = this;
+        this.greet();
+    }
+
+    greet() {
+        console.log(this.greeting);
+        datasource_service.loadDataSource(this.greeting).then((data) => {
+                console.log('//////////////////////////////////创建数据源成功');
+                console.log(data);
+                // if (data.status == 201) {
+                //     this.$Notice.open({
+                //         title: '通知',
+                //         desc: '数据源  <span style="font-weight: bold">' + '  </span>创建成功'
+                //     });
+                //     this.refreshtable();
+                // }
+            },
+            (reason) => {
+                console.log('//////////////////////////////////创建数据源错误');
+                console.log(reason);
+            });
+
+        datasource_service.getDataSourceByPage(this.currentpage).then(
+            (data) => {
+                console.log('//////////////////////////////////////////');
+                console.log(data);
+                this.datasourceInfos = (<any>data).data.results;
+                this.totalnum = (<any>data).data.count;
+                for (let item of this.datasourceInfos) {
+                    item['enginetype'] = 't';
+                    item.size = '4';
+                }
+                });
+    }
+}
+
 @Component({})
 export default class SciDatasourceComponent extends Vue {
 
@@ -76,7 +124,7 @@ export default class SciDatasourceComponent extends Vue {
     }
 
     load_DataSource() {
-        datasource_service.loadDataSource(this.input_datasourcename, this.selected_enginetype, this.selected_dataset).then((data) => {
+        datasource_service.loadDataSource(this.model).then((data) => {
                 console.log('//////////////////////////////////创建数据源成功');
                 console.log(data);
                 if (data.status == 201) {
@@ -109,14 +157,14 @@ export default class SciDatasourceComponent extends Vue {
         /**自动生成表单
          */
         datasource_service.getOpDatasource().then((data: any) => {
-            console.log('options////////////////////////////options');
+            //console.log('options////////////////////////////options');
             this.schema = (<any>data).data.actions.POST;
             this.formOptions = {
                 validateAfterLoad: true,
                 validateAfterChanged: true,
             };
-            console.log(this.schema);
-            console.log('options///////' + this.schema + '///////options');
+            // console.log(this.schema);
+            //console.log('options///////' + this.schema + '///////options');
 
             for (let elem in this.schema) {
                 let value = this.schema[elem];
@@ -137,7 +185,7 @@ export default class SciDatasourceComponent extends Vue {
                             gen_field.type = 'select';
                             gen_field.values = [];
                             for (let c of value.choices) {
-                                gen_field.values.push(c.display_name);
+                                gen_field.values.push({'id': c.value, 'name': c.display_name});
                             }
                         }
                         break;
@@ -149,7 +197,7 @@ export default class SciDatasourceComponent extends Vue {
                         gen_field.type = 'select';
                         gen_field.values = [];
                         for (let c of value.choices) {
-                            gen_field.values.push(c.display_name);
+                            gen_field.values.push({'id': c.value, 'name': c.display_name});
                         }
                         break;
                     default:
@@ -169,28 +217,27 @@ export default class SciDatasourceComponent extends Vue {
                 if (value.required) {
                     gen_field.validator = VueFormGenerator.validators.string;
                 }
-                console.log(gen_field);
+                // console.log(gen_field);
                 this.gen_schema.push(gen_field);
                 // break;
             }
-            console.log(JSON.stringify(this.gen_schema));
-            let jd = {
+            //console.log(JSON.stringify(this.gen_schema));
+            let aa = new Greeter(this.model);
+            let jd = <any>{
                 'type': 'submit',
                 'buttonText': 'Submit',
                 'validateBeforeSubmit': true,
                 'onSubmit': function () {
-                    console.log('Submit');
-                }
+                    aa.greet();
+                },
             };
             this.gen_schema.push(jd);
             this.gen_schema = {'fields': this.gen_schema};
-            console.log('vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv');
-            console.log(JSON.stringify(this.gen_schema));
-            console.log('wwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwww');
-            for (let aa in this.gen_schema) {
-                this.gen_a_schema = this.gen_schema[aa];
-                console.log(this.gen_a_schema);
-            }
+
+            // for (let aa in this.gen_schema) {
+            //     this.gen_a_schema = this.gen_schema[aa];
+            //     console.log(this.gen_a_schema);
+            // }
         });
 
         datasource_service.getDataSourceByPage(this.currentpage).then(
