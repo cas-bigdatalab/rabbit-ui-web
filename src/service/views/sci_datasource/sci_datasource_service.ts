@@ -12,7 +12,7 @@ export class DataSourceService {
      * 获取options请求返回的数据  用来实现动态分页
      */
     getOpDatasource(){
-        let url = '/space/datainstances';
+        let url = '/space/datainstances/';
         return util.options(url);
     }
 
@@ -159,8 +159,13 @@ export let datasource_columns = [
     },
     {
         title: '引擎类型',
-        key: 'enginetype',
+        key: 'engine',
         tooltip: true,
+        render: (h:any, params:any) => {
+            return h('div', {
+                        props: {},
+                    }, params.row.engine.name);
+        }
     },
     {
         title: '大小',

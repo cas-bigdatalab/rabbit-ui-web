@@ -7,6 +7,11 @@ export class DatasetService {
         return util.get(url);
     }
 
+    getOpDataset(){
+        let url = '/space/datasets/';
+        return util.options(url);
+    }
+
     getDatasetByPage(page: any) {
         let url = '/space/datasets/?page=' + page;
         let data = {
@@ -20,16 +25,14 @@ export class DatasetService {
         return util.get(url);
     }
 
-    importDataSetToMySpace(name: any, content: any, type: any, description: any, datamodel: any, remark: any) {
+    importDataSetToMySpace(model:any) {
         let url = '/space/datasets/';
         let data = {
-            type: datamodel,
-            description: description,
-            remark: content,
-            name: name,
-            uri: name,
-            remark: remark,
-            owner: 'http://10.0.88.2:800/api/emr/users/1/',
+            type: model.type,
+            description: model.description,
+            name: model.name,
+            uri: model.uri,
+            remark: model.remark,
         };
         return util.post(url, data);
     }
@@ -119,7 +122,7 @@ export let dataset_columns = [
         title: '大小',
         key: 'size',
         width: 100,
-        render: (h, params) => {
+        render: (h:any, params:any) => {
             // let a = this;
             let texts;
             if (params.row.size >= 1024) {

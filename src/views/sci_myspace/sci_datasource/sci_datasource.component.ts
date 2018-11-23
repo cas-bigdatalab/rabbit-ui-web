@@ -1,19 +1,17 @@
 import Vue from 'vue';
 import VueFormGenerator from 'vue-form-generator';
 import Component from 'vue-class-component';
-import component from 'vue-form-generator';
 import {
     datasource_columns,
     datasource_info,
     datasource_service,
 } from '../../../service/views/sci_datasource/sci_datasource_service';
-import {util} from '@/service/uitil/util';
+// import {util} from '@/service/uitil/util';
 
-class Greeter {
-    greeting: string;
-
+class NewDataSource{
+    datasourceModel: string;
     constructor(message: string) {
-        this.greeting = message;
+        this.datasourceModel = message;
     }
     currentpage = 1;
     datasourceInfos: any = [];
@@ -22,21 +20,21 @@ class Greeter {
     mounted() {
         console.log('hello from app');
         (<any>window).sci_datasource_context = this;
-        this.greet();
+        this.newDatasource();
     }
 
-    greet() {
-        console.log(this.greeting);
-        datasource_service.loadDataSource(this.greeting).then((data) => {
+    newDatasource() {
+        console.log(this.datasourceModel);
+        datasource_service.loadDataSource(this.datasourceModel).then((data) => {
                 console.log('//////////////////////////////////创建数据源成功');
                 console.log(data);
-                // if (data.status == 201) {
-                //     this.$Notice.open({
-                //         title: '通知',
-                //         desc: '数据源  <span style="font-weight: bold">' + '  </span>创建成功'
-                //     });
-                //     this.refreshtable();
-                // }
+                if (data.status == 201) {
+                    // this.$Notice.open({
+                    //     title: '通知',
+                    //     desc: '数据源  <span style="font-weight: bold">' + '  </span>创建成功'
+                    // });
+                    alert('数据源创建成功')
+                }
             },
             (reason) => {
                 console.log('//////////////////////////////////创建数据源错误');
@@ -222,13 +220,14 @@ export default class SciDatasourceComponent extends Vue {
                 // break;
             }
             //console.log(JSON.stringify(this.gen_schema));
-            let aa = new Greeter(this.model);
+            let aa = new NewDataSource(this.model);
             let jd = <any>{
                 'type': 'submit',
                 'buttonText': 'Submit',
                 'validateBeforeSubmit': true,
                 'onSubmit': function () {
-                    aa.greet();
+                    aa.newDatasource();
+
                 },
             };
             this.gen_schema.push(jd);

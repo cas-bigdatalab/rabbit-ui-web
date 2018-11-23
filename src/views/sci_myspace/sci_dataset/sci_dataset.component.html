@@ -25,7 +25,8 @@
         </Col>
 
     </Row>
-    <Form :label-width="65">
+    <vue-form-generator :schema="gen_schema" :model="model" :options="formOptions"></vue-form-generator>
+    <!--<Form :label-width="65">
         <FormItem label="名称">
             <Input type="text" placeholder="数据集名称" v-model="input_datasetname">
             </Input>
@@ -59,10 +60,10 @@
             <Input type="text" placeholder="备注" v-model="input_datasetremark">
             </Input>
         </FormItem>
-        <!--<FormItem label="文件路径" v-if="selected_datatype==1">-->
-            <!--<Input type="text" placeholder="文件路径" v-model="input_filepath">-->
-            <!--</Input>-->
-        <!--</FormItem>-->
+        &lt;!&ndash;<FormItem label="文件路径" v-if="selected_datatype==1">&ndash;&gt;
+            &lt;!&ndash;<Input type="text" placeholder="文件路径" v-model="input_filepath">&ndash;&gt;
+            &lt;!&ndash;</Input>&ndash;&gt;
+        &lt;!&ndash;</FormItem>&ndash;&gt;
         <FormItem label="开源数据" v-if="selected_datatype==2">
             <Select v-model="selected_opensourcedata">
                 <Option :value="item.url" v-for="item in opendataset">{{item.name}}</Option>
@@ -84,18 +85,12 @@
         <FormItem>
             <Button type="primary" @click="importDataToSpace">导入</Button>
         </FormItem>
-    </Form>
+    </Form>-->
 
     </Col>
 
     <Col>
-    <Drawer
-            title="创建数据源"
-            v-model="show_import_dialog"
-            width="360"
-            :mask-closable="false"
-            :styles="drawer_style"
-    >
+    <Drawer title="创建数据源" v-model="show_import_dialog" width="360" :mask-closable="false" :styles="drawer_style">
         <Form :label-width="65">
             <FormItem label="名称">
                 <Input type="text" placeholder="数据源名称" v-model="input_datasourcename">
@@ -114,6 +109,7 @@
                 <Button type="primary" @click="loadDataSetToDataSource">创建</Button>
             </FormItem>
         </Form>
+        <!--<vue-form-generator :schema="gen_schema" :model="model" :options="formOptions"></vue-form-generator>-->
     </Drawer>
 
     </Col>
