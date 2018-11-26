@@ -163,6 +163,7 @@ export let dataset_columns = [
                             click: () => {
                                 (<any>window).show_import_dialog = true;
                                 (<any>window).sci_dataset_context.selected_dataset = params.row;
+                                console.log('-----------------' + params.row + '-----------');
                             },
                         },
                     }, '载入'),
@@ -194,6 +195,7 @@ export let dataset_columns = [
                             click: (abc: any) => {
                                 (<any> window).sci_dataset_context.show_import_dialog = true;
                                 (<any> window).sci_dataset_context.selected_dataset = params.row;
+                                console.log('+++++++++++----------' + JSON.stringify(params.row) + '-----------');
                             },
                         },
                     }, '载入'),

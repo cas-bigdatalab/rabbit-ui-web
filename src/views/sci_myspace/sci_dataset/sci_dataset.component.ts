@@ -7,43 +7,43 @@ import {
     open_dataset
 } from '../../../service/views/sci_dataset/sci_dataset_service';
 import {datasource_info, datasource_service} from '../../../service/views/sci_datasource/sci_datasource_service';
-import VueFormGenerator from "vue-form-generator";
+import VueFormGenerator from 'vue-form-generator';
 
-class NewDataSet{
+class NewDataSet {
     datasetModel: string;
+
     constructor(message: string) {
         this.datasetModel = message;
     }
+
     currentpage = 1;
     datasetInfos: any = [];
     totalnum = 2;
-    opendataset :any = [];
+    opendataset: any = [];
+
     mounted() {
         console.log('hello from app');
         (<any>window).sci_dataset_context = this;
         this.newDataset();
     }
-
     newDataset() {
         // console.log(this.datasetModel);
+        if (false) {
+        }
         dataset_service.importDataSetToMySpace(this.datasetModel).then((data) => {
-                 console.log('//////////////////////////////////创建数据源成功');
-                 console.log(data);
+                console.log('//////////////////////////////////');
+                console.log(data);
                 if (data.status == 201) {
-                    // this.$Notice.open({
-                    //     title: '通知',
-                    //     desc: '数据源  <span style="font-weight: bold">' + '  </span>创建成功'
-                    // });
                     dataset_service.getDatasetByPage(this.currentpage).then(
                         (data) => {
-                            console.log('//////////////////////////////////////////');
-                            console.log(data);
+                            //console.log('//////////////////////////////////////////');
+                            //console.log(data);
                             this.datasetInfos = (<any>data).data.results;
                             this.totalnum = (<any>data).data.count;
-                            console.log('////////////////////////' + this.totalnum);
+                            //console.log('////////////////////////' + this.totalnum);
                         });
                     alert('数据集创建成功');
-                }else{
+                } else {
                     alert('数据集创建失败');
                 }
             },
@@ -58,9 +58,7 @@ class NewDataSet{
                 }
                 console.log(data);
             },
-            (reason) => {
-
-            });
+            (reason) => {});
     }
 }
 
@@ -83,11 +81,10 @@ export default class SciDatasetComponent extends Vue {
 
     //绑定数据
     currentpage = 1;
-    totalnum :any=null;
+    totalnum: any = null;
     opendataset: any = [];
     datasetColumns = dataset_columns;
     datasetInfos: any = [];
-
     dataengines: any = [];
 
     drawer_style = {
@@ -96,7 +93,7 @@ export default class SciDatasetComponent extends Vue {
         paddingBottom: '53px',
         position: 'static'
     };
-    schema:any = [];
+    schema: any = [];
     gen_schema: any = [];
     model: any = {};
     formOptions: any = {};
@@ -107,10 +104,10 @@ export default class SciDatasetComponent extends Vue {
         this.refreshDataEngnie();
     }
 
-    // changePage(page: any) {
-    //     this.currentpage = page;
-    //     this.refreshtable();
-    // }
+    changePage(page: any) {
+        this.currentpage = page;
+        this.refreshtable();
+    }
 
     refreshDataEngnie() {
         datasource_service.getDataEngine().then((data) => {
@@ -131,7 +128,7 @@ export default class SciDatasetComponent extends Vue {
     //     } else {
     //         content = this.selected_opensourcedata;
     //     }
-    //     dataset_service.importDataSetToMySpace(this.input_datasetname, content, this.selected_datatype, this.input_datadescription, this.selected_datatmodel, remark).then((data) => {
+    //     dataset_service.importDataSetToMySpace(this.model).then((data) => {
     //             if (data.status == 201) {
     //                 this.$Notice.open({
     //                     title: '通知',
@@ -157,14 +154,14 @@ export default class SciDatasetComponent extends Vue {
                 console.log('<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<' + this.totalnum);
             },
             (reason) => {
-                console.log(this.datasetInfos, "bbbbbbbbbbbbbbbb");
+                console.log(this.datasetInfos, 'bbbbbbbbbbbbbbbb');
                 this.$Notice.open({
                     title: '通知',
                     desc: '数据访问失败'
                 });
             });
 
-        dataset_service.getOpDataset().then((data:any)=>{
+        dataset_service.getOpDataset().then((data: any) => {
             this.schema = (<any>data).data.actions.POST;
             // console.log(JSON.stringify(this.schema));
             this.formOptions = {
@@ -240,10 +237,9 @@ export default class SciDatasetComponent extends Vue {
                     aa.newDataset();
                 },
             };
-
             this.gen_schema.push(jd);
             this.gen_schema = {'fields': this.gen_schema};
-        })
+        });
 
         dataset_service.getOpenSourceDataList().then((data) => {
                 if (data.status == 201) {
@@ -258,38 +254,38 @@ export default class SciDatasetComponent extends Vue {
     }
 
     shareDataSet(row: any) {
-        console.log(row)
+        console.log(row);
         dataset_service.shareDataset(row.url);
         this.refreshtable();
     }
 
-
     deletDataSet(row: any) {
         dataset_service.deleteDataset(row.url);
         //dataset_service.mock_deleteDataSet(row.id);
+        //console.log(row);
         this.refreshtable();
     }
 
     /**
-     * 载入-创建数据源
+     * 载入----创建数据源
      */
-    // loadDataSetToDataSource() {
-    //     datasource_service.loadDataSource(this.input_datasourcename, this.selected_enginetype, this.selected_dataset.url).then((data) => {
-    //         console.log("/////////////////////////测试数据源导入")
-    //         console.log(data)
-    //         if (data.status == 201) {
-    //             this.$Notice.open({
-    //                 title: '通知',
-    //                 desc: '数据源: <span style="font-weight: bold">' + this.input_datasourcename + '  </span> 创建成功'
-    //             });
-    //             this.show_import_dialog = false;
-    //         }
-    //     }, (reason) => {
-    //         console.log("/////////////////////////测试数据源导入失败")
-    //         console.log(reason)
-    //     });
-    //
-    // }
+    loadDataSetToDataSource() {
+        datasource_service.datasetloadDataSource(this.input_datasourcename, this.selected_enginetype, this.selected_dataset.url).then((data:any) => {
+            console.log("/////////////////////////测试数据源导入")
+            console.log(data)
+            if (data.status == 201) {
+                this.$Notice.open({
+                    title: '通知',
+                    desc: '数据源: <span style="font-weight: bold">' + this.input_datasourcename + '  </span> 创建成功'
+                });
+                this.show_import_dialog = false;
+            }
+        }, (reason) => {
+            console.log("/////////////////////////测试数据源导入失败")
+            console.log(reason)
+        });
+
+    }
 
 }
 

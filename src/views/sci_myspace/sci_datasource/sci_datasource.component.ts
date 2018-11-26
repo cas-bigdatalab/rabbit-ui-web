@@ -48,7 +48,7 @@ class NewDataSource{
                 this.datasourceInfos = (<any>data).data.results;
                 this.totalnum = (<any>data).data.count;
                 for (let item of this.datasourceInfos) {
-                    item['enginetype'] = 't';
+                    //item['enginetype'] = 't';
                     item.size = '4';
                 }
                 });
@@ -85,6 +85,7 @@ export default class SciDatasourceComponent extends Vue {
         (<any>window).sci_datasource_context = this;
         this.refreshDataEngnie();
         this.refreshtable();
+        this.vfg();
     }
 
     changePage(page: any) {
@@ -115,9 +116,10 @@ export default class SciDatasourceComponent extends Vue {
         this.refreshtable();
     }
 
-    delete_DataSource(id: any) {
-        datasource_service.deleteDataSource(id).then();
-        datasource_service.mock_deleteDataSource(id);
+    delete_DataSource(row: any) {
+        datasource_service.deleteDataSource(row.url).then();
+        //console.log('[[[[[[[[[[[ ]]]]]]]]]]]]]]]]]]' + row.url);
+        //datasource_service.mock_deleteDataSource(id);
         this.refreshtable();
     }
 
@@ -151,7 +153,7 @@ export default class SciDatasourceComponent extends Vue {
         this.show_notebook = true;
     }
 
-    refreshtable() {
+    vfg() {
         /**自动生成表单
          */
         datasource_service.getOpDatasource().then((data: any) => {
@@ -163,7 +165,6 @@ export default class SciDatasourceComponent extends Vue {
             };
             // console.log(this.schema);
             //console.log('options///////' + this.schema + '///////options');
-
             for (let elem in this.schema) {
                 let value = this.schema[elem];
                 if (value.read_only) continue;
@@ -201,7 +202,6 @@ export default class SciDatasourceComponent extends Vue {
                     default:
                         break;
                 }
-
                 if ('default' in value) {
                     gen_field.default = value.default;
                 }
@@ -227,26 +227,22 @@ export default class SciDatasourceComponent extends Vue {
                 'validateBeforeSubmit': true,
                 'onSubmit': function () {
                     aa.newDatasource();
-
                 },
             };
             this.gen_schema.push(jd);
             this.gen_schema = {'fields': this.gen_schema};
-
-            // for (let aa in this.gen_schema) {
-            //     this.gen_a_schema = this.gen_schema[aa];
-            //     console.log(this.gen_a_schema);
-            // }
         });
+    }
 
+    refreshtable() {
         datasource_service.getDataSourceByPage(this.currentpage).then(
             (data) => {
                 console.log('//////////////////////////////////////////');
                 console.log(data);
                 this.datasourceInfos = (<any>data).data.results;
                 this.totalnum = (<any>data).data.count;
+                console.log(this.totalnum);
                 for (let item of this.datasourceInfos) {
-                    item['enginetype'] = 't';
                     item.size = '4';
                 }
                 // for (let item of this.datasourceInfos) {

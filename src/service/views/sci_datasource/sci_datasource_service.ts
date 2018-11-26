@@ -65,12 +65,25 @@ export class DataSourceService {
         return util.post(url, data);
     }
 
-    deleteDataSource(id: any) {
-        let url = '/dataset/deletedatasource';
+    datasetloadDataSource(name: any, enginetype: any, dataset: any) {
+        let url = '/space/datainstances/';
         let data = {
-            id: id
+            name: name,
+            engine: enginetype,
+            dataset: dataset,
+            space: 'http://10.0.88.2:800/api/space/spaces/29/'
         };
-        return util.get(url, data);
+        return util.post(url, data);
+    }
+
+    deleteDataSource(url: any) {
+        return util.delete_url(url).then(function (data) {
+            // this.datasource = (<any>data).body.results
+            console.log('///////////////////////////////////////////deletedatasource');
+        }).catch(err => {
+            console.log(err);
+            alert(err);
+        });
     }
 
     mock_getDataSourceByPage(page: any) {
@@ -259,7 +272,7 @@ export let datasource_columns = [
                     },
                     on: {
                         click: () => {
-                            (<any>window).sci_datasource_context.delete_DataSource(params.row.id);
+                            (<any>window).sci_datasource_context.delete_DataSource(params.row);
                         },
                     }
                 }, '删除'),

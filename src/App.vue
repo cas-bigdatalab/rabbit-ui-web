@@ -17,6 +17,7 @@
         left: 0px;
         right: 0px;
     }
+
     .ivu-menu-horizontal {
         height: 50px;
         line-height: 50px;
@@ -44,6 +45,6 @@
         },
     })
     export default class App extends Vue {
-        header_selected:number=-1;
+        header_selected: number = -1;
     }
 </script>

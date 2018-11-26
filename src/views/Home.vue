@@ -15,8 +15,6 @@
         },
     })
     export default class Home extends Vue {
-        hello(){
-
-        }
+        hello(){}
     }
 </script>

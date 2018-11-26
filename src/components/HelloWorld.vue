@@ -38,8 +38,6 @@
         <Table :columns="columns1" :data="data8"></Table>
     </div>
 
-
-
 </template>
 
 <script lang="ts">
@@ -48,90 +46,90 @@
     @Component
     export default class HelloWorld extends Vue {
         @Prop() private msg!: string;
-        columns1=[
+        columns1 = [
             {
-                title: 'Name',
-                key: 'name'
+                title: "Name",
+                key: "name"
             },
             {
-                title: 'Age',
-                key: 'age'
+                title: "Age",
+                key: "age"
             },
             {
-                title: 'Address',
-                key: 'address'
+                title: "Address",
+                key: "address"
             }
         ];
-        columns9=[
+        columns9 = [
             {
-                title: 'Name',
-                key: 'name'
+                title: "Name",
+                key: "name"
             },
             {
-                title: 'Age',
-                key: 'age',
-                className: 'demo-table-info-column'
+                title: "Age",
+                key: "age",
+                className: "demo-table-info-column"
             },
             {
-                title: 'Address',
-                key: 'address'
+                title: "Address",
+                key: "address"
             }
         ];
-        data1= [
+        data1 = [
             {
-                name: 'John Brown',
+                name: "John Brown",
                 age: 18,
-                address: 'New York No. 1 Lake Park',
-                date: '2016-10-03'
+                address: "New York No. 1 Lake Park",
+                date: "2016-10-03"
             },
             {
-                name: 'Jim Green',
+                name: "Jim Green",
                 age: 24,
-                address: 'London No. 1 Lake Park',
-                date: '2016-10-01'
+                address: "London No. 1 Lake Park",
+                date: "2016-10-01"
             },
             {
-                name: 'Joe Black',
+                name: "Joe Black",
                 age: 30,
-                address: 'Sydney No. 1 Lake Park',
-                date: '2016-10-02'
+                address: "Sydney No. 1 Lake Park",
+                date: "2016-10-02"
             },
             {
-                name: 'Jon Snow',
+                name: "Jon Snow",
                 age: 26,
-                address: 'Ottawa No. 2 Lake Park',
-                date: '2016-10-04'
+                address: "Ottawa No. 2 Lake Park",
+                date: "2016-10-04"
             }
         ];
-        data8=[
+        data8 = [
             {
-                name: 'John Brown',
+                name: "John Brown",
                 age: 18,
-                address: 'New York No. 1 Lake Park'
+                address: "New York No. 1 Lake Park"
             },
             {
-                name: 'Jim Green',
+                name: "Jim Green",
                 age: 25,
-                address: 'London No. 1 Lake Park',
+                address: "London No. 1 Lake Park",
                 cellClassName: {
-                    age: 'demo-table-info-cell-age',
-                    address: 'demo-table-info-cell-address'
+                    age: "demo-table-info-cell-age",
+                    address: "demo-table-info-cell-address"
                 }
             },
             {
-                name: 'Joe Black',
+                name: "Joe Black",
                 age: 30,
-                address: 'Sydney No. 1 Lake Park'
+                address: "Sydney No. 1 Lake Park"
             },
             {
-                name: 'Jon Snow',
+                name: "Jon Snow",
                 age: 26,
-                address: 'Ottawa No. 2 Lake Park',
+                address: "Ottawa No. 2 Lake Park",
                 cellClassName: {
-                    name: 'demo-table-info-cell-name'
+                    name: "demo-table-info-cell-name"
                 }
             }
-        ]
+        ];
     }
 </script>
 
@@ -154,26 +152,32 @@
     a {
         color: #42b983;
     }
-    .ivu-table .demo-table-info-row td{
+
+    .ivu-table .demo-table-info-row td {
         background-color: #2db7f5;
         color: #fff;
     }
-    .ivu-table .demo-table-error-row td{
+
+    .ivu-table .demo-table-error-row td {
         background-color: #ff6600;
         color: #fff;
     }
-    .ivu-table td.demo-table-info-column{
+
+    .ivu-table td.demo-table-info-column {
         background-color: #2db7f5;
         color: #fff;
     }
+
     .ivu-table .demo-table-info-cell-name {
         background-color: #2db7f5;
         color: #fff;
     }
+
     .ivu-table .demo-table-info-cell-age {
         background-color: #ff6600;
         color: #fff;
     }
+
     .ivu-table .demo-table-info-cell-address {
         background-color: #187;
         color: #fff;
@@ -185,24 +189,30 @@
         border-right: 0;
         /*background: none!important;*/
     }
+
     .default .ivu-table-border {
         background: none;
         color: inherit;
     }
+
     .default .ivu-table-header tr {
         box-shadow: inset 0px 0px 12px 1px #232e3c;
     }
+
     .default .ivu-table-border td, .default .ivu-table-border th {
         border-color: #455b7d;
         background: none;
         color: inherit;
     }
+
     .default .ivu-table-row-hover {
         background: #191f27;
     }
+
     .default .ivu-table:before, .default .ivu-table:after {
         background-color: #455b7d;
     }
+
     .default .ivu-form-item:not(.ivu-form-item-error) {
         margin-bottom: 7px;
     }
