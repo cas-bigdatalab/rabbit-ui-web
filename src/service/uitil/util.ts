@@ -94,10 +94,6 @@ export default class Util extends Vue {
      */
     public vfg_data(data: any) {
         let schema = data.data.actions.POST;
-        let formOptions = {
-            validateAfterLoad: true,
-            validateAfterChanged: true,
-        };
         // console.log(this.schema);
         //console.log('options///////' + JSON.stringify(this.schema) + '///////options');
         let gen_schema: any = [];
@@ -114,7 +110,11 @@ export default class Util extends Vue {
                     gen_field.type = 'input';
                     gen_field.inputType = 'text';
                     gen_field.validator = VueFormGenerator.validators.string;
-                    VueFormGenerator.component;
+                    break;
+                case 'integer':
+                    gen_field.type = 'input';
+                    gen_field.inputType = 'number';
+                    gen_field.validator = VueFormGenerator.validators.number;
                     break;
                 case 'field':
                     if ('choices' in value) {
@@ -164,6 +164,7 @@ export default class Util extends Vue {
             'validateBeforeSubmit': true,
             'onSubmit': function () {
                 // aa.newDatasource();
+                alert('hello')
             },
         };
         gen_schema.push(submitButton);
@@ -171,8 +172,12 @@ export default class Util extends Vue {
         //console.log('+++++++++++++++++++++++++++++++________________________________+++++++++++++++++++++++++' + JSON.stringify(gen_schema));
         let vfg_data = {
             'gen_schema': gen_schema,
-            'formOptions': formOptions
+            'formOptions': {
+                validateAfterLoad: true,
+                validateAfterChanged: true,
+            }
         };
+        console.log('UTILS.vfg_data:returned'+JSON.stringify(vfg_data));
         return vfg_data;
     }
 

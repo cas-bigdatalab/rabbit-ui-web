@@ -17,13 +17,11 @@ class NewDataSource{
     totalnum = 2;
 
     mounted() {
-        console.log('hello from app');
         (<any>window).sci_datasource_context = this;
         this.newDatasource();
     }
 
     newDatasource() {
-        console.log(this.datasourceModel);
         datasource_service.loadData('/space/datainstances/',this.datasourceModel).then((data) => {
                 console.log('//////////////////////////////////创建数据源成功');
                 console.log(data);
@@ -81,9 +79,9 @@ export default class SciDatasourceComponent extends Vue {
     mounted() {
         console.log('hello from app');
         (<any>window).sci_datasource_context = this;
+        this.vfg();
         this.refreshDataEngnie();
         this.refreshtable();
-        this.vfg();
     }
 
     vfg() {
@@ -91,6 +89,7 @@ export default class SciDatasourceComponent extends Vue {
             //console.log(JSON.stringify(data) + 'VVVVVVVVVVVVVVVVVwwwwwwwwwwwwwwMMMMMMMMMMMMM');
             this.gen_schema = util.vfg_data(data).gen_schema;
             this.formOptions = util.vfg_data(data).formOptions;
+            console.log('datasource.component:'+ JSON.stringify(this.formOptions));
         });
     }
 

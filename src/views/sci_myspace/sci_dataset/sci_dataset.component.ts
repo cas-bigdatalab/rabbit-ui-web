@@ -21,15 +21,11 @@ class NewDataSet {
     opendataset: any = [];
 
     mounted() {
-        console.log('hello from app');
         (<any>window).sci_dataset_context = this;
         this.newDataset();
     }
 
     newDataset() {
-        // console.log(this.datasetModel);
-        if (false) {
-        }
         datasource_service.loadData('/space/datasets/', this.datasetModel).then((data) => {
                 //console.log('//////////////////////////////////');
                 //console.log(data);
@@ -101,15 +97,17 @@ export default class SciDatasetComponent extends Vue {
 
     mounted() {
         (<any>window).sci_dataset_context = this;
+        this.vfg();
         this.refreshtable();
         this.refreshDataEngnie();
-        this.vfg();
     }
-
     vfg() {
         util.options('/space/datasets/').then((data) => {
-            this.gen_schema = util.vfg_data(data).gen_schema;
-            this.formOptions = util.vfg_data(data).formOptions;
+            let vfgData=util.vfg_data(data)
+            console.log('dataset.component:'+ JSON.stringify(vfgData.gen_schema));
+            this.gen_schema = vfgData.gen_schema;
+            this.formOptions = vfgData.formOptions;
+            // console.log('dataset.component:'+ JSON.stringify(this.formOptions));
         });
     }
 
@@ -139,7 +137,7 @@ export default class SciDatasetComponent extends Vue {
                 console.log(this.datasetInfos, 'bbbbbbbbbbbbbbbb');
                 this.$Notice.open({
                     title: '通知',
-                    desc: '数据访问失败'
+                    desc: '数据访问失败',
                 });
             });
 
