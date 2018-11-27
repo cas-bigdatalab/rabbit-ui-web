@@ -1,10 +1,7 @@
 import {util} from '../../uitil/util';
-import {dataset_info} from '@/service/views/sci_dataset/sci_dataset_service';
-
 export class DataSourceService {
 
-    getAllDatasource() {
-        let url = '/space/datainstances/';
+    getAllData(url:any) {
         return util.get(url);
     }
 
@@ -16,57 +13,101 @@ export class DataSourceService {
         return util.options(url);
     }
 
-    getMyAllDataSet() {
-        let url = '/space/datasets/';
+    getMyAllData(url:any) {
         return util.get(url);
     }
 
-    getDataSourceByPage(page: any) {
-        let url = '/space/datainstances/?page=' + page;
+    getDataByPage(url:any,page: any) {
+        url = url + page;
         let data = {
             page: page
         };
         return util.get(url, data);
     }
 
-    getDataEngine() {
-        let url = '/space/dataengines/';
+    getDataEngine(url:any) {
         return util.get(url);
     }
 
-    startDataSource(id: any) {
-        let url = '/dataset/startdatasource';
+    getOpenSourceDataList(url:any) {
+        return util.get(url);
+    }
+
+    shareDataset(dataset_url: any) {
+        let data = {
+            'url': dataset_url,
+            'public': true,
+        };
+        return util.patch_url(dataset_url, data).then(function (data) {
+            // this.dataset = (<any>data).body.results
+            console.log('///////////////////////////////////////////sharedataset');
+        }).catch(err => {
+            console.log(err);
+            alert(err);
+        });
+    }
+
+    deleteDataset(url: any) {
+        return util.delete_url(url).then(function (data) {
+            // this.dataset = (<any>data).body.results
+            console.log('///////////////////////////////////////////deletedataset');
+        }).catch(err => {
+            console.log(err);
+            alert(err);
+        });
+    }
+
+    operateDataSource(url:any,id: any) {
         let data = {
             id: id
         };
         return util.get(url, data);
     }
 
-    stopDataSource(id: any) {
-        let url = '/dataset/stopdatasource';
-        let data = {
-            id: id
-        };
-        return util.get(url, data);
-    }
+    // startDataSource(url:any,id: any) {
+    //     let data = {
+    //         id: id
+    //     };
+    //     return util.get(url, data);
+    // }
+    //
+    // stopDataSource(url:any,id: any) {
+    //     let data = {
+    //         id: id
+    //     };
+    //     return util.get(url, data);
+    // }
 
-    loadDataSource(model:any) {
+    loadData(url:any,model:any) {
         // console.log('--------------------------------------------------');
-        // console.log(model);
-        // console.log(model.space)
-        // console.log('--------------------------------------------------');
-        let url = '/space/datainstances/';
-        let data = {
-            name: model.name,
-            engine: model.engine,
-            dataset: model.dataset,
-            space: model.space,
-        };
+        let data;
+        if (url == '/space/datasets/') {
+            data = {
+                type: model.type,
+                description: model.description,
+                name: model.name,
+                uri: model.uri,
+                remark: model.remark,
+            }
+        }else if(url == '/space/datainstances/'){
+            data = {
+                name: model.name,
+                engine: model.engine,
+                dataset: model.dataset,
+                space: model.space,
+            };
+        }
         return util.post(url, data);
     }
 
-    datasetloadDataSource(name: any, enginetype: any, dataset: any) {
-        let url = '/space/datainstances/';
+    /**
+     * 载入-----创建数据源
+     * @param url
+     * @param name
+     * @param enginetype
+     * @param dataset
+     */
+    datasetloadDataSource(url:any,name: any, enginetype: any, dataset: any) {
         let data = {
             name: name,
             engine: enginetype,
@@ -84,58 +125,6 @@ export class DataSourceService {
             console.log(err);
             alert(err);
         });
-    }
-
-    mock_getDataSourceByPage(page: any) {
-        let from = (page - 1) * 10;
-        let to = page * 10;
-        return datasource_info.datasource.slice(from, to);
-    }
-
-    mock_startDataSource(id: any) {
-
-        for (let item of datasource_info.datasource) {
-            if (item.id == id) {
-                item.state = Math.abs(item.state - 1)
-            }
-        }
-    }
-
-    mock_stopDataSource(id: any) {
-        for (let item of datasource_info.datasource) {
-            if (item.id == id) {
-                item.state = Math.abs(item.state - 1)
-            }
-        }
-    }
-
-    mock_deleteDataSource(id: any) {
-        for (let index in datasource_info.datasource) {
-            if (datasource_info.datasource[index].id == id) {
-                datasource_info.datasource.splice(parseInt(index), 1);
-                datasource_info.totalnum = datasource_info.totalnum - 1;
-            }
-        }
-    }
-
-    mock_loadDataSource(name: any, enginetype: any, dataset: any) {
-        let datasetname = "";
-        for (let item of dataset_info.dataset) {
-            if (dataset == item.id) {
-                datasetname = item.name;
-            }
-        }
-        datasource_info.datasource.push({
-            id: datasource_info.totalnum + 1,
-            name: name,
-            dataset: datasetname,
-            enginetype: enginetype,
-            size: '1.5G',
-            state: 0,
-            operation: 1
-        });
-        datasource_info.totalnum = datasource_info.datasource.length;
-
     }
 }
 

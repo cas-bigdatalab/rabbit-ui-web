@@ -14,9 +14,7 @@ import {
 } from '@/service/views/sci_datasource/sci_datasource_service';
 import {
     dataset_columns,
-    dataset_info,
     dataset_service,
-    open_dataset
 } from '@/service/views/sci_dataset/sci_dataset_service';
 import {util} from '@/service/uitil/util';
 
@@ -118,7 +116,7 @@ export default class SciSpacesComponent extends Vue {
 
 
 
-                dataset_service.getAllDataset().then((data)=>{
+                datasource_service.getAllData('/space/datasets/').then((data)=>{
                     this.alldatasets=(<any>data).body.results
                     let  index=0;
                     for(let item of this.spaceInfos){
@@ -135,7 +133,7 @@ export default class SciSpacesComponent extends Vue {
                 })
 
 
-                datasource_service.getAllDatasource().then((data)=>{
+                datasource_service.getAllData('/space/datainstances/').then((data)=>{
                     this.alldatasource=(<any>data).body.results;
                     let index=0;
                     for(let item of this.spaceInfos){

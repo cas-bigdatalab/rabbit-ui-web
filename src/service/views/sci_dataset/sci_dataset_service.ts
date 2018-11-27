@@ -7,7 +7,7 @@ export class DatasetService {
         return util.get(url);
     }
 
-    getOpDataset(){
+    getOpDataset() {
         let url = '/space/datasets/';
         return util.options(url);
     }
@@ -20,20 +20,28 @@ export class DatasetService {
         return util.get(url, data);
     }
 
-    getOpenSourceDataList() {
-        let url = '/space/datasets/?public=true';
+    getOpenSourceDataList(url: any) {
         return util.get(url);
     }
 
-    importDataSetToMySpace(model:any) {
-        let url = '/space/datasets/';
-        let data = {
-            type: model.type,
-            description: model.description,
-            name: model.name,
-            uri: model.uri,
-            remark: model.remark,
-        };
+    importDataSetToMySpace(url: any, model: any) {
+        let data;
+        if (url == '/space/datasets/') {
+            data = {
+                type: model.type,
+                description: model.description,
+                name: model.name,
+                uri: model.uri,
+                remark: model.remark,
+            }
+        }else if(url == '/space/datainstances/'){
+            data = {
+                name: model.name,
+                engine: model.engine,
+                dataset: model.dataset,
+                space: model.space,
+            };
+        }
         return util.post(url, data);
     }
 
@@ -59,35 +67,6 @@ export class DatasetService {
             console.log(err);
             alert(err);
         });
-    }
-
-    mock_deleteDataSet(id: any) {
-
-        for (let index in dataset_info.dataset) {
-            if (dataset_info.dataset[index].id == id) {
-                dataset_info.dataset.splice(parseInt(index), 1);
-                dataset_info.totalnum = dataset_info.totalnum - 1;
-            }
-        }
-    }
-
-    mock_getDatasetByPage(page: any) {
-        let from = (page - 1) * 5;
-        let to = page * 5;
-        return dataset_info.dataset.slice(from, to);
-    }
-
-    mock_importDataSetToMySpace(name: any, content: any, type: any, description: any) {
-        dataset_info.dataset.push({
-            id: dataset_info.dataset.length + 1,
-            name: name,
-            description: description,
-            owner: '王华进',
-            size: '1.3G',
-            operation: 1,
-
-        });
-        dataset_info.totalnum = dataset_info.totalnum + 1;
     }
 
     loadDataSet(from: any, to: any) {
@@ -122,7 +101,7 @@ export let dataset_columns = [
         title: '大小',
         key: 'size',
         width: 100,
-        render: (h:any, params:any) => {
+        render: (h: any, params: any) => {
             // let a = this;
             let texts;
             if (params.row.size >= 1024) {
@@ -195,7 +174,6 @@ export let dataset_columns = [
                             click: (abc: any) => {
                                 (<any> window).sci_dataset_context.show_import_dialog = true;
                                 (<any> window).sci_dataset_context.selected_dataset = params.row;
-                                console.log('+++++++++++----------' + JSON.stringify(params.row) + '-----------');
                             },
                         },
                     }, '载入'),
@@ -232,61 +210,3 @@ export let dataset_columns = [
     }
 ];
 
-/**
- * 数据集假数据
- * @type {[{id: number; name: string} , {id: number; name: string} , {id: number; name: string}]}
- */
-export let dataset_info = {
-        dataset: [
-            {
-                id: 1,
-                name: '2012年10月对撞事例数据',
-                owner: '共有数据集',
-                size: '1.1G',
-                description: '2012年10月对撞事例数据',
-                operation: 1,
-            }
-            ,
-            {
-                id: 2,
-                name: 'Lubm模拟数据',
-                owner: '王华进',
-                size: '0.75G',
-                description: '对LUBM数据进行扩展生成的数据',
-                operation: 1,
-            },
-            {
-                id: 3,
-                name: 'TP-CH模拟数据',
-                owner: '王华进',
-                size: '1G',
-                description: '使用TP-CH生成工具生成的数据',
-                operation: 2,
-            },
-            {
-                id: 4,
-                name: '搜狗语料——新闻',
-                owner: '共有数据集',
-                size: '1.39G',
-                description: '搜狗公司提供的开源语料库，包括20个类别，10000个新闻',
-                operation: 2,
-            }
-        ],
-        totalnum: 4
-    }
-;
-
-export let open_dataset = [
-    {
-        id: 1,
-        name: '搜狗语料——新闻'
-    },
-    {
-        id: 2,
-        name: '2012天文星表'
-    },
-    {
-        id: 3,
-        name: '2018全球大气观测'
-    }
-];
