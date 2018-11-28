@@ -102,8 +102,9 @@ export default class SciDatasetComponent extends Vue {
         this.refreshDataEngnie();
     }
     vfg() {
-        util.options('/space/datasets/').then((data) => {
-            let vfgData=util.vfg_data(data)
+        let url = '/space/datasets/';
+        util.options(url).then((data) => {
+            let vfgData = util.vfg_data(data, this.model, url);
             console.log('dataset.component:'+ JSON.stringify(vfgData.gen_schema));
             this.gen_schema = vfgData.gen_schema;
             this.formOptions = vfgData.formOptions;

@@ -1,6 +1,56 @@
 import Vue from 'vue';
 import axios from 'axios';
 import VueFormGenerator from 'vue-form-generator';
+import {datasource_service} from '@/service/views/sci_datasource/sci_datasource_service';
+
+class DataModel {
+    model: string;
+    url: string;
+
+    constructor(message: string, url: string) {
+        this.model = message;
+        this.url = url;
+    }
+
+    currentpage = 1;
+    dataInfos: any = [];
+    totalnum = 2;
+
+    mounted() {
+        (<any>window).util_context = this;
+        this.post();
+    }
+
+    post() {
+        datasource_service.loadData(this.url, this.model).then((data) => {
+                console.log('//////////////////////////////////创建数据源成功');
+                console.log(data);
+                if (data.status == 201) {
+                    // this.$Notice.open({
+                    //     title: '通知',
+                    //     desc: '数据源  <span style="font-weight: bold">' + '  </span>创建成功'
+                    // });
+                    // alert('数据源创建成功');
+                    // datasource_service.getDataByPage(this.url + '/?page=', this.currentpage).then(
+                    //     (data) => {
+                    //         //console.log('//////////////////////////////////////////');
+                    //         //console.log(data);
+                    //         this.dataInfos = (<any>data).data.results;
+                    //         this.totalnum = (<any>data).data.count;
+                    //         for (let item of this.dataInfos) {
+                    //             item.size = '4';
+                    //         }
+                    //     });
+                }
+            },
+            (reason) => {
+                console.log('//////////////////////////////////创建数据源错误');
+                console.log(reason);
+            });
+
+
+    }
+}
 
 export default class Util extends Vue {
     private HOST = 'http://10.0.88.2:800/api';
@@ -92,7 +142,7 @@ export default class Util extends Vue {
      * 自动生成表单
      * @param url
      */
-    public vfg_data(data: any) {
+    public vfg_data(data: any, model: any, url: any) {
         let schema = data.data.actions.POST;
         // console.log(this.schema);
         //console.log('options///////' + JSON.stringify(this.schema) + '///////options');
@@ -157,14 +207,13 @@ export default class Util extends Vue {
             // break;
         }
         //console.log(JSON.stringify(this.gen_schema));
-        // let aa = new NewDataSource(this.model);
+        let dm = new DataModel(model, url);
         let submitButton = <any>{
             'type': 'submit',
             'buttonText': 'Submit',
             'validateBeforeSubmit': true,
             'onSubmit': function () {
-                // aa.newDatasource();
-                alert('hello')
+                dm.post();
             },
         };
         gen_schema.push(submitButton);
@@ -177,9 +226,8 @@ export default class Util extends Vue {
                 validateAfterChanged: true,
             }
         };
-        console.log('UTILS.vfg_data:returned'+JSON.stringify(vfg_data));
+        //console.log('UTILS.vfg_data:returned' + JSON.stringify(vfg_data));
         return vfg_data;
     }
-
 }
 export let util = new Util();

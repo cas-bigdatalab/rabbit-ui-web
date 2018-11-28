@@ -85,10 +85,11 @@ export default class SciDatasourceComponent extends Vue {
     }
 
     vfg() {
-        util.options('/space/datainstances/').then((data) => {
+        let url = '/space/datainstances/';
+        util.options(url).then((data) => {
             //console.log(JSON.stringify(data) + 'VVVVVVVVVVVVVVVVVwwwwwwwwwwwwwwMMMMMMMMMMMMM');
-            this.gen_schema = util.vfg_data(data).gen_schema;
-            this.formOptions = util.vfg_data(data).formOptions;
+            this.gen_schema = util.vfg_data(data,this.model,url).gen_schema;
+            this.formOptions = util.vfg_data(data,this.model,url).formOptions;
             console.log('datasource.component:'+ JSON.stringify(this.formOptions));
         });
     }
