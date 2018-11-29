@@ -21,22 +21,22 @@
         <Col>
         <span></span>
         <Divider type="vertical"/>
-        Operation
+        Add
         </Col>
 
     </Row>
     <vue-form-generator :schema="gen_schema" :model="model" :options="formOptions"></vue-form-generator>
     <!--<Form :label-width="65">
-        <FormItem label="名称">
-            <Input type="text" placeholder="数据集名称" v-model="input_datasetname">
+        <FormItem label="Name">
+            <Input type="text" placeholder="Dataset" v-model="input_datasetname">
             </Input>
         </FormItem>
         <FormItem label="uri">
             <Input type="text" placeholder="uri" v-model="input_dataseturi">
             </Input>
         </FormItem>
-        <FormItem label="大小">
-            <Input type="text" placeholder="大小" v-model="input_datasetsize">
+        <FormItem label="Size">
+            <Input type="text" placeholder="Size" v-model="input_datasetsize">
             </Input>
         </FormItem>
         <FormItem label="修复脚本">
@@ -79,8 +79,8 @@
                 <Option :value="5">图</Option>
             </Select>
         </FormItem>
-        <FormItem label="描述">
-            <Input v-model="input_datadescription" type="textarea" :rows="4" placeholder="数据内容描述"/>
+        <FormItem label="Description">
+            <Input v-model="input_datadescription" type="textarea" :rows="4" placeholder="数据内容Description"/>
         </FormItem>
         <FormItem>
             <Button type="primary" @click="importDataToSpace">导入</Button>
@@ -92,17 +92,17 @@
     <Col>
     <Drawer title="创建数据源" v-model="show_import_dialog" width="360" :mask-closable="false" :styles="drawer_style">
         <Form :label-width="65">
-            <FormItem label="名称">
-                <Input type="text" placeholder="数据源名称" v-model="input_datasourcename">
+            <FormItem label="Name">
+                <Input type="text" placeholder="数据源Name" v-model="input_datasourcename">
                 </Input>
             </FormItem>
-            <FormItem label="引擎类型" placeholder="引擎类型">
+            <FormItem label="Engine" placeholder="Engine">
                 <Select v-model="selected_enginetype">
                     <Option :value="item.url" v-for="item in dataengines">{{item.name}}</Option>
                 </Select>
             </FormItem>
             <FormItem label="数据集" placeholder="数据集">
-                <Input type="text" placeholder="数据集名称" readonly :value="selected_dataset.name">
+                <Input type="text" placeholder="Dataset" readonly :value="selected_dataset.name">
                 </Input>
             </FormItem>
             <FormItem>

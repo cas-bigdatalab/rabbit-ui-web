@@ -57,7 +57,7 @@ export default class SciSpacesComponent extends Vue {
     select_dataset: any = null;
     select_datasource: any = null;
     gen_schema: any = [];
-    model: any = {engines:[{"value":"http://10.0.88.2:800/api/space/dataengines/2/","name":"HDFS"},{"value":"http://10.0.88.2:800/api/space/dataengines/1/","name":"Hive"}]};
+    model: any = {};
     formOptions: any = {};
 
     mounted() {

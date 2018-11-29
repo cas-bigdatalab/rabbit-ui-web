@@ -4,7 +4,7 @@
         <Col>
         <span></span>
         <Divider type="vertical"/>
-        虚拟机列表
+        Instance List
         </Col>
 
     </Row>
@@ -21,9 +21,9 @@
         <Col>
         <span></span>
         <Divider type="vertical"/>
-        操作
+        Add
         </Col>
-
+        <vue-form-generator :schema="gen_schema" :model="model" :options="formOptions"></vue-form-generator>
     </Row>
     <Form :label-width="65">
 

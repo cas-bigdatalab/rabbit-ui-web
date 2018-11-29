@@ -103,14 +103,18 @@ export class DataSourceService {
                 blueprint: model.blueprint,
                 engines: model.engines,
                 name: model.name,
-                remedy_script:model.remedy_script,
+                remedy_script: model.remedy_script,
+            };
+        } else if (url == '/cloud_adaptor/instances/') {
+            data = {
+
             };
         }
         return util.post(url, data);
     }
 
     /**
-     * 载入-----创建数据源
+     * Load-----创建数据源
      * @param url
      * @param name
      * @param enginetype
@@ -145,12 +149,12 @@ export let datasource_columns = [
         tooltip: true
     },*/
     {
-        title: '名称',
+        title: 'name',
         key: 'name',
         tooltip: true
     },
     {
-        title: '数据集名称',
+        title: 'Dataset',
         key: 'dataset',
         tooltip: true,
         render: (h: any, params: any) => {
@@ -169,7 +173,7 @@ export let datasource_columns = [
         },
     },
     {
-        title: '引擎类型',
+        title: 'Engine',
         key: 'engine',
         tooltip: true,
         render: (h: any, params: any) => {
@@ -179,7 +183,7 @@ export let datasource_columns = [
         }
     },
     {
-        title: '大小',
+        title: 'Size',
         key: 'size',
         tooltip: true,
         // render: (h, params) => {
@@ -198,24 +202,24 @@ export let datasource_columns = [
         // },
     },
     {
-        title: '状态',
+        title: 'Status',
         key: 'status',
         tooltip: true,
         render: (h: any, params: any) => {
-            let states = ['无状态', '运行中', '阻塞中', '挂起中', '已停止', '奔溃中', '暂停中', '失联中',];
+            let states = ['无Status', '运行中', '阻塞中', '挂起中', '已停止', '奔溃中', '暂停中', '失联中',];
             return h('span', states[params.row.status]);
         }
     },
     {
-        title: '操作',
+        title: 'Operate',
         key: 'operation',
         width: 160,
         render: (h: any, params: any) => {
-            let statebutton = '停止';
+            let statebutton = 'Stop';
             if (params.row.state == 0) {
                 statebutton = '启动';
             } else {
-                statebutton = '停止';
+                statebutton = 'Stop';
             }
 
             return h('div', [
@@ -273,7 +277,7 @@ export let datasource_columns = [
                             (<any>window).sci_datasource_context.delete_DataSource(params.row);
                         },
                     }
-                }, '删除'),
+                }, 'Delete'),
                 h('Button', {
                     props: {
                         type: 'info',
@@ -290,7 +294,7 @@ export let datasource_columns = [
                             (<any>window).sci_datasource_context.selected_datasource = params.row;
                         },
                     }
-                }, 'Simba查询')
+                }, 'Simba Query')
             ]);
 
         }

@@ -89,16 +89,16 @@ export let dataset_columns = [
         tooltip: true,
     },*/
     {
-        title: '名称',
+        title: 'name',
         key: 'name',
     },
     {
-        title: '归属',
+        title: 'Owner',
         key: 'owner',
         tooltip: true,
     },
     {
-        title: '大小',
+        title: 'Size',
         key: 'size',
         width: 100,
         render: (h: any, params: any) => {
@@ -117,12 +117,12 @@ export let dataset_columns = [
         },
     },
     {
-        title: '描述',
+        title: 'Description',
         key: 'description',
         tooltip: true,
     },
     {
-        title: '操作',
+        title: 'Operate',
         key: 'operation',
         width: 170,
         render: (h: any, params: any) => {
@@ -145,7 +145,7 @@ export let dataset_columns = [
                                 console.log('-----------------' + params.row + '-----------');
                             },
                         },
-                    }, '载入'),
+                    }, 'Load'),
                     h('Button', {
                         props: {
                             type: 'error',
@@ -156,7 +156,7 @@ export let dataset_columns = [
                                 (<any>window).sci_dataset_context.deletDataSet(params.row);
                             },
                         },
-                    }, '移除'),
+                    }, 'Remove'),
                 ]);
             } else {
                 return h('div', [
@@ -176,7 +176,7 @@ export let dataset_columns = [
                                 (<any> window).sci_dataset_context.selected_dataset = params.row;
                             },
                         },
-                    }, '载入'),
+                    }, 'Load'),
                     h('Button', {
                         props: {
                             type: 'success',
@@ -191,7 +191,7 @@ export let dataset_columns = [
                                 (<any>window).sci_dataset_context.shareDataSet(params.row);
                             },
                         },
-                    }, '分享'),
+                    }, 'Share'),
                     h('Button', {
                         props: {
                             type: 'error',
@@ -202,7 +202,7 @@ export let dataset_columns = [
                                 (<any>window).sci_dataset_context.deletDataSet(params.row);
                             },
                         },
-                    }, '移除'),
+                    }, 'Remove'),
                 ]);
             }
 

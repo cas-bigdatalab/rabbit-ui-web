@@ -13,22 +13,22 @@ export class EmrService{
 export  let emr_service=new EmrService();
 
 export let instance_columns = [
-    {
+    /*{
         title: '编号',
         key: 'name',
         width: 70,
-    },
+    },*/
     {
-        title: '主机名称',
+        title: 'Instance Name',
         key: 'hostname'
     },
     {
-        title: '主机状态',
+        title: 'Instance Status',
         key: 'status',
         tooltip: true,
         render: (h: any, params: any) => {
             if(params.row.status==1){
-                return h('div',"已创建")
+                return h('div',"Running")
             }
             if(params.row.status==11){
                 return h('div',"创建中...")
@@ -36,18 +36,18 @@ export let instance_columns = [
         }
     },
     {
-        title: '主机类型',
+        title: 'Type',
         render: (h: any, params: any) => {
             if(params.row.hostname.indexOf("slave")>-1){
-                return h('div',"Slave节点")
+                return h('div',"Slave node")
             }
             if(params.row.hostname.indexOf("master")>-1){
-                return h('div',"master节点")
+                return h('div',"master node")
             }
         }
     },
     {
-        title: '主机IP',
+        title: 'Instance IP',
         key: 'ipv4',
         tooltip: true
     }

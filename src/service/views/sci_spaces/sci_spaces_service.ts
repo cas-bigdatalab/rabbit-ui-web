@@ -2,7 +2,7 @@ import {util} from '../../uitil/util';
 
 export class SpaceService {
     getInstanceByPage(page: any) {
-        let url = '/emr/instances/?page=' + page;
+        let url = '/cloud_adaptor/instances/?page=' + page;
         let data = {
             page: page
         };
@@ -69,21 +69,21 @@ export let space_columns = [
                         (<any>window).sci_spaces_context.showDataSource(params.row);
                     },
                 }
-            }, '共' + params.row.engines.length + '个');
+            }, params.row.engines.length);
         }
     },
     {
         title: 'piflow',
         tooltip: true,
         render: (h: any, params: any) => {
-            return h('span', '正常');
+            return h('span', 'Running');
         }
     },
     {
         title: 'notebook',
         tooltip: true,
         render: (h: any, params: any) => {
-            return h('span', '正常');
+            return h('span', 'Running');
         }
     },
     {
@@ -96,7 +96,7 @@ export let space_columns = [
                         (<any>window).sci_spaces_context.showStatus(params);
                     },
                 }
-            }, '查看详情');
+            }, 'Detail');
         }
     },
 
@@ -175,7 +175,7 @@ export let status_columns = [
         key: 'name',
     },
     {
-        title: '指标状态',
+        title: '指标Status',
         key: 'value',
     }
 ];

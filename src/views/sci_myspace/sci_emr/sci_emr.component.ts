@@ -22,10 +22,25 @@ export default class SciEmrComponent extends Vue {
     instanceColumns = instance_columns;
     instanceInfos: any = [];
 
+    gen_schema: any = [];
+    model: any = {};
+    formOptions: any = {};
+
     mounted() {
         console.log('hello from app');
         (<any>window).sci_datasource_context = this;
         this.refreshtable();
+        this.vfg();
+    }
+
+    vfg() {
+        let url = '/cloud_adaptor/instances/';
+        util.options(url).then((data)=>{
+            let vfgData = util.vfg_data(data, this.model, url);
+            //console.log('dataset.component:'+ JSON.stringify(vfgData.gen_schema));
+            this.gen_schema = vfgData.gen_schema;
+            this.formOptions = vfgData.formOptions;
+        });
     }
 
     changePage(pagenum: any) {

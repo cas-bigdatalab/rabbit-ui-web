@@ -168,7 +168,7 @@ export default class SciDatasetComponent extends Vue {
     }
 
     /**
-     * 载入----创建数据源
+     * Load----创建数据源
      */
     loadDataSetToDataSource() {
         datasource_service.datasetloadDataSource('/space/datainstances/', this.input_datasourcename, this.selected_enginetype, this.selected_dataset.url).then((data: any) => {
