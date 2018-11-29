@@ -13,7 +13,7 @@ class NewDataSource{
         this.datasourceModel = message;
     }
     currentpage = 1;
-    datasourceInfos: any = [];
+    dataInfos: any = [];
     totalnum = 2;
 
     mounted() {
@@ -42,9 +42,9 @@ class NewDataSource{
             (data) => {
                 //console.log('//////////////////////////////////////////');
                 //console.log(data);
-                this.datasourceInfos = (<any>data).data.results;
+                this.dataInfos = (<any>data).data.results;
                 this.totalnum = (<any>data).data.count;
-                for (let item of this.datasourceInfos) {
+                for (let item of this.dataInfos) {
                     item.size = '4';
                 }
                 });
@@ -69,7 +69,7 @@ export default class SciDatasourceComponent extends Vue {
     totalnum = 2;
     mydataset: any = [];
     datasourceColumns = datasource_columns;
-    datasourceInfos: any = [];
+    dataInfos: any = [];
     schema: any = [];
     gen_schema: any = [];
     gen_a_schema: any = [];
@@ -86,11 +86,13 @@ export default class SciDatasourceComponent extends Vue {
 
     vfg() {
         let url = '/space/datainstances/';
+
         util.options(url).then((data) => {
+            let vfg_data = util.vfg_data(data,this.model,url);
             //console.log(JSON.stringify(data) + 'VVVVVVVVVVVVVVVVVwwwwwwwwwwwwwwMMMMMMMMMMMMM');
-            this.gen_schema = util.vfg_data(data,this.model,url).gen_schema;
-            this.formOptions = util.vfg_data(data,this.model,url).formOptions;
-            console.log('datasource.component:'+ JSON.stringify(this.formOptions));
+            this.gen_schema = vfg_data.gen_schema;
+            this.formOptions = vfg_data.formOptions;
+            //console.log('datasource.component:'+ JSON.stringify(this.formOptions));
         });
     }
 
@@ -162,15 +164,15 @@ export default class SciDatasourceComponent extends Vue {
             (data) => {
                 //console.log('//////////////////////////////////////////');
                 //console.log(data);
-                this.datasourceInfos = (<any>data).data.results;
+                this.dataInfos = (<any>data).data.results;
                 this.totalnum = (<any>data).data.count;
                 console.log(this.totalnum);
-                for (let item of this.datasourceInfos) {
+                for (let item of this.dataInfos) {
                     item.size = '4';
                 }
             },
             (reason) => {
-                console.log(this.datasourceInfos, 'bbbbbbbbbbbbbbbb');
+                console.log(this.dataInfos, 'bbbbbbbbbbbbbbbb');
                 this.$Notice.open({
                     title: '通知',
                     desc: '数据访问失败'

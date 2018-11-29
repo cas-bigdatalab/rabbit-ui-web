@@ -6,26 +6,27 @@ import SciPiflowComponent from '@/views/sci_myspace/sci_piflow/sci_piflow.compon
 import SciNotebookComponent from '@/views/sci_myspace/sci_notebook/sci_notebook.component';
 import SciEmrComponent from '@/views/sci_myspace/sci_emr/sci_emr.component';
 import SciAmbariComponent from '@/views/sci_myspace/sci_ambari/sci_ambari.component';
-import SciSpacesComponent from '@/views/sci_spaces/sci_spaces.component';
+import SciSpacesComponent from '@/views/sci_myspace/sci_spaces/sci_spaces.component';
 import SciMyspaceComponent from '@/views/sci_myspace/sci_myspace.component';
 
 Vue.use(Router);
 
 export default new Router({
     routes: [
-        { path: '/', redirect: '/myspace/dataset' },
+        {path: '/', redirect: '/myspace/dataset'},
         {
             path: '/myspace',
             name: 'myspace',
             component: SciMyspaceComponent,
-            children:[
-                { path: '/myspace/datasource', component: SciDatasourceComponent},
-                { path: '/myspace/piflow', component: SciPiflowComponent},
-                { path: '/myspace/notebook', component: SciNotebookComponent},
-                { path: '/myspace/emr', component: SciEmrComponent},
-                { path: '/myspace/ambari', component: SciAmbariComponent},
-                { path: '/myspace/datasource', component: SciDatasourceComponent},
-                { path: '/myspace/dataset', component: SciDatasetComponent},
+            children: [
+                {path: '/myspace/datasource', component: SciDatasourceComponent},
+                {path: '/myspace/piflow', component: SciPiflowComponent},
+                {path: '/myspace/notebook', component: SciNotebookComponent},
+                {path: '/myspace/emr', component: SciEmrComponent},
+                {path: '/myspace/ambari', component: SciAmbariComponent},
+                {path: '/myspace/datasource', component: SciDatasourceComponent},
+                {path: '/myspace/dataset', component: SciDatasetComponent},
+                {path: '/myspace/spaces', component: SciSpacesComponent}
             ]
         },
         {
@@ -36,10 +37,10 @@ export default new Router({
             // which is lazy-loaded when the route is visited.
             component: () => import(/* webpackChunkName: "about" */ './views/About.vue'),
         },
-        {
-            path: '/sci_spaces',
-            name: 'sci_spaces',
-            component: SciSpacesComponent,
-        },
+        // {
+        //     path: '/sci_spaces',
+        //     name: 'sci_spaces',
+        //     component: SciSpacesComponent,
+        // },
     ],
 });

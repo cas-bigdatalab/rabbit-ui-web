@@ -8,15 +8,10 @@ export class EmrService{
         };
         return util.get(url, data);
     }
-    mock_getVMList(page: any){
-        let from = (page - 1) * 10;
-        let to = page * 10;
-        return vm_info.results.slice(from, to);
-    }
 }
 
 export  let emr_service=new EmrService();
-console.log("----------------------------------")
+
 export let instance_columns = [
     {
         title: '编号',

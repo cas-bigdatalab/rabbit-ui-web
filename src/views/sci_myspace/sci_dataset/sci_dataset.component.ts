@@ -81,7 +81,7 @@ export default class SciDatasetComponent extends Vue {
     totalnum: any = null;
     opendataset: any = [];
     datasetColumns = dataset_columns;
-    datasetInfos: any = [];
+    dataInfos: any = [];
     dataengines: any = [];
 
     drawer_style = {
@@ -98,14 +98,14 @@ export default class SciDatasetComponent extends Vue {
     mounted() {
         (<any>window).sci_dataset_context = this;
         this.vfg();
-        this.refreshtable();
+        this.refreshtable( );
         this.refreshDataEngnie();
     }
     vfg() {
         let url = '/space/datasets/';
         util.options(url).then((data) => {
             let vfgData = util.vfg_data(data, this.model, url);
-            console.log('dataset.component:'+ JSON.stringify(vfgData.gen_schema));
+            //console.log('dataset.component:'+ JSON.stringify(vfgData.gen_schema));
             this.gen_schema = vfgData.gen_schema;
             this.formOptions = vfgData.formOptions;
             // console.log('dataset.component:'+ JSON.stringify(this.formOptions));
@@ -130,12 +130,12 @@ export default class SciDatasetComponent extends Vue {
 
     refreshtable() {
         datasource_service.getDataByPage('/space/datasets/?page=', this.currentpage).then((data) => {
-                this.datasetInfos = (<any>data).data.results;
+                this.dataInfos = (<any>data).data.results;
                 this.totalnum = (<any>data).data.count;
                 console.log('<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<' + this.totalnum);
             },
             (reason) => {
-                console.log(this.datasetInfos, 'bbbbbbbbbbbbbbbb');
+                console.log(this.dataInfos, 'bbbbbbbbbbbbbbbb');
                 this.$Notice.open({
                     title: '通知',
                     desc: '数据访问失败',

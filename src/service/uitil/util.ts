@@ -30,17 +30,17 @@ class DataModel {
                     //     title: '通知',
                     //     desc: '数据源  <span style="font-weight: bold">' + '  </span>创建成功'
                     // });
-                    // alert('数据源创建成功');
-                    // datasource_service.getDataByPage(this.url + '/?page=', this.currentpage).then(
-                    //     (data) => {
-                    //         //console.log('//////////////////////////////////////////');
-                    //         //console.log(data);
-                    //         this.dataInfos = (<any>data).data.results;
-                    //         this.totalnum = (<any>data).data.count;
-                    //         for (let item of this.dataInfos) {
-                    //             item.size = '4';
-                    //         }
-                    //     });
+                    alert('数据源创建成功');
+                    datasource_service.getDataByPage(this.url + '/?page=', this.currentpage).then(
+                        (data) => {
+                            //console.log('//////////////////////////////////////////');
+                            //console.log(data);
+                            this.dataInfos = (<any>data).data.results;
+                            this.totalnum = (<any>data).data.count;
+                            for (let item of this.dataInfos) {
+                                item.size = '4';
+                            }
+                        });
                 }
             },
             (reason) => {
@@ -168,11 +168,23 @@ export default class Util extends Vue {
                     break;
                 case 'field':
                     if ('choices' in value) {
-                        gen_field.type = 'select';
-                        gen_field.values = [];
-                        for (let c of value.choices) {
-                            gen_field.values.push({'id': c.value, 'name': c.display_name});
+                        if (value.multiSelect) {
+                            gen_field.type = 'checklist';
+                            gen_field.values = [];
+                            gen_field.multiSelect = true;
+                            gen_field.multi = true;
+                            for (let c of value.choices) {
+                                gen_field.values.push({'value': c.value, 'name': c.display_name});
+                            }
+                            gen_field.validator = VueFormGenerator.validators.array;
+                        } else {
+                            gen_field.type = 'select';
+                            gen_field.values = [];
+                            for (let c of value.choices) {
+                                gen_field.values.push({'id': c.value, 'name': c.display_name});
+                            }
                         }
+
                     }
                     break;
                 case 'datetime':
@@ -206,6 +218,7 @@ export default class Util extends Vue {
             gen_schema.push(gen_field);
             // break;
         }
+
         //console.log(JSON.stringify(this.gen_schema));
         let dm = new DataModel(model, url);
         let submitButton = <any>{
@@ -218,6 +231,7 @@ export default class Util extends Vue {
         };
         gen_schema.push(submitButton);
         gen_schema = {'fields': gen_schema};
+        console.log(JSON.stringify(gen_schema));
         //console.log('+++++++++++++++++++++++++++++++________________________________+++++++++++++++++++++++++' + JSON.stringify(gen_schema));
         let vfg_data = {
             'gen_schema': gen_schema,
@@ -227,6 +241,7 @@ export default class Util extends Vue {
             }
         };
         //console.log('UTILS.vfg_data:returned' + JSON.stringify(vfg_data));
+        //console.log(JSON.stringify(gen_schema));
         return vfg_data;
     }
 }

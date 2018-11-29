@@ -1,9 +1,10 @@
 <Row class="sci-spaces" style="height: 100%">
+    <Col span="16" class="sci-spaces-left">
     <Row class="datasource-header">
         <Col>
         <span></span>
         <Divider type="vertical"/>
-        All SciSpaces
+        Spaces
         </Col>
 
     </Row>
@@ -15,14 +16,13 @@
     </div>
 
     <div>
-        <Modal v-model="show_dataset"    style="background: #191d21" width="80%">
+        <Modal v-model="show_dataset" style="background: #191d21" width="80%">
             <Row class="datasource-header">
                 <Col>
                 <span></span>
                 <Divider type="vertical"/>
                 数据集列表
                 </Col>
-
             </Row>
             <Table border :columns="datasetceColumns" :data="datasetInfos"></Table>
             <div style="margin: 10px;overflow: hidden">
@@ -33,12 +33,12 @@
         </Modal>
     </div>
     <div>
-        <Modal v-model="show_datasource"    style="background: #191d21" width="80%">
+        <Modal v-model="show_datasource" style="background: #191d21" width="80%">
             <Row class="datasource-header">
                 <Col>
                 <span></span>
                 <Divider type="vertical"/>
-                数据库列表
+                engines
                 </Col>
 
             </Row>
@@ -52,7 +52,7 @@
         </Modal>
     </div>
     <div>
-        <Modal v-model="show_status"   style="background: #191d21" width="80%">
+        <Modal v-model="show_status" style="background: #191d21" width="80%">
             <Row class="datasource-header">
                 <Col>
                 <span></span>
@@ -70,4 +70,16 @@
 
         </Modal>
     </div>
+    </col>
+    <Col span="8" class="operation-area">
+    <Row class="operation-header">
+        <Col>
+        <span></span>
+        <Divider type="vertical"/>
+        Operation
+        </Col>
+
+    </Row>
+    <vue-form-generator :schema="gen_schema" :model="model" :options="formOptions"></vue-form-generator>
+    </Col>
 </Row>

@@ -1,23 +1,24 @@
 import {util} from '../../uitil/util';
+
 export class DataSourceService {
 
-    getAllData(url:any) {
+    getAllData(url: any) {
         return util.get(url);
     }
 
     /**
      * 获取options请求返回的数据  用来实现动态分页
      */
-    getOpDatasource(){
+    getOpDatasource() {
         let url = '/space/datainstances/';
         return util.options(url);
     }
 
-    getMyAllData(url:any) {
+    getMyAllData(url: any) {
         return util.get(url);
     }
 
-    getDataByPage(url:any,page: any) {
+    getDataByPage(url: any, page: any) {
         url = url + page;
         let data = {
             page: page
@@ -25,11 +26,11 @@ export class DataSourceService {
         return util.get(url, data);
     }
 
-    getDataEngine(url:any) {
+    getDataEngine(url: any) {
         return util.get(url);
     }
 
-    getOpenSourceDataList(url:any) {
+    getOpenSourceDataList(url: any) {
         return util.get(url);
     }
 
@@ -57,7 +58,7 @@ export class DataSourceService {
         });
     }
 
-    operateDataSource(url:any,id: any) {
+    operateDataSource(url: any, id: any) {
         let data = {
             id: id
         };
@@ -78,8 +79,9 @@ export class DataSourceService {
     //     return util.get(url, data);
     // }
 
-    loadData(url:any,model:any) {
-        // console.log('--------------------------------------------------');
+    loadData(url: any, model: any) {
+        console.log('--------------------------------------------------');
+        console.log('Model:' + JSON.stringify(model) + 'url:' + url);
         let data;
         if (url == '/space/datasets/') {
             data = {
@@ -88,13 +90,20 @@ export class DataSourceService {
                 name: model.name,
                 uri: model.uri,
                 remark: model.remark,
-            }
-        }else if(url == '/space/datainstances/'){
+            };
+        } else if (url == '/space/datainstances/') {
             data = {
                 name: model.name,
                 engine: model.engine,
                 dataset: model.dataset,
                 space: model.space,
+            };
+        } else if (url == '/space/spaces/') {
+            data = {
+                blueprint: model.blueprint,
+                engines: model.engines,
+                name: model.name,
+                remedy_script:model.remedy_script,
             };
         }
         return util.post(url, data);
@@ -107,7 +116,7 @@ export class DataSourceService {
      * @param enginetype
      * @param dataset
      */
-    datasetloadDataSource(url:any,name: any, enginetype: any, dataset: any) {
+    datasetloadDataSource(url: any, name: any, enginetype: any, dataset: any) {
         let data = {
             name: name,
             engine: enginetype,
@@ -144,7 +153,7 @@ export let datasource_columns = [
         title: '数据集名称',
         key: 'dataset',
         tooltip: true,
-        render: (h:any, params:any) => {
+        render: (h: any, params: any) => {
             // let a = this;
             // let texts ;
             // if (params.row.size >= 1024) {
@@ -163,10 +172,10 @@ export let datasource_columns = [
         title: '引擎类型',
         key: 'engine',
         tooltip: true,
-        render: (h:any, params:any) => {
+        render: (h: any, params: any) => {
             return h('div', {
-                        props: {},
-                    }, params.row.engine.name);
+                props: {},
+            }, params.row.engine.name);
         }
     },
     {
@@ -193,7 +202,7 @@ export let datasource_columns = [
         key: 'status',
         tooltip: true,
         render: (h: any, params: any) => {
-            let states = ['无状态', '运行中', '阻塞中', '挂起中', '已停止', '奔溃中', '暂停中', '失联中',]
+            let states = ['无状态', '运行中', '阻塞中', '挂起中', '已停止', '奔溃中', '暂停中', '失联中',];
             return h('span', states[params.row.status]);
         }
     },
@@ -204,7 +213,7 @@ export let datasource_columns = [
         render: (h: any, params: any) => {
             let statebutton = '停止';
             if (params.row.state == 0) {
-                statebutton = "启动";
+                statebutton = '启动';
             } else {
                 statebutton = '停止';
             }
@@ -244,7 +253,7 @@ export let datasource_columns = [
                     on: {
                         click: () => {
                             (<any>window).sci_datasource_context.show_WebUI();
-                            (<any>window).sci_datasource_context.dialog_title = "数据引擎WebUI（" + params.row.enginetype + ")";
+                            (<any>window).sci_datasource_context.dialog_title = '数据引擎WebUI（' + params.row.enginetype + ')';
                             (<any>window).sci_datasource_context.selected_datasource = params.row;
                         },
                     }
@@ -277,7 +286,7 @@ export let datasource_columns = [
                     on: {
                         click: () => {
                             (<any>window).sci_datasource_context.show_SimbaUI();
-                            (<any>window).sci_datasource_context.dialog_title = "Simba分析（" + params.row.name + ")";
+                            (<any>window).sci_datasource_context.dialog_title = 'Simba分析（' + params.row.name + ')';
                             (<any>window).sci_datasource_context.selected_datasource = params.row;
                         },
                     }
