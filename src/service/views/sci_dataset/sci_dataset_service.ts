@@ -52,7 +52,7 @@ export class DatasetService {
         };
         return util.patch_url(dataset_url, data).then(function (data) {
             // this.dataset = (<any>data).body.results
-            console.log('///////////////////////////////////////////sharedataset');
+            //console.log('///////////////////////////////////////////sharedataset');
         }).catch(err => {
             console.log(err);
             alert(err);
@@ -62,7 +62,7 @@ export class DatasetService {
     deleteDataset(url: any) {
         return util.delete_url(url).then(function (data) {
             // this.dataset = (<any>data).body.results
-            console.log('///////////////////////////////////////////deletedataset');
+            //console.log('///////////////////////////////////////////deletedataset');
         }).catch(err => {
             console.log(err);
             alert(err);
@@ -142,7 +142,7 @@ export let dataset_columns = [
                             click: () => {
                                 (<any>window).show_import_dialog = true;
                                 (<any>window).sci_dataset_context.selected_dataset = params.row;
-                                console.log('-----------------' + params.row + '-----------');
+                               // console.log('-----------------' + params.row + '-----------');
                             },
                         },
                     }, 'Load'),

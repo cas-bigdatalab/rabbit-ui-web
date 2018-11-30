@@ -13,13 +13,13 @@ export default class SciHeaderComponent extends Vue {
     };
 
     mounted() {
-        header_service.getUserInfo(1).then(
-            (data: any) => {
-                this.user = data;
-            },
-            (reason) => {
-                console.log(reason)
-            });
+        // header_service.getUserInfo(1).then(
+        //     (data: any) => {
+        //         this.user = data;
+        //     },
+        //     (reason) => {
+        //         console.log(reason)
+        //     });
     }
     // changePage(page: any) {
     //     this.currentpage = page;

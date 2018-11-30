@@ -56,7 +56,7 @@ export default class SciSpacesComponent extends Vue {
 
     select_dataset: any = null;
     select_datasource: any = null;
-    gen_schema: any = [];
+    gen_schema: any = null;
     model: any = {};
     formOptions: any = {};
 
@@ -69,7 +69,7 @@ export default class SciSpacesComponent extends Vue {
 
     vfg() {
         let url = '/space/spaces/';
-        util.options(url).then((data)=>{
+        util.options(url).then((data) => {
             let vfgData = util.vfg_data(data, this.model, url);
             //console.log('dataset.component:'+ JSON.stringify(vfgData.gen_schema));
             this.gen_schema = vfgData.gen_schema;
@@ -105,37 +105,38 @@ export default class SciSpacesComponent extends Vue {
                 console.log('///////////////////////////////获取spacelist成功');
 
                 //获取用户名
-                for (let item of this.spaceInfos) {
-                    console.log(item);
-                    if (item.owner != null) {
-                        util.dir_get(item.owner).then((owner) => {
-                            console.log('///////////////////////////////获取用户名成功');
-                            let index = 0;
-                            for (let item2 of this.spaceInfos) {
-                                if (item2.owner == (<any>owner).data.url) {
-                                    item2.username = (<any>owner).data.username;
-                                    Vue.set(this.spaceInfos, index, item2);
-                                }
-                                index++;
-                            }
-                        }, (reason) => {
-                            console.log('/////////////////////////////////获取用户名失败');
-                            console.log(reason);
-                        });
-                    }
-
-                }
-
-
+                // for (let item of this.spaceInfos) {
+                //     //console.log(item);
+                //     if (item.owner != null) {
+                //         util.dir_get(item.owner).then((owner) => {
+                //       //      console.log('///////////////////////////////获取用户名成功');
+                //             let index = 0;
+                //             for (let item2 of this.spaceInfos) {
+                //                 if (item2.owner == (<any>owner).data.url) {
+                //                     item2.username = (<any>owner).data.username;
+                //                     Vue.set(this.spaceInfos, index, item2);
+                //                 }
+                //                 index++;
+                //             }
+                //         }, (reason) => {
+                //           //  console.log('/////////////////////////////////获取用户名失败');
+                //             console.log(reason);
+                //         });
+                //     }
+                //
+                // }
                 datasource_service.getAllData('/space/datasets/').then((data) => {
-                    this.alldatasets = (<any>data).body.results;
+                    this.alldatasets = (<any>data).data.results;
+                    //console.log('<><><><><><><><><><><><><><>' + this.alldatasets);
                     let index = 0;
                     for (let item of this.spaceInfos) {
                         let num = 0;
+                        //console.log('___________________' + JSON.stringify(item));
                         for (let item2 of this.alldatasets) {
-                            if (item2.owner == item.owner) {
+                            if (item2.owner === item.owner) {
                                 num++;
                             }
+                           // console.log('+++++++++++++++++++++++++++++++++' + JSON.stringify(item2));
                         }
                         item.datasetsnum = num;
                         Vue.set(this.spaceInfos, index, item);
@@ -145,7 +146,7 @@ export default class SciSpacesComponent extends Vue {
 
 
                 datasource_service.getAllData('/space/datainstances/').then((data) => {
-                    this.alldatasource = (<any>data).body.results;
+                    this.alldatasource = (<any>data).data.results;
                     let index = 0;
                     for (let item of this.spaceInfos) {
                         let num = 0;
@@ -161,9 +162,9 @@ export default class SciSpacesComponent extends Vue {
                 });
             },
             (reason) => {
-                console.log('///////////////////////////////获取spacelist失败');
+                //console.log('///////////////////////////////获取spacelist失败');
                 console.log(reason);
-                this.spaceInfos = space_service.mock_getSpaceList(this.currentpage);
+                //this.spaceInfos = space_service.mock_getSpaceList(this.currentpage);
                 this.totalnum = space_infos.totalnum;
             });
     }
@@ -190,7 +191,7 @@ export default class SciSpacesComponent extends Vue {
                 this.statusInfos = data;
             },
             (reason) => {
-               // this.statusInfos = space_service.mock_getSapceStatus(this.currentpage);
+                // this.statusInfos = space_service.mock_getSapceStatus(this.currentpage);
                 this.totalnum_status = status_infos.totalnum;
             });
     }

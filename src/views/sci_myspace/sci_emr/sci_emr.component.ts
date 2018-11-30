@@ -55,7 +55,7 @@ export default class SciEmrComponent extends Vue {
 
             },
             (reason) => {
-                console.log(this.instanceInfos, 'bbbbbbbbbbbbbbbb');
+               // console.log(this.instanceInfos, 'bbbbbbbbbbbbbbbb');
                 this.$Notice.open({
                     title: '通知',
                     desc: '数据访问失败',

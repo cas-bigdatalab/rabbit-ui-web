@@ -24,7 +24,7 @@ class DataModel {
     post() {
         datasource_service.loadData(this.url, this.model).then((data) => {
                 console.log('//////////////////////////////////创建数据源成功');
-                console.log(data);
+                //console.log(data);
                 if (data.status == 201) {
                     // this.$Notice.open({
                     //     title: '通知',
@@ -231,7 +231,7 @@ export default class Util extends Vue {
         };
         gen_schema.push(submitButton);
         gen_schema = {'fields': gen_schema};
-        console.log(JSON.stringify(gen_schema));
+        //console.log(JSON.stringify(gen_schema));
         //console.log('+++++++++++++++++++++++++++++++________________________________+++++++++++++++++++++++++' + JSON.stringify(gen_schema));
         let vfg_data = {
             'gen_schema': gen_schema,

@@ -41,7 +41,7 @@ export class DataSourceService {
         };
         return util.patch_url(dataset_url, data).then(function (data) {
             // this.dataset = (<any>data).body.results
-            console.log('///////////////////////////////////////////sharedataset');
+            //console.log('///////////////////////////////////////////sharedataset');
         }).catch(err => {
             console.log(err);
             alert(err);
@@ -51,7 +51,7 @@ export class DataSourceService {
     deleteDataset(url: any) {
         return util.delete_url(url).then(function (data) {
             // this.dataset = (<any>data).body.results
-            console.log('///////////////////////////////////////////deletedataset');
+            //console.log('///////////////////////////////////////////deletedataset');
         }).catch(err => {
             console.log(err);
             alert(err);
@@ -157,7 +157,7 @@ export class DataSourceService {
     deleteDataSource(url: any) {
         return util.delete_url(url).then(function (data) {
             // this.datasource = (<any>data).body.results
-            console.log('///////////////////////////////////////////deletedatasource');
+           // console.log('///////////////////////////////////////////deletedatasource');
         }).catch(err => {
             console.log(err);
             alert(err);

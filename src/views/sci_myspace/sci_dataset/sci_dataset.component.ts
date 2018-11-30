@@ -8,57 +8,6 @@ import {datasource_info, datasource_service} from '../../../service/views/sci_da
 import VueFormGenerator from 'vue-form-generator';
 import {util} from '@/service/uitil/util';
 
-class NewDataSet {
-    datasetModel: string;
-
-    constructor(message: string) {
-        this.datasetModel = message;
-    }
-
-    currentpage = 1;
-    datasetInfos: any = [];
-    totalnum = 2;
-    opendataset: any = [];
-
-    mounted() {
-        (<any>window).sci_dataset_context = this;
-        this.newDataset();
-    }
-
-    newDataset() {
-        datasource_service.loadData('/space/datasets/', this.datasetModel).then((data) => {
-                //console.log('//////////////////////////////////');
-                //console.log(data);
-                if (data.status == 201) {
-                    datasource_service.getDataByPage('/space/datasets/?page=', this.currentpage).then(
-                        (data) => {
-                            //console.log('//////////////////////////////////////////');
-                            //console.log(data);
-                            this.datasetInfos = (<any>data).data.results;
-                            this.totalnum = (<any>data).data.count;
-                            //console.log('////////////////////////' + this.totalnum);
-                        });
-                    alert('数据集创建成功');
-                } else {
-                    alert('数据集创建失败');
-                }
-            },
-            (reason) => {
-                console.log('//////////////////////////////////创建数据源错误');
-                console.log(reason);
-            });
-
-        datasource_service.getOpenSourceDataList('/space/datasets/?public=true').then((data) => {
-                if (data.status == 201) {
-                    this.opendataset = (<any> data).data.results;
-                }
-                console.log(data);
-            },
-            (reason) => {
-            });
-    }
-}
-
 @Component({})
 export default class SciDatasetComponent extends Vue {
 
@@ -111,6 +60,7 @@ export default class SciDatasetComponent extends Vue {
             this.formOptions = vfgData.formOptions;
             // console.log('dataset.component:'+ JSON.stringify(this.formOptions));
         });
+        this.refreshtable();
     }
 
     changePage(page: any) {
@@ -120,8 +70,8 @@ export default class SciDatasetComponent extends Vue {
 
     refreshDataEngnie() {
         datasource_service.getDataEngine('/space/dataengines/').then((data) => {
-                console.log('/////////////////////////////dataengines' + '///////////////////dataset');
-                console.log(data);
+                //console.log('/////////////////////////////dataengines' + '///////////////////dataset');
+               // console.log(data);
                 this.dataengines = (<any> data).data.results;
             },
             (reason) => {
@@ -133,10 +83,10 @@ export default class SciDatasetComponent extends Vue {
         datasource_service.getDataByPage('/space/datasets/?page=', this.currentpage).then((data) => {
                 this.dataInfos = (<any> data).data.results;
                 this.totalnum = (<any> data).data.count;
-                console.log('<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<' + this.totalnum);
+                //console.log('<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<' + this.totalnum);
             },
             (reason) => {
-                console.log(this.dataInfos, 'bbbbbbbbbbbbbbbb');
+                //console.log(this.dataInfos, 'bbbbbbbbbbbbbbbb');
                 this.$Notice.open({
                     title: '通知',
                     desc: '数据访问失败',
@@ -147,7 +97,7 @@ export default class SciDatasetComponent extends Vue {
                 if (data.status == 201) {
                     this.opendataset = (<any> data).data.results;
                 }
-                console.log(data);
+                //console.log(data);
             },
             (reason) => {
 
@@ -173,8 +123,8 @@ export default class SciDatasetComponent extends Vue {
      */
     loadDataSetToDataSource() {
         datasource_service.datasetloadDataSource('/space/datainstances/', this.input_datasourcename, this.selected_enginetype, this.selected_dataset.url).then((data: any) => {
-            console.log('/////////////////////////测试数据源导入');
-            console.log(data);
+            //console.log('/////////////////////////测试数据源导入');
+           // console.log(data);
             if (data.status == 201) {
                 this.$Notice.open({
                     title: '通知',
