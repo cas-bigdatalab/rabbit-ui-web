@@ -80,8 +80,8 @@ export class DataSourceService {
     // }
 
     loadData(url: any, model: any) {
-        console.log('--------------------------------------------------');
-        console.log('Model:' + JSON.stringify(model) + 'url:' + url);
+        //console.log('--------------------------------------------------');
+        //console.log('Model:' + JSON.stringify(model) + 'url:' + url);
         let data;
         if (url == '/space/datasets/') {
             data = {
@@ -90,6 +90,11 @@ export class DataSourceService {
                 name: model.name,
                 uri: model.uri,
                 remark: model.remark,
+                size:model.size,
+                enabled:model.enabled,
+                remedy_script:model.remedy_script,
+                public:model.public,
+                source:model.source,
             };
         } else if (url == '/space/datainstances/') {
             data = {
@@ -97,6 +102,13 @@ export class DataSourceService {
                 engine: model.engine,
                 dataset: model.dataset,
                 space: model.space,
+                remedy_script:model.remedy_script,
+                uri:model.uri,
+                enabled:model.enabled,
+                remark:model.remark,
+                status:model.status,
+                monitoring:model.monitoring,
+
             };
         } else if (url == '/space/spaces/') {
             data = {
@@ -104,10 +116,22 @@ export class DataSourceService {
                 engines: model.engines,
                 name: model.name,
                 remedy_script: model.remedy_script,
+                enabled:model.enabled,
+                remark:model.remark,
+
             };
         } else if (url == '/cloud_adaptor/instances/') {
             data = {
-
+                image: model.image,
+                cluster:model.cluster,
+                hostname:model.hostname,
+                remedy_script_todo:model.remedy_script_todo,
+                monitoring:model.monitoring,
+                enabled:model.enabled,
+                remark:model.remark,
+                status:model.status,
+                location:model.location,
+                template:model.template,
             };
         }
         return util.post(url, data);
@@ -206,18 +230,18 @@ export let datasource_columns = [
         key: 'status',
         tooltip: true,
         render: (h: any, params: any) => {
-            let states = ['无Status', '运行中', '阻塞中', '挂起中', '已停止', '奔溃中', '暂停中', '失联中',];
+            let states = ['No Status', 'Running', 'Blocking', 'Suspended', 'stopped', 'In The Collapse', 'Time Out', 'Loss Of Association',];
             return h('span', states[params.row.status]);
         }
     },
     {
         title: 'Operate',
         key: 'operation',
-        width: 160,
+        width: 180,
         render: (h: any, params: any) => {
             let statebutton = 'Stop';
             if (params.row.state == 0) {
-                statebutton = '启动';
+                statebutton = 'Start Up';
             } else {
                 statebutton = 'Stop';
             }
@@ -290,7 +314,7 @@ export let datasource_columns = [
                     on: {
                         click: () => {
                             (<any>window).sci_datasource_context.show_SimbaUI();
-                            (<any>window).sci_datasource_context.dialog_title = 'Simba分析（' + params.row.name + ')';
+                            (<any>window).sci_datasource_context.dialog_title = 'Simba Analysis（' + params.row.name + ')';
                             (<any>window).sci_datasource_context.selected_datasource = params.row;
                         },
                     }
