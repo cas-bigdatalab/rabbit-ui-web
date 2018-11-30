@@ -50,7 +50,7 @@ class NewDataSet {
 
         datasource_service.getOpenSourceDataList('/space/datasets/?public=true').then((data) => {
                 if (data.status == 201) {
-                    this.opendataset = (<any>data).data.results;
+                    this.opendataset = (<any> data).data.results;
                 }
                 console.log(data);
             },
@@ -96,11 +96,12 @@ export default class SciDatasetComponent extends Vue {
     formOptions: any = {};
 
     mounted() {
-        (<any>window).sci_dataset_context = this;
+        (<any> window).sci_dataset_context = this;
         this.vfg();
-        this.refreshtable( );
+        this.refreshtable();
         this.refreshDataEngnie();
     }
+
     vfg() {
         let url = '/space/datasets/';
         util.options(url).then((data) => {
@@ -121,7 +122,7 @@ export default class SciDatasetComponent extends Vue {
         datasource_service.getDataEngine('/space/dataengines/').then((data) => {
                 console.log('/////////////////////////////dataengines' + '///////////////////dataset');
                 console.log(data);
-                this.dataengines = (<any>data).data.results;
+                this.dataengines = (<any> data).data.results;
             },
             (reason) => {
 
@@ -130,8 +131,8 @@ export default class SciDatasetComponent extends Vue {
 
     refreshtable() {
         datasource_service.getDataByPage('/space/datasets/?page=', this.currentpage).then((data) => {
-                this.dataInfos = (<any>data).data.results;
-                this.totalnum = (<any>data).data.count;
+                this.dataInfos = (<any> data).data.results;
+                this.totalnum = (<any> data).data.count;
                 console.log('<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<' + this.totalnum);
             },
             (reason) => {
@@ -144,7 +145,7 @@ export default class SciDatasetComponent extends Vue {
 
         datasource_service.getOpenSourceDataList('/space/datasets/?public=true').then((data) => {
                 if (data.status == 201) {
-                    this.opendataset = (<any>data).data.results;
+                    this.opendataset = (<any> data).data.results;
                 }
                 console.log(data);
             },

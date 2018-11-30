@@ -9,9 +9,9 @@ import SciMenuComponent from '@/components/sci_menu/sci_menu.component';
 })
 export default class SciMyspaceComponent extends Vue {
 
-  mounted (){
-    console.log('hello from app');
-  }
+    mounted() {
+        console.log('hello from app');
+    }
 
 }
 

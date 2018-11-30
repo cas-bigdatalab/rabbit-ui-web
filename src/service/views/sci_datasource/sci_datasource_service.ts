@@ -21,7 +21,7 @@ export class DataSourceService {
     getDataByPage(url: any, page: any) {
         url = url + page;
         let data = {
-            page: page
+            page: page,
         };
         return util.get(url, data);
     }
@@ -83,55 +83,55 @@ export class DataSourceService {
         //console.log('--------------------------------------------------');
         //console.log('Model:' + JSON.stringify(model) + 'url:' + url);
         let data;
-        if (url == '/space/datasets/') {
+        if (url === '/space/datasets/') {
             data = {
                 type: model.type,
                 description: model.description,
                 name: model.name,
                 uri: model.uri,
                 remark: model.remark,
-                size:model.size,
-                enabled:model.enabled,
-                remedy_script:model.remedy_script,
-                public:model.public,
-                source:model.source,
+                size: model.size,
+                enabled: model.enabled,
+                remedy_script: model.remedy_script,
+                public: model.public,
+                source: model.source,
             };
-        } else if (url == '/space/datainstances/') {
+        } else if (url === '/space/datainstances/') {
             data = {
                 name: model.name,
                 engine: model.engine,
                 dataset: model.dataset,
                 space: model.space,
-                remedy_script:model.remedy_script,
-                uri:model.uri,
-                enabled:model.enabled,
-                remark:model.remark,
-                status:model.status,
-                monitoring:model.monitoring,
+                remedy_script: model.remedy_script,
+                uri: model.uri,
+                enabled: model.enabled,
+                remark: model.remark,
+                status: model.status,
+                monitoring: model.monitoring,
 
             };
-        } else if (url == '/space/spaces/') {
+        } else if (url === '/space/spaces/') {
             data = {
                 blueprint: model.blueprint,
                 engines: model.engines,
                 name: model.name,
                 remedy_script: model.remedy_script,
-                enabled:model.enabled,
-                remark:model.remark,
+                enabled: model.enabled,
+                remark: model.remark,
 
             };
-        } else if (url == '/cloud_adaptor/instances/') {
+        } else if (url === '/cloud_adaptor/instances/') {
             data = {
                 image: model.image,
-                cluster:model.cluster,
-                hostname:model.hostname,
-                remedy_script_todo:model.remedy_script_todo,
-                monitoring:model.monitoring,
-                enabled:model.enabled,
-                remark:model.remark,
-                status:model.status,
-                location:model.location,
-                template:model.template,
+                cluster: model.cluster,
+                hostname: model.hostname,
+                remedy_script_todo: model.remedy_script_todo,
+                monitoring: model.monitoring,
+                enabled: model.enabled,
+                remark: model.remark,
+                status: model.status,
+                location: model.location,
+                template: model.template,
             };
         }
         return util.post(url, data);
@@ -149,7 +149,7 @@ export class DataSourceService {
             name: name,
             engine: enginetype,
             dataset: dataset,
-            space: 'http://10.0.88.2:800/api/space/spaces/29/'
+            space: 'http://10.0.88.2:800/api/space/spaces/29/',
         };
         return util.post(url, data);
     }
@@ -175,7 +175,7 @@ export let datasource_columns = [
     {
         title: 'name',
         key: 'name',
-        tooltip: true
+        tooltip: true,
     },
     {
         title: 'Dataset',
@@ -204,7 +204,7 @@ export let datasource_columns = [
             return h('div', {
                 props: {},
             }, params.row.engine.name);
-        }
+        },
     },
     {
         title: 'Size',
@@ -230,9 +230,9 @@ export let datasource_columns = [
         key: 'status',
         tooltip: true,
         render: (h: any, params: any) => {
-            let states = ['No Status', 'Running', 'Blocking', 'Suspended', 'stopped', 'In The Collapse', 'Time Out', 'Loss Of Association',];
+            const states = ['No Status', 'Running', 'Blocking', 'Hanging', 'stopped', 'In The Collapse', 'Suspended', 'Loss Of Association',];
             return h('span', states[params.row.status]);
-        }
+        },
     },
     {
         title: 'Operate',
@@ -240,7 +240,7 @@ export let datasource_columns = [
         width: 180,
         render: (h: any, params: any) => {
             let statebutton = 'Stop';
-            if (params.row.state == 0) {
+            if (params.row.state === 0) {
                 statebutton = 'Start Up';
             } else {
                 statebutton = 'Stop';
@@ -251,28 +251,28 @@ export let datasource_columns = [
                     props: {
                         type: 'primary',
                         size: 'small',
-                        ghost: true
+                        ghost: true,
                     },
                     style: {
                         'margin-top': '5px',
                         'margin-bottom': '5px',
-                        'margin-right': '5px'
+                        'margin-right': '5px',
                     },
                     on: {
                         click: () => {
-                            if (params.row.state == 0) {
-                                (<any>window).sci_datasource_context.start_DataSource(params.row.id);
+                            if (params.row.state === 0) {
+                                (<any> window).sci_datasource_context.start_DataSource(params.row.id);
                             } else {
-                                (<any>window).sci_datasource_context.stop_DataSource(params.row.id);
+                                (<any> window).sci_datasource_context.stop_DataSource(params.row.id);
                             }
                         },
-                    }
+                    },
                 }, statebutton),
                 h('Button', {
                     props: {
                         type: 'success',
                         size: 'small',
-                        ghost: true
+                        ghost: true,
                     },
                     style: {
                         'margin-top': '5px',
@@ -280,11 +280,11 @@ export let datasource_columns = [
                     },
                     on: {
                         click: () => {
-                            (<any>window).sci_datasource_context.show_WebUI();
-                            (<any>window).sci_datasource_context.dialog_title = '数据引擎WebUI（' + params.row.enginetype + ')';
-                            (<any>window).sci_datasource_context.selected_datasource = params.row;
+                            (<any> window).sci_datasource_context.show_WebUI();
+                            (<any> window).sci_datasource_context.dialog_title = '数据引擎WebUI（' + params.row.enginetype + ')';
+                            (<any> window).sci_datasource_context.selected_datasource = params.row;
                         },
-                    }
+                    },
                 }, 'WebUI'),
                 h('Button', {
                     props: {
@@ -294,13 +294,13 @@ export let datasource_columns = [
                     style: {
                         'margin-top': '5px',
                         'margin-bottom': '5px',
-                        'margin-right': '5px'
+                        'margin-right': '5px',
                     },
                     on: {
                         click: () => {
-                            (<any>window).sci_datasource_context.delete_DataSource(params.row);
+                            (<any> window).sci_datasource_context.delete_DataSource(params.row);
                         },
-                    }
+                    },
                 }, 'Delete'),
                 h('Button', {
                     props: {
@@ -313,16 +313,16 @@ export let datasource_columns = [
                     },
                     on: {
                         click: () => {
-                            (<any>window).sci_datasource_context.show_SimbaUI();
-                            (<any>window).sci_datasource_context.dialog_title = 'Simba Analysis（' + params.row.name + ')';
-                            (<any>window).sci_datasource_context.selected_datasource = params.row;
+                            (<any> window).sci_datasource_context.show_SimbaUI();
+                            (<any> window).sci_datasource_context.dialog_title = 'Simba Analysis（' + params.row.name + ')';
+                            (<any> window).sci_datasource_context.selected_datasource = params.row;
                         },
-                    }
-                }, 'Simba Query')
+                    },
+                }, 'Simba Query'),
             ]);
 
-        }
-    }
+        },
+    },
 ];
 export let datasource_info = {
     datasource: [
@@ -344,9 +344,9 @@ export let datasource_info = {
             size: '1G',
             state: 0,
             operation: 1,
-        }
+        },
     ],
-    totalnum: 2
+    totalnum: 2,
 };
 
 export let my_all_dataset = [

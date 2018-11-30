@@ -28,14 +28,14 @@ export default class SciEmrComponent extends Vue {
 
     mounted() {
         console.log('hello from app');
-        (<any>window).sci_datasource_context = this;
+        (<any> window).sci_datasource_context = this;
         this.refreshtable();
         this.vfg();
     }
 
     vfg() {
         let url = '/cloud_adaptor/instances/';
-        util.options(url).then((data)=>{
+        util.options(url).then((data) => {
             let vfgData = util.vfg_data(data, this.model, url);
             //console.log('dataset.component:'+ JSON.stringify(vfgData.gen_schema));
             this.gen_schema = vfgData.gen_schema;
@@ -45,20 +45,20 @@ export default class SciEmrComponent extends Vue {
 
     changePage(pagenum: any) {
         this.currentpage = pagenum;
-        this.refreshtable()
+        this.refreshtable();
     }
 
     refreshtable() {
         space_service.getInstanceByPage(this.currentpage).then((data) => {
-                this.instanceInfos = (<any>data).data.results;
-                this.totalnum = (<any>data).data.count;
+                this.instanceInfos = (<any> data).data.results;
+                this.totalnum = (<any> data).data.count;
 
             },
             (reason) => {
-                console.log(this.instanceInfos, "bbbbbbbbbbbbbbbb");
+                console.log(this.instanceInfos, 'bbbbbbbbbbbbbbbb');
                 this.$Notice.open({
                     title: '通知',
-                    desc: '数据访问失败'
+                    desc: '数据访问失败',
                 });
             });
     }

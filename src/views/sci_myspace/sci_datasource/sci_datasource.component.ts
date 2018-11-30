@@ -7,11 +7,13 @@ import {
 } from '../../../service/views/sci_datasource/sci_datasource_service';
 import {util} from '@/service/uitil/util';
 
-class NewDataSource{
+class NewDataSource {
     datasourceModel: string;
+
     constructor(message: string) {
         this.datasourceModel = message;
     }
+
     currentpage = 1;
     dataInfos: any = [];
     totalnum = 2;
@@ -22,7 +24,7 @@ class NewDataSource{
     }
 
     newDatasource() {
-        datasource_service.loadData('/space/datainstances/',this.datasourceModel).then((data) => {
+        datasource_service.loadData('/space/datainstances/', this.datasourceModel).then((data) => {
                 console.log('//////////////////////////////////创建数据源成功');
                 console.log(data);
                 if (data.status == 201) {
@@ -30,7 +32,7 @@ class NewDataSource{
                     //     title: '通知',
                     //     desc: '数据源  <span style="font-weight: bold">' + '  </span>创建成功'
                     // });
-                    alert('数据源创建成功')
+                    alert('数据源创建成功');
                 }
             },
             (reason) => {
@@ -38,7 +40,7 @@ class NewDataSource{
                 console.log(reason);
             });
 
-        datasource_service.getDataByPage('/space/datainstances/?page=',this.currentpage).then(
+        datasource_service.getDataByPage('/space/datainstances/?page=', this.currentpage).then(
             (data) => {
                 //console.log('//////////////////////////////////////////');
                 //console.log(data);
@@ -47,7 +49,7 @@ class NewDataSource{
                 for (let item of this.dataInfos) {
                     item.size = '4';
                 }
-                });
+            });
     }
 }
 
@@ -88,7 +90,7 @@ export default class SciDatasourceComponent extends Vue {
         let url = '/space/datainstances/';
 
         util.options(url).then((data) => {
-            let vfg_data = util.vfg_data(data,this.model,url);
+            let vfg_data = util.vfg_data(data, this.model, url);
             //console.log(JSON.stringify(data) + 'VVVVVVVVVVVVVVVVVwwwwwwwwwwwwwwMMMMMMMMMMMMM');
             this.gen_schema = vfg_data.gen_schema;
             this.formOptions = vfg_data.formOptions;
@@ -113,12 +115,12 @@ export default class SciDatasourceComponent extends Vue {
     }
 
     start_DataSource(id: any) {
-        datasource_service.operateDataSource('/dataset/startdatasource',id).then();
+        datasource_service.operateDataSource('/dataset/startdatasource', id).then();
         this.refreshtable();
     }
 
     stop_DataSource(id: any) {
-        datasource_service.operateDataSource('/dataset/stopdatasource',id).then();
+        datasource_service.operateDataSource('/dataset/stopdatasource', id).then();
         this.refreshtable();
     }
 
@@ -130,13 +132,13 @@ export default class SciDatasourceComponent extends Vue {
     }
 
     load_DataSource() {
-        datasource_service.loadData('/space/datainstances/',this.model).then((data) => {
+        datasource_service.loadData('/space/datainstances/', this.model).then((data) => {
                 console.log('//////////////////////////////////创建数据源成功');
                 console.log(data);
                 if (data.status == 201) {
                     this.$Notice.open({
                         title: '通知',
-                        desc: '数据源  <span style="font-weight: bold">' + this.input_datasourcename + '  </span>创建成功'
+                        desc: '数据源  <span style="font-weight: bold">' + this.input_datasourcename + '  </span>创建成功',
                     });
                     this.refreshtable();
                 }
@@ -160,12 +162,12 @@ export default class SciDatasourceComponent extends Vue {
     }
 
     refreshtable() {
-        datasource_service.getDataByPage('/space/datainstances/?page=',this.currentpage).then(
+        datasource_service.getDataByPage('/space/datainstances/?page=', this.currentpage).then(
             (data) => {
                 //console.log('//////////////////////////////////////////');
                 //console.log(data);
-                this.dataInfos = (<any>data).data.results;
-                this.totalnum = (<any>data).data.count;
+                this.dataInfos = (<any> data).data.results;
+                this.totalnum = (<any> data).data.count;
                 console.log(this.totalnum);
                 for (let item of this.dataInfos) {
                     item.size = '4';
@@ -175,7 +177,7 @@ export default class SciDatasourceComponent extends Vue {
                 console.log(this.dataInfos, 'bbbbbbbbbbbbbbbb');
                 this.$Notice.open({
                     title: '通知',
-                    desc: '数据访问失败'
+                    desc: '数据访问失败',
                 });
             });
         datasource_service.getMyAllData('/space/datasets/').then(

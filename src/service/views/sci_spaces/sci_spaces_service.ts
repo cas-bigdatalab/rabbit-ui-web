@@ -4,28 +4,24 @@ export class SpaceService {
     getInstanceByPage(page: any) {
         let url = '/cloud_adaptor/instances/?page=' + page;
         let data = {
-            page: page
-        };
-        return util.get(url, data);
-    }
-    getSpaceList(page: any) {
-        let url = '/space/spaces/';
-        let data = {
-            page: page
+            page: page,
         };
         return util.get(url, data);
     }
 
-    mock_getSpaceList(page: any) {
-        let from = (page - 1) * 5;
-        let to = page * 5;
-        return space_infos.spaces.slice(from, to);
+    getSpaceList(page: any) {
+        let url = '/space/spaces/';
+        let data = {
+            page: page,
+        };
+        return util.get(url, data);
     }
+
 
     getSapceStatus(id: any) {
         let url = '/space/spacelist';
         let data = {
-            page: id
+            page: id,
         };
         return util.get(url, data);
     }
@@ -45,7 +41,7 @@ export let space_columns = [
     },
     {
         title: 'user',
-        key: 'owner'
+        key: 'owner',
     },
     // {
     //     title: '数据集',
@@ -66,7 +62,7 @@ export let space_columns = [
             return h('a', {
                 on: {
                     click: () => {
-                        (<any>window).sci_spaces_context.showDataSource(params.row);
+                        (<any> window).sci_spaces_context.showDataSource(params.row);
                     },
                 }
             }, params.row.engines.length);
@@ -77,14 +73,14 @@ export let space_columns = [
         tooltip: true,
         render: (h: any, params: any) => {
             return h('span', 'Running');
-        }
+        },
     },
     {
         title: 'notebook',
         tooltip: true,
         render: (h: any, params: any) => {
             return h('span', 'Running');
-        }
+        },
     },
     {
         title: 'status',
@@ -93,11 +89,11 @@ export let space_columns = [
             return h('a', {
                 on: {
                     click: () => {
-                        (<any>window).sci_spaces_context.showStatus(params);
+                        (<any> window).sci_spaces_context.showStatus(params);
                     },
-                }
+                },
             }, 'Detail');
-        }
+        },
     },
 
 ];
@@ -165,7 +161,7 @@ export let space_infos = {
         //     status: 1,
         //     userid: 1
         // },
-    ]
+    ],
 };
 
 
