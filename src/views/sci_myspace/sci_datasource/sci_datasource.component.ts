@@ -74,7 +74,7 @@ export default class SciDatasourceComponent extends Vue {
     dataInfos: any = [];
     schema: any = [];
     gen_schema: any = [];
-    gen_a_schema: any = [];
+    gen_a_schema: any = null;
     model: any = {};
     formOptions: any = {};
 

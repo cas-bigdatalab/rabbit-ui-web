@@ -22,7 +22,7 @@ export default class SciEmrComponent extends Vue {
     instanceColumns = instance_columns;
     instanceInfos: any = [];
 
-    gen_schema: any = [];
+    gen_schema: any = null;
     model: any = {};
     formOptions: any = {};
 

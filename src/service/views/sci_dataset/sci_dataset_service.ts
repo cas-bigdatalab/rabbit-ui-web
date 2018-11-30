@@ -124,7 +124,7 @@ export let dataset_columns = [
     {
         title: 'Operate',
         key: 'operation',
-        width: 170,
+        width: 200,
         render: (h: any, params: any) => {
             if (params.row.operation === 1) {
                 return h('div', [
@@ -135,7 +135,7 @@ export let dataset_columns = [
                             ghost: true,
                         },
                         style: {
-                            'margin-right': '10px',
+                            'margin-right': '8px',
 
                         },
                         on: {

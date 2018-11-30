@@ -91,7 +91,7 @@ export default class SciDatasetComponent extends Vue {
         position: 'static'
     };
     schema: any = [];
-    gen_schema: any = [];
+    gen_schema: any = null;
     model: any = {};
     formOptions: any = {};
 
