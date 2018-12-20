@@ -1,36 +1,41 @@
 <Menu active-name="1" class="sci_menu" width="auto">
-    <MenuItem name="1">
+    <MenuItem name="1" to="/myspace/dashboard">
+        <Icon type="ios-keypad"></Icon>
+        Dashboard
+        <Icon type="ios-arrow-forward" style="float: right"/>
+    </MenuItem>
+    <MenuItem name="2">
         <Icon type="ios-keypad"></Icon>
         Datasource
         <Icon type="ios-arrow-forward" style="float: right"/>
     </MenuItem>
-    <MenuItem name="2" to="/myspace/dataset">
+    <MenuItem name="3" to="/myspace/dataset">
         <Icon type="ios-navigate"></Icon>
         Dataset
         <Icon type="ios-arrow-forward" style="float: right"/>
     </MenuItem>
-    <MenuItem name="3" to="/myspace/datasource">
+    <MenuItem name="4" to="/myspace/datasource">
         <Icon type="ios-keypad"></Icon>
         Data Instance
         <Icon type="ios-arrow-forward" style="float: right"/>
     </MenuItem>
 
-    <Submenu name="4">
+    <Submenu name="5">
         <template slot="title">
             <Icon type="ios-analytics"></Icon>
             Analysis
         </template>
-        <MenuItem name="4-1" to="/myspace/piflow">Pipeline</MenuItem>
-        <MenuItem name="4-2" to="/myspace/notebook">Notebook</MenuItem>
+        <MenuItem name="5-1" to="/myspace/piflow">Pipeline</MenuItem>
+        <MenuItem name="5-2" to="/myspace/notebook">Notebook</MenuItem>
     </Submenu>
-    <Submenu name="5">
+    <Submenu name="6">
         <template slot="title">
             <Icon type="ios-analytics"></Icon>
             Setting
         </template>
-        <MenuItem name="5-1" to="/myspace/spaces">Space</MenuItem>
-        <MenuItem name="5-2" to="/myspace/ambari">Packone</MenuItem>
-        <MenuItem name="5-3" to="/myspace/emr">Cluster</MenuItem>
+        <MenuItem name="6-1" to="/myspace/spaces">Space</MenuItem>
+        <MenuItem name="6-2" to="/myspace/ambari">Packone</MenuItem>
+        <MenuItem name="6-3" to="/myspace/emr">Cluster</MenuItem>
 
     </Submenu>
 </Menu>

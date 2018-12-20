@@ -1,5 +1,6 @@
 import Vue from 'vue';
 import Router from 'vue-router';
+import DashboardComponent from '@/views/sci_myspace/sci_dashboard/sci_dashboard.component';
 import SciDatasetComponent from '@/views/sci_myspace/sci_dataset/sci_dataset.component';
 import SciDatasourceComponent from '@/views/sci_myspace/sci_datasource/sci_datasource.component';
 import SciPiflowComponent from '@/views/sci_myspace/sci_piflow/sci_piflow.component';
@@ -19,6 +20,7 @@ export default new Router({
             name: 'myspace',
             component: SciMyspaceComponent,
             children: [
+                {path: '/myspace/dashboard', component: DashboardComponent},
                 {path: '/myspace/datasource', component: SciDatasourceComponent},
                 {path: '/myspace/piflow', component: SciPiflowComponent},
                 {path: '/myspace/notebook', component: SciNotebookComponent},
