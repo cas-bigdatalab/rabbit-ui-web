@@ -1,51 +1,32 @@
 <template>
-<Row>
-    <Row class="info-header">
-        <Col>
-        <span></span>
-        <Divider type="vertical"/>
-        Create a SciSpace
-        </Col>
-    </Row>
-    <Row class="dataset-content">
-        <Col span="8" class="operation-area">
-            <Row class="operation-header">
-                <Col>
-                <span></span>
-                <Divider type="vertical"/>
-                Step 1: Create Cluster
-                </Col>
-
-            </Row>
-            <vue-form-generator :schema="cluster_schema" :model="model" :options="formOptions"></vue-form-generator>
-        </Col>
-        <Col span="8" class="operation-area">
-            <Row class="operation-header">
-                <Col>
-                <span></span>
-                <Divider type="vertical"/>
-                Step 2: Create Packone
-                </Col>
-
-            </Row>
-            <vue-form-generator :schema="packone_schema" :model="model" :options="formOptions"></vue-form-generator>
-        </Col>
-        <Col span="8" class="operation-area">
-            <Row class="operation-header">
-                <Col>
-                <span></span>
-                <Divider type="vertical"/>
-                Step 3: Create Space
-                </Col>
-
-            </Row>
-            <vue-form-generator :schema="space_schema" :model="model" :options="formOptions"></vue-form-generator>
-        </Col>
-    </Row>
+    <Row>
+        <Row class="info-header">
+            <Col>
+            <span></span>
+            <Divider type="vertical"/>
+            Create a SciSpace
+            </Col>
+        </Row>
+        <Row class="dataset-content">
+            <Tabs value="name1" class='tab'>
+                <TabPane label="Step 1: Customize Cluster" name="name1">
+                    <vue-form-generator :schema="cluster_schema" :model="model" :options="formOptions"></vue-form-generator>
+                </TabPane>
+                <TabPane label="Step 2: Customize Packone" name="name2">
+                    <vue-form-generator :schema="packone_schema" :model="model" :options="formOptions"></vue-form-generator>
+                </TabPane>
+                <TabPane label="Step 3: Customize Space" name="name3">
+                    <vue-form-generator :schema="space_schema" :model="model" :options="formOptions"></vue-form-generator>
+                </TabPane>
+            </Tabs>
+        </Row>
     </Row>
 </template>
 <script lang="ts" src="./sci_dashboard.component.ts"></script>
 <style scoped lang="less">
+.tab{
+    max-width: 700px;
+}
 .operation-area{
   border-left: solid 2px;
   height: 100%;
