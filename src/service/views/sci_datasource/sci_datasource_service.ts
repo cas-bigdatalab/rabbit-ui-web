@@ -103,7 +103,7 @@ export class DataSourceService {
                 dataset: model.dataset,
                 space: model.space,
                 remedy_script: model.remedy_script,
-                uri: model.uri,
+                uri_suffix: model.uri_suffix,
                 enabled: model.enabled,
                 remark: model.remark,
                 status: model.status,
@@ -112,7 +112,7 @@ export class DataSourceService {
             };
         } else if (url === '/space/spaces/') {
             data = {
-                blueprint: model.blueprint,
+                packone: model.packone,
                 engines: model.engines,
                 name: model.name,
                 remedy_script: model.remedy_script,
@@ -133,6 +133,8 @@ export class DataSourceService {
                 location: model.location,
                 template: model.template,
             };
+        } else {
+            data=model;
         }
         return util.post(url, data);
     }

@@ -10,13 +10,13 @@
         <Row class="dataset-content">
             <Tabs value="name1" class='tab'>
                 <TabPane label="Step 1: Customize Cluster" name="name1">
-                    <vue-form-generator :schema="cluster_schema" :model="model" :options="formOptions"></vue-form-generator>
+                    <vue-form-generator :schema="cluster_schema" :model="cluster_model" :options="cluster_formOptions"></vue-form-generator>
                 </TabPane>
                 <TabPane label="Step 2: Customize Packone" name="name2">
-                    <vue-form-generator :schema="packone_schema" :model="model" :options="formOptions"></vue-form-generator>
+                    <vue-form-generator :schema="packone_schema" :model="packone_model" :options="packone_formOptions"></vue-form-generator>
                 </TabPane>
                 <TabPane label="Step 3: Customize Space" name="name3">
-                    <vue-form-generator :schema="space_schema" :model="model" :options="formOptions"></vue-form-generator>
+                    <vue-form-generator :schema="space_schema" :model="space_model" :options="space_formOptions"></vue-form-generator>
                 </TabPane>
             </Tabs>
         </Row>

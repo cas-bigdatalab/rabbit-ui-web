@@ -171,12 +171,13 @@ export default class Util extends Vue {
                         if (value.multiSelect) {
                             gen_field.type = 'checklist';
                             gen_field.values = [];
-                            gen_field.multiSelect = true;
-                            gen_field.multi = true;
+                            // gen_field.multiSelect = true;
+                            // gen_field.multi = true;
+                            gen_field.listBox = true;
                             for (let c of value.choices) {
                                 gen_field.values.push({'value': c.value, 'name': c.display_name});
                             }
-                            gen_field.validator = VueFormGenerator.validators.array;
+                            // gen_field.validator = VueFormGenerator.validators.array;
                         } else {
                             gen_field.type = 'select';
                             gen_field.values = [];
@@ -224,8 +225,9 @@ export default class Util extends Vue {
         let submitButton = <any>{
             'type': 'submit',
             'buttonText': 'Submit',
-            'validateBeforeSubmit': true,
+            // 'validateBeforeSubmit': true,
             'onSubmit': function () {
+                console.log(JSON.stringify(dm.model));
                 dm.post();
             },
         };
